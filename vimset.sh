@@ -9,6 +9,18 @@ vimbundledir=${vimdir}/bundle
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+# symlink vimrc
+DATETIME="`date +%Y%m%d%H%M%S`"
+FILE=$HOME/.vimrc
+
+if [ -f "$FILE" ]; then
+    echo "$FILE already exists, renaming as $FILE.$DATETIME"
+    mv $FILE $FILE.$DATETIME
+fi
+
+echo "linking vimrc: ln -s $HOME/vimconfig/vimrc $HOME/.vimrc"
+ln -s $HOME/vimconfig/vimrc $HOME/.vimrc
+
 echo "Cloning vim-syntastic into ${vimbundledir}/vim-syntastic"
 git clone https://github.com/vim-syntastic/syntastic.git ${vimbundledir}/vim-syntastic
 echo "Cloning tagbar into ${vimbundledir}/tagbar"
