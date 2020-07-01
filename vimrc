@@ -57,9 +57,12 @@ if !exists("g:syntax_on")
 endif
 
 set t_Co=256
-set termguicolors
 set background=dark
 colorscheme codedark
+
+if v:version > 800
+  set termguicolors
+endif
 
 filetype plugin on
 filetype indent on
@@ -74,6 +77,7 @@ set ttyfast
 set complete=.,w,b,u,t,i
 set completeopt=longest,menuone
 
+" pwd is path
 set path=,,
 
 " do not close hidden buffers
