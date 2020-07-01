@@ -41,3 +41,7 @@ echo "Cloning jedi-vim into ${vimbundledir}/jedi-vim"
 git clone --recursive https://github.com/davidhalter/jedi-vim.git ${vimbundledir}/jedi-vim
 echo "Cloning vim-obsession into ${vimbundledir}/vim-obsession"
 git clone https://github.com/tpope/vim-obsession.git ${vimbundledir}/vim-obsession
+echo "Cloning vim-unimpaired into ${vimbundledir}/vim-unimpaired"
+git clone https://github.com/tpope/vim-unimpaired.git ${vimbundledir}/vim-unimpaired
+echo "Cloning vim-repeat into ${vimbundledir}/vim-repeat"
+git clone https://github.com/tpope/vim-repeat.git ${vimbundledir}/vim-repeat
