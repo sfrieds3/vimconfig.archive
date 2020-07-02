@@ -150,13 +150,15 @@ set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
-"set statusline+=\ \%{fugitive#statusline()}
-set statusline+=\ %{tagbar#currenttag('[%s]','')}
+" git changes from vim-signify
+set statusline+=\ %{sy#repo#get_stats_decorated()}
 
 " right section
 set statusline+=%=
+" current function
+set statusline+=%{tagbar#currenttag('[%s]','')}
 " file format
-set statusline+=\%{StatusLineFormat()}
+set statusline+=\ %{StatusLineFormat()}
 " file type
 set statusline+=\ %{StatusLineFiletype()}
 " line number
