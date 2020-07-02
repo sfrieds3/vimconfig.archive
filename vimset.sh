@@ -45,3 +45,5 @@ echo "Cloning vim-unimpaired into ${vimbundledir}/vim-unimpaired"
 git clone https://github.com/tpope/vim-unimpaired.git ${vimbundledir}/vim-unimpaired
 echo "Cloning vim-repeat into ${vimbundledir}/vim-repeat"
 git clone https://github.com/tpope/vim-repeat.git ${vimbundledir}/vim-repeat
+echo "Cloning traces.vim into ${vimbundledir}/traces.vim"
+git clone https://github.com/markonm/traces.vim.git ${vimbundledir}/traces.vim
