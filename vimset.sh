@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# vim packages to install
-
 vimdir=${HOME}/.vim
 vimbundledir=${vimdir}/bundle
 
@@ -20,6 +18,9 @@ fi
 
 echo "linking vimrc: ln -s $HOME/vimconfig/vimrc $HOME/.vimrc"
 ln -s $HOME/vimconfig/vimrc $HOME/.vimrc
+
+echo "updating submodules with 'git submodule update --init --recursive..."
+git submodule update --init --recursive
 
 echo "Cloning vim-syntastic into ${vimbundledir}/vim-syntastic"
 git clone https://github.com/vim-syntastic/syntastic.git ${vimbundledir}/vim-syntastic
