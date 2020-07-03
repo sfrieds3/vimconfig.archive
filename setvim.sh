@@ -9,21 +9,27 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 
 # symlink vimrc
 DATETIME="`date +%Y%m%d%H%M%S`"
-FILE=$HOME/.vimrc
+VIMRC=$HOME/.vimrc
+PLUGDIR=$HOME/.vim/bundle
 
-if [ -f "$FILE" ]; then
-    echo "$FILE already exists, renaming as $FILE.$DATETIME"
-    mv $FILE $FILE.$DATETIME
-fi
 
 # to update submodules to latest master: git submodule update --remote --merge
-echo "updating submodules with 'git submodule update --init --recursive..."
+echo "initializing local submodule config file with 'git submodule init'..."
+git submodule init
+echo "getting submodules with 'git submodule update --init --recursive..."
 git submodule update --init --recursive
 
-#TODO: check if these are already linked
+if [ -f "$VIMRC" ]; then
+    echo "$VIMRC already exists, renaming as $VIMRC.$DATETIME"
+    mv $VIMRC $VIMRC.$DATETIME
+fi
 echo "linking vimrc: ln -s $HOME/vimconfig/vimrc $HOME/.vimrc"
 ln -s $HOME/vimconfig/vimrc $HOME/.vimrc
 
+if [ -d "$PLUGDIR" ]; then
+    echo "$PLUGDIR already exists, renaming as $PLUGDIR.$DATETIME"
+    mv $PLUGDIR $PLUGDIR.$DATETIME
+fi
 echo "linking plugins: ln -s $HOME/vimconfig/bundle $HOME/.vim/bundle"
 ln -s $HOME/vimconfig/bundle $HOME/.vim/bundle
 
