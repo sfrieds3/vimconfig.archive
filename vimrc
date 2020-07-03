@@ -18,6 +18,7 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
     autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
     autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
 
+    autocmd FileType * execute pathogen#helptags()
   augroup END
 endif
 
