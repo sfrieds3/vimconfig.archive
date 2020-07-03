@@ -45,5 +45,5 @@ echo "Cloning vim-unimpaired into ${vimbundledir}/vim-unimpaired"
 git clone https://github.com/tpope/vim-unimpaired.git ${vimbundledir}/vim-unimpaired
 echo "Cloning vim-repeat into ${vimbundledir}/vim-repeat"
 git clone https://github.com/tpope/vim-repeat.git ${vimbundledir}/vim-repeat
-echo "Cloning incsearch.vim into ${vimbundledir}/incsearch.vim"
-git clone https://github.com/haya14busa/incsearch.vim.git ${vimbundledir}/incsearch.vim
+echo "Cloning tabular into ${vimbundledir}/tabular"
+git clone https://github.com/godlygeek/tabular.git ${vimbundledir}/tabular
