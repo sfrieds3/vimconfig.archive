@@ -16,6 +16,7 @@ if [ -f "$FILE" ]; then
     mv $FILE $FILE.$DATETIME
 fi
 
+# to update submodules to latest master: git submodule update --remote --merge
 echo "updating submodules with 'git submodule update --init --recursive..."
 git submodule update --init --recursive
 
