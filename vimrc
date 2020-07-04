@@ -4,11 +4,14 @@
 
 " use pathogen if available
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
-  execute pathogen#helptags()
-
   " always load these plugins
   execute pathogen#infect('bundle/all/{}')
   execute pathogen#infect('bundle/colors/{}')
+
+  " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
+  if isdirectory(glob('$HOME/.vim/plugtest'))
+    execute pathogen#infect('plugtest/{}')
+  endif
   
   augroup pload
     autocmd!
@@ -18,6 +21,7 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
     autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
     autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
 
+    " generate helptags
     autocmd FileType * execute pathogen#helptags()
   augroup END
 endif
