@@ -43,3 +43,9 @@
 [submodule "bundle/ruby/vim-ruby"]
 	path = bundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/colors/badwolf"]
+	path = bundle/colors/badwolf
+	url = https://github.com/sjl/badwolf.git
+[submodule "bundle/colors/papercolor-theme"]
+	path = bundle/colors/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme.git
