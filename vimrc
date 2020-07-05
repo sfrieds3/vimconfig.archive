@@ -32,7 +32,7 @@ endif
 set nocompatible
 set showcmd
 set autoread
-set nomodeline
+set modeline
 set ignorecase
 set smartcase
 set showmatch
@@ -289,13 +289,9 @@ nnoremap <leader>O :Obsession<cr>
 augroup lang
   autocmd!
 
-  autocmd FileType html setlocal shiftwidth=2 softtabstop=2
-  autocmd FileType go setlocal shiftwidth=8 softtabstop=8
-  autocmd FileType c setlocal shiftwidth=8 softtabstop=8
-  autocmd FileType python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2
-  autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
-  autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType vim,perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 augroup END
 
@@ -476,7 +472,19 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 
 " {{{ functions
 
-" pretty format xml
+" Append modeline after last line in buffer. {{{
+" from https://vim.fandom.com/wiki/Modeline_magic
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+" }}}
+
+" pretty format xml {{{
 " https://vim.fandom.com/wiki/Pretty-formatting_XML
 " use vat to select tags and inside
 " vit to select data inside tag
@@ -508,8 +516,9 @@ function! DoPrettyXML()
   exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+" }}}}
 
-" quick way to open quickfix window
+" quick way to open quickfix window {{{
 if !exists('*OpenQuickfix')
   function! OpenQuickfix()
     :copen
@@ -517,8 +526,9 @@ if !exists('*OpenQuickfix')
   command C call OpenQuickfix()
 endif
 nnoremap <leader>q :call OpenQuickfix()<cr>
+" }}}
 
-" use ctrl-s to vimgrep and open uesults in quickfix window
+" use ctrl-s to vimgrep and open uesults in quickfix window {{{
 if !exists('*FindAll')
   function! FindAll()
     call inputsave()
@@ -529,8 +539,9 @@ if !exists('*FindAll')
 endif
 "nnoremap <leader>s :call FindAll()<cr>
 "nnoremap <leader>S :call FindAll()<cr><cword><cr>
+" }}}
 
-" gitgrep
+" gitgrep {{{
 if !exists('*GitGrep')
   function! GitGrep(...)
     " store grepprg to restore after running
@@ -549,8 +560,9 @@ if !exists('*GitGrep')
   endfunction
   command -nargs=+ GitGrep call GitGrep(<f-args>)
 endif
+" }}}
 
-" git grep for word under cursor
+" git grep for word under cursor {{{
 if !exists('*GitGrepWord')
   function GitGrepWord()
     normal! "zyiw
@@ -558,17 +570,16 @@ if !exists('*GitGrepWord')
   endfunction
 endif
 nnoremap <C-x>G :call GitGrepWord()<cr>
+" }}}
 
-" grep for word under cursor
-"nnoremap <leader>g :silent execute "grep! -R " .shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
-
-" generate tags quickly
+" generate tags quickly {{{
 if !exists('*GenerateTags')
   function GenerateTags()
     :! ctags -R
   endfunction
   command T call GenerateTags()
 endif
+" }}}
 
 "}}}
 
@@ -692,3 +703,4 @@ endfunction
 " - Use ^t to jump back up the tag stack
 
 "}}}
+" vim: set ts=2 sw=2 tw=78 et :
