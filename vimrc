@@ -365,6 +365,10 @@ nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lope
 " vimgrep for word under cursor in current directory open in quickfix
 nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("copen")<cr>
 
+" Do and insert results of fancy math equations via python
+" from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
+:command! -nargs=+ Calc :r! python -c 'from math import *; print (<args>)'
+
 " various command shortcuts
 cnoreabbrev f find
 cnoreabbrev F find
