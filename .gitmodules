@@ -52,3 +52,6 @@
 [submodule "bundle/colors/gruvbox"]
 	path = bundle/colors/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "bundle/all/undotree"]
+	path = bundle/all/undotree
+	url = https://github.com/mbbill/undotree.git
