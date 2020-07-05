@@ -285,6 +285,13 @@ highlight Todo ctermbg=226 ctermfg=52
 nnoremap <leader>O :Obsession<cr>
 " }}}
 
+" undotree {{{
+
+let g:undotree_WindowLayout = 2
+nnoremap U :exec("UndotreeToggle")<cr>
+
+" }}}
+
 " }}}
 
 " general language settings {{{
@@ -411,7 +418,8 @@ nnoremap / /\v
 vnoremap / /\v
 
 " toggle line numbers
-nnoremap <silent> <Leader>n :set invnumber<cr>
+nnoremap <silent> <Leader>n :set invnumber!<cr>
+"nnoremap <silent> <Leader>N :set relativenumber!<cr>
 
 " show avilable marks and be ready to swtich
 nnoremap <leader>mm :<C-u>marks<cr>:normal! `
