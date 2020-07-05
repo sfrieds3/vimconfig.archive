@@ -475,8 +475,8 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " Append modeline after last line in buffer. {{{
 " from https://vim.fandom.com/wiki/Modeline_magic
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
@@ -703,4 +703,4 @@ endfunction
 " - Use ^t to jump back up the tag stack
 
 "}}}
-" vim: set ts=2 sw=2 tw=78 et :
+" vim: set ts=4 sw=4 tw=78 fdm=marker et :
