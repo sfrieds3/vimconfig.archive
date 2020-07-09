@@ -10,9 +10,6 @@
 [submodule "bundle/all/vim-signify"]
 	path = bundle/all/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
-[submodule "bundle/ruby/vim-rails"]
-	path = bundle/ruby/vim-rails
-	url = https://github.com/tpope/vim-rails.git
 [submodule "bundle/all/vim-surround"]
 	path = bundle/all/vim-surround
 	url = https://github.com/tpope/vim-surround.git
