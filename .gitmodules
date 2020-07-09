@@ -37,9 +37,6 @@
 [submodule "bundle/colors/vim-code-dark"]
 	path = bundle/colors/vim-code-dark
 	url = https://github.com/tomasiser/vim-code-dark.git
-[submodule "bundle/ruby/vim-ruby"]
-	path = bundle/ruby/vim-ruby
-	url = https://github.com/vim-ruby/vim-ruby.git
 [submodule "bundle/colors/badwolf"]
 	path = bundle/colors/badwolf
 	url = https://github.com/sjl/badwolf.git
