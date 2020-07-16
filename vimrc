@@ -121,6 +121,12 @@ endif
 
 " }}}
 
+" nvim settings {{{
+if has('nvim')
+  set inccommand=split
+endif
+" }}}
+
 " backup settings {{{
 
 set undofile
