@@ -2,29 +2,33 @@
 
 " plugins {{{
 
-" use pathogen if available
-if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
-  " always load these plugins
-  execute pathogen#infect('bundle/all/{}')
-  execute pathogen#infect('bundle/colors/{}')
-
-  " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
-  if isdirectory(glob('$HOME/.vim/plugtest'))
-    execute pathogen#infect('plugtest/{}')
-  endif
-  
-  augroup pload
-    autocmd!
-
-    autocmd FileType python execute pathogen#infect('bundle/python/{}')
-    autocmd FileType perl execute pathogen#infect('bundle/perl/{}')
-    autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
-    autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
-
-    " generate helptags
-    autocmd FileType * execute pathogen#helptags()
-  augroup END
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+call plug#begin()
+
+Plug 'vim-syntastic/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-surround'
+Plug 'vlime/vlime', { 'for': 'lisp' }
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'godlygeek/tabular'
+Plug 'vim-perl/vim-perl', { 'for': 'perl' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' } 
+Plug 'tomasiser/vim-code-dark'
+Plug 'sjl/badwolf'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
+Plug 'mbbill/undotree'
+
+call plug#end()
 
 " }}}
 
@@ -128,13 +132,13 @@ set directory=~/.vim/tmp/swap// " swap files
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+  call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+  call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+  call mkdir(expand(&directory), "p")
 endif
 
 " }}}
@@ -183,7 +187,7 @@ set statusline+=\ %{StatusLineFiletype()}
 set statusline+=\ [%l:
 " column number
 set statusline+=%c
- "% of file
+" % of file
 set statusline+=\ %p%%]
 
 set statusline+=%#warningmsg#
@@ -468,7 +472,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " terminal mode {{{
 " easily get into terminal normal mode
 if has('terminal')
-    tnoremap <esc> <C-w>N
+  tnoremap <esc> <C-w>N
 endif
 " }}}
 
@@ -495,7 +499,7 @@ function! AppendModeline()
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+nnoremap <silent> <leader>ml :call AppendModeline()<CR>
 
 " }}}
 
@@ -718,4 +722,4 @@ endfunction
 " - Use ^t to jump back up the tag stack
 
 "}}}
-" vim: set ts=4 sw=4 tw=78 fdm=marker et :
+" vim: set ts=2 sw=2 tw=78 fdm=marker et :
