@@ -4,30 +4,64 @@
 
 call plug#begin()
 
-Plug 'vim-syntastic/syntastic'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-surround'
-Plug 'vlime/vlime', { 'for': 'lisp' }
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'godlygeek/tabular'
-Plug 'vim-perl/vim-perl', { 'for': 'perl' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' } 
-Plug 'tomasiser/vim-code-dark'
-Plug 'sjl/badwolf'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'
+Plug 'dense-analysis/ale'
+Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'mhinz/vim-signify'
+Plug 'sheerun/vim-polyglot'
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+
+Plug 'vim-perl/vim-perl', { 'for': 'perl' }
+Plug 'vlime/vlime', { 'for': 'lisp' }
+
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'sjl/badwolf'
+Plug 'tomasiser/vim-code-dark'
+Plug 'morhetz/gruvbox'
+Plug 'chuling/equinusocio-material.vim'
 
 call plug#end()
 
 " }}}
 
+" nvim settings {{{
+
+if has('nvim')
+  set termguicolors
+  set inccommand=split
+
+  augroup HighlightOnYank
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup END
+    
+endif
+
+" }}}
+
+" vim settings {{{
+
+if has('vim')
+  set nocompatible
+  set t_Co=256
+
+  if v:version > 800
+    set termguicolors
+
+endif
+
+endif
+
+" }}}
+
 " basic settings {{{
-set nocompatible
 set showcmd
 set autoread
 set modeline
@@ -62,6 +96,54 @@ set formatoptions=qrn1j
 
 " }}}
 
+" colorscheme {{{
+
+" customizations for codedark colorscheme {{{
+highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
+highlight Search term=reverse ctermbg=24 cterm=undercurl
+
+" }}}
+
+"cutomizations for material theme {{{
+
+" use a different style
+" valid values: 'default' (default), 'darker', 'pure'
+let g:equinusocio_material_style = 'pure'
+
+" less bright
+" which means some colors will be modified by this formula:
+" (r, g, b) -> ( max(r - less, 0), max(g - less, 0), max(b - less, 0) )
+let g:equinusocio_material_less = 50
+
+" make vertsplit invisible (visible by default) (default 0)
+" if style == 'pure', then the vertsplit is always visible
+let g:equinusocio_material_hide_vertsplit = 1
+
+" parentheses improved (default 0)
+" enabling this option with 'luochen1990/rainbow' installed is not encouraged
+" because this option and 'luochen1990/rainbow' will registry conflicting events
+" in summary:
+" 1. no 'luochen1990/rainbow' installed, no parentheses improved: nothing to do (default 0)
+" 2. no 'luochen1990/rainbow' installed, want built-in parentheses improved: set to 1
+" 3. 'luochen1990/rainbow' installed: nothing to do (default 0)
+let g:equinusocio_material_bracket_improved = 1
+
+" use a better vertsplit char
+set fillchars+=vert:│
+
+" }}}
+
+" gruvbox {{{
+
+" }}}
+
+set background=dark
+colorscheme gruvbox
+
+highlight Todo ctermbg=226 ctermfg=52
+
+" }}}
+
 " initial settings {{{
 
 let mapleader = ","
@@ -70,14 +152,6 @@ let maplocalleader = "\\"
 " enable syntax
 if !exists("g:syntax_on")
   syntax enable
-endif
-
-set t_Co=256
-set background=dark
-colorscheme codedark
-
-if v:version > 800
-  set termguicolors
 endif
 
 filetype plugin on
@@ -111,21 +185,6 @@ set ttimeoutlen=10
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
-endif
-
-" }}}
-
-" nvim settings {{{
-
-if has('nvim')
-  set termguicolors
-  set inccommand=split
-
-  augroup HighlightOnYank
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup END
-    
 endif
 
 " }}}
@@ -176,6 +235,17 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))    
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors    
+  return l:counts.total == 0 ? 'OK' : printf(
+    \   '%d⨉ %d⚠ ',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -199,8 +269,8 @@ set statusline+=%c
 " % of file
 set statusline+=\ %p%%]
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%#warningmsg#
+set statusline+=\ %{LinterStatus()}
 set statusline+=%*
 
 " }}}
@@ -285,12 +355,35 @@ let g:syntastic_warning_symbol='⚠'
 
 " }}}
 
-" codedark {{{
+" ale {{{
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
 
-" customizations for codedark colorscheme
-highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
-highlight Search term=reverse ctermbg=24 cterm=undercurl
-highlight Todo ctermbg=226 ctermfg=52
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_insert_leave = 0
+"let g:ale_lint_on_enter = 0
+
+"nnoremap <space>n :lnext<CR>
+"nnoremap <space>p :lprevious<CR>
+"nnoremap <space>r :lrewind<CR>
+
+" and use a simpler warning
+let g:ale_sign_warning = '∘'
+" set erorr sign
+let g:ale_sign_error = '●'
+
+" update error msg
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"
+" ignore annoying erorrs
+"let g:ale_python_flake8_options = '--ignore=E501'
+
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint', 'mypy'],
+      \   'perl': ['perlcritic']
+      \}
 
 " }}}
 
