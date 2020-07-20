@@ -4,13 +4,16 @@
 
 call plug#begin()
 
-Plug 'davidhalter/jedi-vim', { 'for': 'python' } 
-Plug 'dense-analysis/ale'
+if has('python3')
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' } 
+endif
+
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 Plug 'sheerun/vim-polyglot'
+Plug 'scrooloose/syntastic'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
@@ -134,7 +137,8 @@ set fillchars+=vert:│
 " }}}
 
 " gruvbox {{{
-
+let g:gruvbox_contrast_dark = 'hard'
+let g:gitgutter_override_sign_column_highlight = 1
 " }}}
 
 set background=dark
@@ -269,8 +273,8 @@ set statusline+=%c
 " % of file
 set statusline+=\ %p%%]
 
-"set statusline+=%#warningmsg#
-set statusline+=\ %{LinterStatus()}
+set statusline+=%#warningmsg#
+set statusline+=\ %{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " }}}
@@ -359,13 +363,9 @@ let g:syntastic_warning_symbol='⚠'
 let g:ale_completion_enabled = 1
 set omnifunc=ale#completion#OmniFunc
 
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_insert_leave = 0
-"let g:ale_lint_on_enter = 0
-
-"nnoremap <space>n :lnext<CR>
-"nnoremap <space>p :lprevious<CR>
-"nnoremap <space>r :lrewind<CR>
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
 
 " and use a simpler warning
 let g:ale_sign_warning = '∘'
@@ -376,9 +376,9 @@ let g:ale_sign_error = '●'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"
+
 " ignore annoying erorrs
-"let g:ale_python_flake8_options = '--ignore=E501'
+let g:ale_python_flake8_options = '--ignore=E501'
 
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint', 'mypy'],
@@ -596,7 +596,7 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " Append modeline after last line in buffer. {{{
 " from https://vim.fandom.com/wiki/Modeline_magic
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set :",
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set:",
         \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
@@ -824,4 +824,4 @@ endfunction
 " - Use ^t to jump back up the tag stack
 
 "}}}
-" vim: set ts=2 sw=2 tw=78 fdm=marker et :
+" vim: set ts=2 sw=2 tw=78 fdm=marker et:
