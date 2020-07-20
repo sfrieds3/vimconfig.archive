@@ -24,6 +24,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-perl/vim-perl', { 'for': 'perl' }
 Plug 'vlime/vlime', { 'for': 'lisp' }
 
+Plug 'scwfri/dim.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sjl/badwolf'
 Plug 'tomasiser/vim-code-dark'
@@ -142,7 +143,7 @@ let g:gitgutter_override_sign_column_highlight = 1
 " }}}
 
 set background=dark
-colorscheme gruvbox
+colorscheme dim
 
 highlight Todo ctermbg=226 ctermfg=52
 
