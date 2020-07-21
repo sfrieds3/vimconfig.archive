@@ -45,6 +45,9 @@ if has('nvim')
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup END
+
+  " exit terminal with esc
+  tnoremap <esc> <C-\><C-n>
     
 endif
 
@@ -58,6 +61,9 @@ if has('vim')
 
   if v:version > 800
     set termguicolors
+    " exit terminal with esc
+    tnoremap <esc> <C-\><C-n>
+
 
 endif
 
@@ -506,7 +512,7 @@ nnoremap <silent> <localleader>r :exec("set cursorline!")<cr>
 inoremap <C-u> <esc>mzgUiw`za
 
 " Shift-Tab enters actual tab
-inoremap <S-Tab> <C-V><Tab>
+inoremap <S-Tab> <C-v><Tab>
 
 " stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
