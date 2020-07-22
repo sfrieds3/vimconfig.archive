@@ -63,41 +63,6 @@ endif
 
 " }}}
 
-" basic settings {{{
-set showcmd
-set autoread
-set modeline
-set ignorecase
-set smartcase
-set showmatch
-set splitbelow
-set splitright
-set autoindent
-set expandtab
-set smarttab
-set wrap
-set incsearch
-set showmatch
-set hlsearch
-set nonumber
-set novisualbell
-set magic
-
-set laststatus=2
-set backspace=2
-set matchtime=3
-set encoding=utf8
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set showtabline=3
-set clipboard=unnamed
-set foldmethod=marker
-set foldcolumn=0
-set formatoptions=qrn1j
-
-" }}}
-
 " colorscheme {{{
 
 " customizations for codedark colorscheme {{{
@@ -149,7 +114,44 @@ highlight Todo ctermbg=226 ctermfg=52
 
 " initial settings {{{
 
-let mapleader = ","
+" basic settings {{{
+set showcmd
+set autoread
+set modeline
+set ignorecase
+set smartcase
+set showmatch
+set splitbelow
+set splitright
+set autoindent
+set expandtab
+set smarttab
+set wrap
+set incsearch
+set showmatch
+set hlsearch
+set nonumber
+set novisualbell
+set magic
+
+set laststatus=2
+set backspace=2
+set matchtime=3
+set encoding=utf8
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set showtabline=3
+set clipboard=unnamed
+set foldmethod=marker
+set foldcolumn=0
+set formatoptions=qrn1j
+
+" }}}
+
+" space as leader, unmap it from normal and select-mode
+nnoremap <space> <nop>
+let mapleader = "\<space>"
 let maplocalleader = "\\"
 
 " enable syntax
