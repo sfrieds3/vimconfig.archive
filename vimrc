@@ -2,36 +2,28 @@
 
 " plugins {{{
 
-call plug#begin()
+if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
+  " always load these plugins
+  execute pathogen#infect('bundle/all/{}')
+  execute pathogen#infect('bundle/colors/{}')
 
-if has('python3')
-  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+  " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
+  if isdirectory(glob('$HOME/.vim/plugtest'))
+    execute pathogen#infect('plugtest/{}')
+  endif
+
+  augroup pload
+    autocmd!
+
+    autocmd FileType python execute pathogen#infect('bundle/python/{}')
+    autocmd FileType perl execute pathogen#infect('bundle/perl/{}')
+    autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
+    autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
+
+    " generate helptags
+    autocmd FileType * execute pathogen#helptags()
+  augroup END
 endif
-
-Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-signify'
-Plug 'sheerun/vim-polyglot'
-"Plug 'scrooloose/syntastic'
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-
-Plug 'vim-perl/vim-perl', { 'for': 'perl' }
-Plug 'vlime/vlime', { 'for': 'lisp' }
-
-Plug 'scwfri/dim.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sjl/badwolf'
-Plug 'tomasiser/vim-code-dark'
-Plug 'morhetz/gruvbox'
-Plug 'chuling/equinusocio-material.vim'
-
-call plug#end()
 
 " }}}
 
