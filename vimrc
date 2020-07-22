@@ -27,6 +27,8 @@ endif
 
 " }}}
 
+" nvim/vim specific settings {{{
+
 " nvim settings {{{
 
 if has('nvim')
@@ -60,6 +62,8 @@ if has('vim')
 endif
 
 endif
+
+" }}}
 
 " }}}
 
