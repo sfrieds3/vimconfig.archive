@@ -5,7 +5,7 @@
 call plug#begin()
 
 if has('python3')
-  Plug 'davidhalter/jedi-vim', { 'for': 'python' } 
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
 
 Plug 'godlygeek/tabular'
@@ -13,7 +13,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
@@ -48,7 +48,7 @@ if has('nvim')
 
   " exit terminal with esc
   tnoremap <esc> <C-\><C-n>
-    
+
 endif
 
 " }}}
@@ -149,7 +149,7 @@ let g:gitgutter_override_sign_column_highlight = 1
 " }}}
 
 set background=dark
-colorscheme dim
+colorscheme codedark
 
 highlight Todo ctermbg=226 ctermfg=52
 
@@ -246,17 +246,6 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))    
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors    
-  return l:counts.total == 0 ? 'OK' : printf(
-    \   '%d⨉ %d⚠ ',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -280,9 +269,9 @@ set statusline+=%c
 " % of file
 set statusline+=\ %p%%]
 
-set statusline+=%#warningmsg#
-set statusline+=\ %{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=\ %{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 " }}}
 
