@@ -220,8 +220,6 @@ endif
 
 " }}}
 
-"}}}
-
 " statusline {{{
 
 set laststatus=2
@@ -310,6 +308,8 @@ endfunction
 set tabline=%!Tabline()
 
 " }}}
+
+"}}}
 
 " plugin config {{{
 
@@ -458,6 +458,186 @@ let perl_no_extended_vars = 0
 
 " }}}
 
+" functions {{{
+
+" Append modeline after last line in buffer. {{{
+" from https://vim.fandom.com/wiki/Modeline_magic
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set:",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <leader>ml :call AppendModeline()<CR>
+
+" }}}
+
+" pretty format xml {{{
+" https://vim.fandom.com/wiki/Pretty-formatting_XML
+" use vat to select tags and inside
+" vit to select data inside tag
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+" }}}}
+
+" quick way to open quickfix window {{{
+if !exists('*OpenQuickfix')
+  function! OpenQuickfix()
+    :copen
+  endfunction
+  command C call OpenQuickfix()
+endif
+nnoremap <leader>q :call OpenQuickfix()<cr>
+" }}}
+
+" use ctrl-s to vimgrep and open uesults in quickfix window {{{
+if !exists('*FindAll')
+  function! FindAll()
+    call inputsave()
+    let p = input('Enter pattern:')
+    call inputrestore()
+    execute 'vimgrep! "'.p.'" % | copen'
+  endfunction
+endif
+"nnoremap <leader>s :call FindAll()<cr>
+"nnoremap <leader>S :call FindAll()<cr><cword><cr>
+" }}}
+
+" gitgrep {{{
+if !exists('*GitGrep')
+  function! GitGrep(...)
+    " store grepprg to restore after running
+    let save = &grepprg
+    " set grepprg to git grep for use in function
+    set grepprg=git\ grep\ -n\ $*
+    let s = 'grep!'
+    let s = 'silent ' . s
+    for i in a:000
+      let s = s . ' ' . i
+    endfor
+    let s = s . ' | copen'
+    execute s
+    " restore grepprg to original setting
+    let &grepprg = save
+  endfunction
+  command -nargs=+ GitGrep call GitGrep(<f-args>)
+endif
+" }}}
+
+" git grep for word under cursor {{{
+if !exists('*GitGrepWord')
+  function GitGrepWord()
+    normal! "zyiw
+    call GitGrep('-w -e ', getreg('z'))
+  endfunction
+endif
+nnoremap <C-x>G :call GitGrepWord()<cr>
+" }}}
+
+" generate tags quickly {{{
+if !exists('*GenerateTags')
+  function GenerateTags()
+    :! ctags -R
+  endfunction
+  command T call GenerateTags()
+endif
+" }}}
+
+" verbose debugging {{{
+
+function! ToggleVerbose()
+  if !&verbose
+    set verbosefile=~/.vim/log/verbose.log
+    set verbose=15
+  else
+    set verbose=0
+    set verbosefile=
+  endif
+endfunction
+
+" }}}
+
+" highlight interesting words {{{
+
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+
+" credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
+
+function! HiInterestingWord(n) " {{{
+  " Save our location.
+  normal! mz
+
+  " Yank the current word into the z register.
+  normal! "zyiw
+
+  " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+  let mid = 86750 + a:n
+
+  " Clear existing matches, but don't worry if they don't exist.
+  silent! call matchdelete(mid)
+
+  " Construct a literal pattern that has to match at boundaries.
+  let pat = '\V\<' . escape(@z, '\') . '\>'
+
+  " Actually match the words.
+  call matchadd("InterestingWord" . a:n, pat, 1, mid)
+
+  " Move back to our original location.
+  normal! `z
+endfunction " }}}
+
+" Mappings {{{
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+" }}}
+
+" Default Highlights {{{
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+" }}}
+" }}}
+
+"}}}
+
 " custom mappings and stuff {{{
 
 " echo current file full path
@@ -585,119 +765,6 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 
 " }}}
 
-" {{{ functions
-
-" Append modeline after last line in buffer. {{{
-" from https://vim.fandom.com/wiki/Modeline_magic
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set:",
-        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
-endfunction
-nnoremap <silent> <leader>ml :call AppendModeline()<CR>
-
-" }}}
-
-" pretty format xml {{{
-" https://vim.fandom.com/wiki/Pretty-formatting_XML
-" use vat to select tags and inside
-" vit to select data inside tag
-function! DoPrettyXML()
-  " save the filetype so we can restore it later
-  let l:origft = &ft
-  set ft=
-  " delete the xml header if it exists. This will
-  " permit us to surround the document with fake tags
-  " without creating invalid xml.
-  1s/<?xml .*?>//e
-  " insert fake tags around the entire document.
-  " This will permit us to pretty-format excerpts of
-  " XML that may contain multiple top-level elements.
-  0put ='<PrettyXML>'
-  $put ='</PrettyXML>'
-  silent %!xmllint --format -
-  " xmllint will insert an <?xml?> header. it's easy enough to delete
-  " if you don't want it.
-  " delete the fake tags
-  2d
-  $d
-  " restore the 'normal' indentation, which is one extra level
-  " too deep due to the extra tags we wrapped around the document.
-  silent %<
-  " back to home
-  1
-  " restore the filetype
-  exe "set ft=" . l:origft
-endfunction
-command! PrettyXML call DoPrettyXML()
-" }}}}
-
-" quick way to open quickfix window {{{
-if !exists('*OpenQuickfix')
-  function! OpenQuickfix()
-    :copen
-  endfunction
-  command C call OpenQuickfix()
-endif
-nnoremap <leader>q :call OpenQuickfix()<cr>
-" }}}
-
-" use ctrl-s to vimgrep and open uesults in quickfix window {{{
-if !exists('*FindAll')
-  function! FindAll()
-    call inputsave()
-    let p = input('Enter pattern:')
-    call inputrestore()
-    execute 'vimgrep! "'.p.'" % | copen'
-  endfunction
-endif
-"nnoremap <leader>s :call FindAll()<cr>
-"nnoremap <leader>S :call FindAll()<cr><cword><cr>
-" }}}
-
-" gitgrep {{{
-if !exists('*GitGrep')
-  function! GitGrep(...)
-    " store grepprg to restore after running
-    let save = &grepprg
-    " set grepprg to git grep for use in function
-    set grepprg=git\ grep\ -n\ $*
-    let s = 'grep!'
-    let s = 'silent ' . s
-    for i in a:000
-      let s = s . ' ' . i
-    endfor
-    let s = s . ' | copen'
-    execute s
-    " restore grepprg to original setting
-    let &grepprg = save
-  endfunction
-  command -nargs=+ GitGrep call GitGrep(<f-args>)
-endif
-" }}}
-
-" git grep for word under cursor {{{
-if !exists('*GitGrepWord')
-  function GitGrepWord()
-    normal! "zyiw
-    call GitGrep('-w -e ', getreg('z'))
-  endfunction
-endif
-nnoremap <C-x>G :call GitGrepWord()<cr>
-" }}}
-
-" generate tags quickly {{{
-if !exists('*GenerateTags')
-  function GenerateTags()
-    :! ctags -R
-  endfunction
-  command T call GenerateTags()
-endif
-" }}}
-
-"}}}
-
 " moving around, tabs, windows and buffers {{{
 
 " windows {{{
@@ -740,73 +807,6 @@ nnoremap <leader>tl :+tabmove<cr>
 " }}}
 
 "}}}
-
-" highlight interesting words {{{
-
-" This mini-plugin provides a few mappings for highlighting words temporarily.
-"
-" Sometimes you're looking at a hairy piece of code and would like a certain
-" word or two to stand out temporarily.  You can search for it, but that only
-" gives you one color of highlighting.  Now you can use <leader>N where N is
-" a number from 1-6 to highlight the current word in a specific color.
-
-" credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
-
-function! HiInterestingWord(n) " {{{
-  " Save our location.
-  normal! mz
-
-  " Yank the current word into the z register.
-  normal! "zyiw
-
-  " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-  let mid = 86750 + a:n
-
-  " Clear existing matches, but don't worry if they don't exist.
-  silent! call matchdelete(mid)
-
-  " Construct a literal pattern that has to match at boundaries.
-  let pat = '\V\<' . escape(@z, '\') . '\>'
-
-  " Actually match the words.
-  call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-  " Move back to our original location.
-  normal! `z
-endfunction " }}}
-
-" Mappings {{{
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-" }}}
-
-" Default Highlights {{{
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-" }}}
-" }}}
-
-" verbose debugging {{{
-
-function! ToggleVerbose()
-  if !&verbose
-    set verbosefile=~/.vim/log/verbose.log
-    set verbose=15
-  else
-    set verbose=0
-    set verbosefile=
-  endif
-endfunction
-
-" }}}
 
 " notes {{{
 
