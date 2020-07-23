@@ -168,7 +168,7 @@ filetype indent on
 
 set wildmenu
 set wildignorecase
-set wildmode=longest:full,full
+set wildmode=list:longest,full
 set omnifunc=syntaxcomplete#Complete
 set ttyfast
 
