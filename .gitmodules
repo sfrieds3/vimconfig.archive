@@ -28,9 +28,6 @@
 [submodule "bundle/all/tabular"]
 	path = bundle/all/tabular
 	url = https://github.com/godlygeek/tabular.git
-[submodule "bundle/perl/vim-perl"]
-	path = bundle/perl/vim-perl
-	url = https://github.com/vim-perl/vim-perl.git
 [submodule "bundle/python/jedi-vim"]
 	path = bundle/python/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
