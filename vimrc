@@ -12,6 +12,11 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
     execute pathogen#infect('plugtest/{}')
   endif
 
+  " load nvim specific plugins
+  if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
+    execute pathogen#infect('bundle/nvim{}')
+  endif
+
   augroup pload
     autocmd!
 
