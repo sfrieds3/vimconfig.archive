@@ -353,20 +353,24 @@ let g:vlime_cl_use_terminal = 1
 
 " syntastic {{{
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+if has('vim')
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_error_symbol='✗'
+  let g:syntastic_warning_symbol='⚠'
+endif
 
 " }}}
 
 " neomake {{{
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 500ms; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
+if has('nvim')
+  " Full config: when writing or reading a buffer, and on changes in insert and
+  " normal mode (after 500ms; no delay when writing).
+  call neomake#configure#automake('nrwi', 500)
+endif
 " }}}
 
 " ale {{{
