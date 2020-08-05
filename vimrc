@@ -14,7 +14,12 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
 
   " load nvim specific plugins
   if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
-    execute pathogen#infect('bundle/nvim{}')
+    execute pathogen#infect('bundle/nvim/{}')
+  endif
+
+  " load vim specific plugins
+  if has('vim') && isdirectory(glob('$HOME/.vim/bundle/vim'))
+    execute pathogen#infect('bundle/vim/{}')
   endif
 
   augroup pload
@@ -356,6 +361,12 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
+" }}}
+
+" neomake {{{
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
 " }}}
 
 " ale {{{

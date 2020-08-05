@@ -1,5 +1,5 @@
-[submodule "bundle/all/syntastic"]
-	path = bundle/all/syntastic
+[submodule "bundle/vim/syntastic"]
+	path = bundle/vim/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
 [submodule "bundle/all/tagbar"]
 	path = bundle/all/tagbar
@@ -49,3 +49,6 @@
 [submodule "neovim/pynvim"]
 	path = neovim/pynvim
 	url = https://github.com/neovim/pynvim.git
+[submodule "bundle/nvim/neomake"]
+	path = bundle/nvim/neomake
+	url = https://github.com/neomake/neomake.git
