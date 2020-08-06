@@ -252,6 +252,19 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -259,6 +272,8 @@ set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 " git changes from vim-signify
 set statusline+=\ %{sy#repo#get_stats_decorated()}
+" linter status
+set statusline+=[%{LinterStatus()}]
 
 " right section
 set statusline+=%=
@@ -274,10 +289,6 @@ set statusline+=\ [%l:
 set statusline+=%c
 " % of file
 set statusline+=\ %p%%]
-
-"set statusline+=%#warningmsg#
-"set statusline+=\ %{SyntasticStatuslineFlag()}
-"set statusline+=%*
 
 " }}}
 
@@ -301,7 +312,9 @@ function! Tabline()
     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
     let s .= ' ' . tab .':'
     let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
-    let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
+    " right align this portion
+    let s .= '%=%'
+    let s .= (tab == tabpagenr() ? printf('[%s%s', gstatus, ostatus) : '')
 
     if bufmodified
       let s .= '[+] '
@@ -363,14 +376,6 @@ if has('vim')
   let g:syntastic_warning_symbol='⚠'
 endif
 
-" }}}
-
-" neomake {{{
-if has('nvim')
-  " Full config: when writing or reading a buffer, and on changes in insert and
-  " normal mode (after 500ms; no delay when writing).
-  call neomake#configure#automake('nrwi', 500)
-endif
 " }}}
 
 " ale {{{

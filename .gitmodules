@@ -49,6 +49,6 @@
 [submodule "neovim/pynvim"]
 	path = neovim/pynvim
 	url = https://github.com/neovim/pynvim.git
-[submodule "bundle/nvim/neomake"]
-	path = bundle/nvim/neomake
-	url = https://github.com/neomake/neomake.git
+[submodule "bundle/nvim/ale"]
+	path = bundle/nvim/ale
+	url = https://github.com/dense-analysis/ale.git
