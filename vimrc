@@ -252,18 +252,20 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
-function! LinterStatus() abort
+if has('nvim')
+  function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
+          \   '%dW %dE',
+          \   all_non_errors,
+          \   all_errors
+          \)
+  endfunction
+endif
 
 " format the statusline
 set statusline=
@@ -272,8 +274,10 @@ set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 " git changes from vim-signify
 set statusline+=\ %{sy#repo#get_stats_decorated()}
-" linter status
-set statusline+=[%{LinterStatus()}]
+" linter status (only if nvim)
+if has('nvim')
+  set statusline+=[%{LinterStatus()}]
+endif
 
 " right section
 set statusline+=%=
