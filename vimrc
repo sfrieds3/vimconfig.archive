@@ -120,7 +120,7 @@ let g:gitgutter_override_sign_column_highlight = 1
 " }}}
 
 set background=dark
-colorscheme codedark
+colorscheme base16-chalk
 
 highlight Todo ctermbg=226 ctermfg=52
 
@@ -360,7 +360,8 @@ let g:show_linenumbers = 1
 " }}}
 
 " jedi {{{
-let g:jedi#show_call_signatures=2
+let g:jedi#show_call_signatures = 1
+let g:jedi#auto_close_doc = 1
 
 " }}}
 
