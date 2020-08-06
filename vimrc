@@ -85,42 +85,17 @@ highlight Search term=reverse ctermbg=24 cterm=undercurl
 
 " }}}
 
-"cutomizations for material theme {{{
-
-" use a different style
-" valid values: 'default' (default), 'darker', 'pure'
-let g:equinusocio_material_style = 'pure'
-
-" less bright
-" which means some colors will be modified by this formula:
-" (r, g, b) -> ( max(r - less, 0), max(g - less, 0), max(b - less, 0) )
-let g:equinusocio_material_less = 50
-
-" make vertsplit invisible (visible by default) (default 0)
-" if style == 'pure', then the vertsplit is always visible
-let g:equinusocio_material_hide_vertsplit = 1
-
-" parentheses improved (default 0)
-" enabling this option with 'luochen1990/rainbow' installed is not encouraged
-" because this option and 'luochen1990/rainbow' will registry conflicting events
-" in summary:
-" 1. no 'luochen1990/rainbow' installed, no parentheses improved: nothing to do (default 0)
-" 2. no 'luochen1990/rainbow' installed, want built-in parentheses improved: set to 1
-" 3. 'luochen1990/rainbow' installed: nothing to do (default 0)
-let g:equinusocio_material_bracket_improved = 1
-
-" use a better vertsplit char
-set fillchars+=vert:│
-
-" }}}
-
 " gruvbox {{{
 let g:gruvbox_contrast_dark = 'hard'
 let g:gitgutter_override_sign_column_highlight = 1
 " }}}
 
+" gruvbox-material {{{
+let g:gruvbox_material_background = 'hard'
+" }}}
+
 set background=dark
-colorscheme base16-chalk
+colorscheme gruvbox-material
 
 highlight Todo ctermbg=226 ctermfg=52
 
@@ -252,6 +227,11 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf(' [+%d ~%d -%d]', a, m, r)
+endfunction
+
 if has('nvim')
   function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -273,7 +253,7 @@ set statusline+=%{StatusLineBuffNum()}
 set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 " git changes from vim-signify
-set statusline+=\ %{sy#repo#get_stats_decorated()}
+set statusline+=\%{GitStatus()}
 " linter status (only if nvim)
 if has('nvim')
   set statusline+=[%{LinterStatus()}]
@@ -340,15 +320,10 @@ set tabline=%!Tabline()
 
 " plugin config {{{
 
-" signify {{{
-highlight SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE gui=NONE
-highlight SignifySignDelete ctermfg=red    guifg=#ff0000 cterm=NONE gui=NONE
-highlight SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE gui=NONE
+" gitgutter {{{
 
-" include bg highlights
-"highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
-"highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
-"highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
+let g:gitgutter_set_sign_backgrounds = 1
+
 " }}}
 
 " tagbar {{{

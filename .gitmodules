@@ -4,9 +4,6 @@
 [submodule "bundle/all/vim-fugitive"]
 	path = bundle/all/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/all/vim-signify"]
-	path = bundle/all/vim-signify
-	url = https://github.com/mhinz/vim-signify.git
 [submodule "bundle/all/vim-surround"]
 	path = bundle/all/vim-surround
 	url = https://github.com/tpope/vim-surround.git
@@ -61,3 +58,6 @@
 [submodule "bundle/colors/base16-vim"]
 	path = bundle/colors/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
+[submodule "bundle/all/vim-gitgutter"]
+	path = bundle/all/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
