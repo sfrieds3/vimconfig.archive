@@ -52,3 +52,6 @@
 [submodule "bundle/nvim/ale"]
 	path = bundle/nvim/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "bundle/nvim/vim-markbar"]
+	path = bundle/nvim/vim-markbar
+	url = https://github.com/Yilin-Yang/vim-markbar.git

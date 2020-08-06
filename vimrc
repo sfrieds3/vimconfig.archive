@@ -421,6 +421,39 @@ nnoremap U :exec("UndotreeToggle")<cr>
 
 " }}}
 
+" markbar {{{
+
+nmap <leader>m <Plug>ToggleMarkbar
+
+" only display alphabetic marks a-i and A-I
+"let g:markbar_marks_to_display = 'abcdefghiABCDEFGHI'
+
+" width of a vertical split markbar
+let g:markbar_width = 50
+
+" indentation for lines of context
+let g:markbar_context_indent_block = '  '
+
+" context to retrieve around mark
+" for local marks, show 3 lines of context
+" for file marks, show no context at all
+let g:markbar_num_lines_context = {
+            \ 'around_local': 3,          
+            \ 'around_file': 0,           
+            \ 'peekaboo_around_local': 4, 
+            \ 'peekaboo_around_file': 2,
+            \ }
+
+" markbar-local mappings
+let g:markbar_jump_to_mark_mapping  = 'G'
+let g:markbar_next_mark_mapping     = '/'
+let g:markbar_previous_mark_mapping = '?'
+let g:markbar_rename_mark_mapping   = '<F2>'
+let g:markbar_reset_mark_mapping    = 'r'
+let g:markbar_delete_mark_mapping   = '<Del>'
+
+" }}}
+
 " }}}
 
 " general language settings {{{
@@ -497,7 +530,7 @@ function! AppendModeline()
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <leader>ml :call AppendModeline()<CR>
+nnoremap <silent> <localleader>ml :call AppendModeline()<CR>
 
 " }}}
 
@@ -731,7 +764,7 @@ nnoremap <silent> <Leader>n :set invnumber!<cr>
 "nnoremap <silent> <Leader>N :set relativenumber!<cr>
 
 " show avilable marks and be ready to swtich
-nnoremap <leader>mm :<C-u>marks<cr>:normal! `
+nnoremap <leader>M :<C-u>marks<cr>:normal! `
 
 " show buffers and be ready to switch
 nnoremap <silent> <localleader>bb :<C-u>:buffers<cr>:buffer<space>
