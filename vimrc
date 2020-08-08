@@ -338,7 +338,8 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
 let g:syntastic_python_checkers = ['pylint', 'pep8']
-let g:syntastic_perl_checkers = ['perlcritic']
+let g:syntastic_enable_perl_checker = 1
+let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
 
 " }}}
 

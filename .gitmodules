@@ -55,3 +55,6 @@
 [submodule "bundle/ruby/vim-ruby"]
 	path = bundle/ruby/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/all/vim-polyglot"]
+	path = bundle/all/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
