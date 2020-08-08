@@ -15,10 +15,7 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
   " load nvim specific plugins
   if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
     execute pathogen#infect('bundle/nvim/{}')
-  endif
-
-  " load vim specific plugins
-  if has('vim') && isdirectory(glob('$HOME/.vim/bundle/vim'))
+  else
     execute pathogen#infect('bundle/vim/{}')
   endif
 
@@ -232,21 +229,6 @@ function! GitStatus()
   return printf(' [+%d ~%d -%d]', a, m, r)
 endfunction
 
-if has('nvim')
-  function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-          \   '%dW %dE',
-          \   all_non_errors,
-          \   all_errors
-          \)
-  endfunction
-endif
-
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -254,10 +236,10 @@ set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 " git changes from vim-signify
 set statusline+=\%{GitStatus()}
-" linter status (only if nvim)
-if has('nvim')
-  set statusline+=[%{LinterStatus()}]
-endif
+" syntastic status
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " right section
 set statusline+=%=
@@ -347,43 +329,44 @@ let g:vlime_cl_use_terminal = 1
 
 " syntastic {{{
 
-if has('vim')
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-  let g:syntastic_aggregate_errors = 1
-  let g:syntastic_error_symbol='✗'
-  let g:syntastic_warning_symbol='⚠'
-endif
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
+let g:syntastic_python_checkers = ['pylint', 'pep8']
+let g:syntastic_perl_checkers = ['perlcritic']
 
 " }}}
 
 " ale {{{
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
-
-" and use a simpler warning
-let g:ale_sign_warning = '∘'
-" set erorr sign
-let g:ale_sign_error = '●'
-
-" update error msg
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-" ignore annoying erorrs
-let g:ale_python_flake8_options = '--ignore=E501'
-
-let g:ale_linters = {
-      \   'python': ['flake8', 'pylint', 'mypy'],
-      \   'perl': ['perlcritic']
-      \}
+"let g:ale_completion_enabled = 1
+"set omnifunc=ale#completion#OmniFunc
+"
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_insert_leave = 0
+"let g:ale_lint_on_enter = 0
+"
+"" and use a simpler warning
+"let g:ale_sign_warning = '∘'
+"" set erorr sign
+"let g:ale_sign_error = '●'
+"
+"" update error msg
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"
+"" ignore annoying erorrs
+"let g:ale_python_flake8_options = '--ignore=E501'
+"
+"let g:ale_linters = {
+"      \   'python': ['flake8', 'pylint', 'mypy'],
+"      \   'perl': ['perlcritic']
+"      \}
 
 " }}}
 
@@ -395,39 +378,6 @@ nnoremap <leader>O :Obsession<cr>
 
 let g:undotree_WindowLayout = 2
 nnoremap U :exec("UndotreeToggle")<cr>
-
-" }}}
-
-" markbar {{{
-
-nmap <leader>m <Plug>ToggleMarkbar
-
-" only display alphabetic marks a-i and A-I
-"let g:markbar_marks_to_display = 'abcdefghiABCDEFGHI'
-
-" width of a vertical split markbar
-let g:markbar_width = 50
-
-" indentation for lines of context
-let g:markbar_context_indent_block = '  '
-
-" context to retrieve around mark
-" for local marks, show 3 lines of context
-" for file marks, show no context at all
-let g:markbar_num_lines_context = {
-            \ 'around_local': 3,          
-            \ 'around_file': 0,           
-            \ 'peekaboo_around_local': 4, 
-            \ 'peekaboo_around_file': 2,
-            \ }
-
-" markbar-local mappings
-let g:markbar_jump_to_mark_mapping  = 'G'
-let g:markbar_next_mark_mapping     = '/'
-let g:markbar_previous_mark_mapping = '?'
-let g:markbar_rename_mark_mapping   = '<F2>'
-let g:markbar_reset_mark_mapping    = 'r'
-let g:markbar_delete_mark_mapping   = '<Del>'
 
 " }}}
 
