@@ -296,9 +296,6 @@ function! Tabline()
     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
     let s .= ' ' . tab .':'
     let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
-    " right align this portion
-    let s .= '%=%'
-    let s .= (tab == tabpagenr() ? printf('[%s%s', gstatus, ostatus) : '')
 
     if bufmodified
       let s .= '[+] '
@@ -309,6 +306,10 @@ function! Tabline()
   if (exists("g:tablineclosebutton"))
     let s .= '%=%999XX'
   endif
+
+  " right align this portion
+  let s .= '%=%'
+  let s .= (tab == tabpagenr() ? printf('[%s%s', gstatus, ostatus) : '')
   return s
 endfunction
 
