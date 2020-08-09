@@ -82,7 +82,7 @@ let g:gruvbox_material_background = 'hard'
 " }}}
 
 set background=dark
-colorscheme gruvbox-material
+colorscheme paramount
 
 highlight Todo ctermbg=226 ctermfg=52
 
@@ -327,9 +327,18 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-let g:syntastic_python_checkers = ['pylint', 'pep8', 'python', 'pyflakes']
+" set syntastic checkers
+let g:syntastic_json_checkers=['jsonlint', 'jsonval']
 let g:syntastic_enable_perl_checker = 1
 let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
+let g:syntastic_python_checkers = ['pylint', 'pep8', 'python', 'pyflakes']
+let g:syntastic_ruby_checkers=['mri', 'rubocop']
+let g:syntastic_sh_checkers=['sh','shellcheck','checkbashisms']
+let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_yaml_checkers=['jsyaml']
+
+" custom checker location
+"let g:syntastic_python_pylint_exec = $HOME . '/anaconda3/bin/pylint'
 
 " }}}
 
