@@ -31,18 +31,12 @@
 [submodule "bundle/colors/badwolf"]
 	path = bundle/colors/badwolf
 	url = https://github.com/sjl/badwolf.git
-[submodule "bundle/colors/papercolor-theme"]
-	path = bundle/colors/papercolor-theme
-	url = https://github.com/NLKNguyen/papercolor-theme.git
 [submodule "bundle/colors/gruvbox"]
 	path = bundle/colors/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
 [submodule "bundle/all/undotree"]
 	path = bundle/all/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "neovim/pynvim"]
-	path = neovim/pynvim
-	url = https://github.com/neovim/pynvim.git
 [submodule "bundle/all/syntastic"]
 	path = bundle/all/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
@@ -61,3 +55,6 @@
 [submodule "bundle/colors/vim-colors-paramount"]
 	path = bundle/colors/vim-colors-paramount
 	url = https://github.com/owickstrom/vim-colors-paramount.git
+[submodule "bundle/all/targets.vim"]
+	path = bundle/all/targets.vim
+	url = https://github.com/wellle/targets.vim.git
