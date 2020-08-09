@@ -36,8 +36,6 @@ endif
 
 " nvim/vim specific settings {{{
 
-" nvim settings {{{
-
 if has('nvim')
   set termguicolors
   set inccommand=split
@@ -49,25 +47,19 @@ if has('nvim')
 
   " exit terminal with esc
   tnoremap <esc> <C-\><C-n>
-
-endif
-
-" }}}
-
-" vim settings {{{
-
-if has('vim')
+else
   set nocompatible
   set t_Co=256
 
+  " :h xterm-true-color
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+
   if v:version > 800
-    set termguicolors
+    "set termguicolors
     " exit terminal with esc
     tnoremap <esc> <C-\><C-n>
-
-
-endif
-
+  endif
 endif
 
 " }}}
@@ -337,7 +329,7 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-let g:syntastic_python_checkers = ['pylint', 'pep8']
+let g:syntastic_python_checkers = ['pylint', 'pep8', 'python', 'pyflakes']
 let g:syntastic_enable_perl_checker = 1
 let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
 
