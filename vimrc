@@ -64,8 +64,6 @@ endif
 
 " }}}
 
-" }}}
-
 " colorscheme {{{
 
 " customizations for codedark colorscheme {{{
