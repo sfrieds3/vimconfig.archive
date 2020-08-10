@@ -40,9 +40,6 @@
 [submodule "bundle/all/vim-polyglot"]
 	path = bundle/all/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
-[submodule "bundle/colors/vim-colors-paramount"]
-	path = bundle/colors/vim-colors-paramount
-	url = https://github.com/owickstrom/vim-colors-paramount.git
 [submodule "bundle/all/targets.vim"]
 	path = bundle/all/targets.vim
 	url = https://github.com/wellle/targets.vim.git
