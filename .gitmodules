@@ -55,3 +55,6 @@
 [submodule "bundle/colors/Apprentice"]
 	path = bundle/colors/Apprentice
 	url = https://github.com/romainl/Apprentice.git
+[submodule "bundle/colors/vim-dichromatic"]
+	path = bundle/colors/vim-dichromatic
+	url = https://github.com/romainl/vim-dichromatic.git
