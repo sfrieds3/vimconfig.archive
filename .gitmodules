@@ -58,3 +58,6 @@
 [submodule "bundle/all/targets.vim"]
 	path = bundle/all/targets.vim
 	url = https://github.com/wellle/targets.vim.git
+[submodule "bundle/colors/Apprentice"]
+	path = bundle/colors/Apprentice
+	url = https://github.com/romainl/Apprentice.git

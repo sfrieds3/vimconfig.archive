@@ -82,7 +82,7 @@ let g:gruvbox_material_background = 'hard'
 " }}}
 
 set background=dark
-colorscheme paramount
+colorscheme apprentice
 
 highlight Todo ctermbg=226 ctermfg=52
 
