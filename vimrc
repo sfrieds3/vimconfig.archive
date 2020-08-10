@@ -192,6 +192,16 @@ endif
 
 " }}}
 
+" sessions {{{
+
+let g:session_dir = '~/.vim/vim-session'
+
+if !isdirectory(expand(g:session_dir))
+  call mkdir(expand(g:session_dir), "p")
+endif
+
+" }}}
+
 " statusline {{{
 
 set laststatus=2
@@ -314,7 +324,9 @@ let g:jedi#auto_close_doc = 1
 " }}}
 
 " vlime {{{
+
 let g:vlime_cl_use_terminal = 1
+
 " }}}
 
 " syntastic {{{
@@ -370,15 +382,30 @@ let g:syntastic_yaml_checkers=['jsyaml']
 
 " }}}
 
-" obsession {{{
-nnoremap <leader>O :Obsession<cr>
-" }}}
-
 " undotree {{{
 
 let g:undotree_WindowLayout = 2
 nnoremap U :exec("UndotreeToggle")<cr>
 
+" }}}
+
+" obsession {{{
+
+function! MakeSession()
+  ":Obsession g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+  let s = 'Obsession'
+  execute s
+endfunction
+nnoremap <Leader>ss :call MakeSession()<cr>
+
+function! RestoreSession()
+  :source ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>
+endfunction
+nnoremap <Leader>sr :call RestoreSession()<cr>
+
+" freeze session
+nnoremap <Leader>sf :Obsession<CR>
+ 
 " }}}
 
 " }}}
@@ -506,31 +533,26 @@ command! PrettyXML call DoPrettyXML()
 " }}}}
 
 " quick way to open quickfix window {{{
-if !exists('*OpenQuickfix')
-  function! OpenQuickfix()
-    :copen
-  endfunction
-  command C call OpenQuickfix()
-endif
+function! OpenQuickfix()
+  :copen
+endfunction
+command! C call OpenQuickfix()
 nnoremap <leader>q :call OpenQuickfix()<cr>
 " }}}
 
 " use ctrl-s to vimgrep and open uesults in quickfix window {{{
-if !exists('*FindAll')
-  function! FindAll()
-    call inputsave()
-    let p = input('Enter pattern:')
-    call inputrestore()
-    execute 'vimgrep! "'.p.'" % | copen'
-  endfunction
-endif
+function! FindAll()
+  call inputsave()
+  let p = input('Enter pattern:')
+  call inputrestore()
+  execute 'vimgrep! "'.p.'" % | copen'
+endfunction
 "nnoremap <leader>s :call FindAll()<cr>
 "nnoremap <leader>S :call FindAll()<cr><cword><cr>
 " }}}
 
 " gitgrep {{{
-if !exists('*GitGrep')
-  function! GitGrep(...)
+function! GitGrep(...)
     " store grepprg to restore after running
     let save = &grepprg
     " set grepprg to git grep for use in function
@@ -538,34 +560,29 @@ if !exists('*GitGrep')
     let s = 'grep!'
     let s = 'silent ' . s
     for i in a:000
-      let s = s . ' ' . i
+        let s = s . ' ' . i
     endfor
     let s = s . ' | copen'
     execute s
     " restore grepprg to original setting
     let &grepprg = save
-  endfunction
-  command -nargs=+ GitGrep call GitGrep(<f-args>)
-endif
+endfunction
+command! -nargs=+ GitGrep call GitGrep(<f-args>)
 " }}}
 
 " git grep for word under cursor {{{
-if !exists('*GitGrepWord')
-  function GitGrepWord()
+function! GitGrepWord()
     normal! "zyiw
     call GitGrep('-w -e ', getreg('z'))
-  endfunction
-endif
+endfunction
 nnoremap <C-x>G :call GitGrepWord()<cr>
 " }}}
 
 " generate tags quickly {{{
-if !exists('*GenerateTags')
-  function GenerateTags()
+function! GenerateTags()
     :! ctags -R
-  endfunction
-  command T call GenerateTags()
-endif
+endfunction
+command! T call GenerateTags()
 " }}}
 
 " verbose debugging {{{
