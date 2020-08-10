@@ -36,8 +36,12 @@ endif
 
 " nvim/vim specific settings {{{
 
+if has('terminal')
+  " easy terminal exit
+  tnoremap <esc> <C-\><C-n>
+endif
+
 if has('nvim')
-  set termguicolors
   set inccommand=split
 
   augroup HighlightOnYank
@@ -45,26 +49,18 @@ if has('nvim')
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup END
 
-  " exit terminal with esc
-  tnoremap <esc> <C-\><C-n>
 else
   set nocompatible
   set t_Co=256
-
-  " :h xterm-true-color
-  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-
-  if v:version > 800
-    "set termguicolors
-    " exit terminal with esc
-    tnoremap <esc> <C-\><C-n>
-  endif
 endif
 
 " }}}
 
 " colorscheme {{{
+
+if has('termgucolors')
+  set termgucolors
+end
 
 " customizations for codedark colorscheme {{{
 highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
