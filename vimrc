@@ -48,10 +48,6 @@ if has('nvim')
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup END
-
-else
-  set nocompatible
-  set t_Co=256
 endif
 
 " }}}
@@ -87,6 +83,7 @@ highlight Todo ctermbg=226 ctermfg=52
 " initial settings {{{
 
 " basic settings {{{
+set hidden
 set showcmd
 set autoread
 set modeline
@@ -96,8 +93,6 @@ set showmatch
 set splitbelow
 set splitright
 set autoindent
-set expandtab
-set smarttab
 set wrap
 set incsearch
 set showmatch
@@ -105,14 +100,23 @@ set hlsearch
 set nonumber
 set novisualbell
 set magic
+set ttyfast
+
+set shiftwidth=4
+let softtabstop = &shiftwidth
+set shiftround
+set expandtab
+set smarttab
+" commands for adjusting indentation rules manually
+command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal tabstop=" . <args> . " expandtab"   | silent execute "%!expand -it "  . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+command! -nargs=1 Tabs   let b:wv = winsaveview() | execute "setlocal tabstop=" . <args> . " noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+
 
 set laststatus=2
 set backspace=2
 set matchtime=3
 set encoding=utf8
 set tabstop=4
-set shiftwidth=4
-set softtabstop=4
 set showtabline=3
 set clipboard=unnamed
 set foldmethod=marker
@@ -131,24 +135,31 @@ if !exists("g:syntax_on")
   syntax enable
 endif
 
-filetype plugin on
-filetype indent on
+" filetype support
+filetype plugin indent on
 
 set wildmenu
 set wildignorecase
 set wildmode=list:longest,full
-set omnifunc=syntaxcomplete#Complete
-set ttyfast
+set wildcharm=<C-z>
+
+set tags=./tags;,tags;
 
 " better completion
-set complete=.,w,b,u,t,i
+set omnifunc=syntaxcomplete#Complete
+set complete=.,w,b,u,t,i,d
 set completeopt=longest,menuone
 
-" pwd is path
-set path=,,
+" better completion menu
+" https://github.com/romainl/minivimrc/blob/master/vimrc
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap        ,,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
-" do not close hidden buffers
-set hidden
+" pwd and current file dir is path
+set path=.,,
 
 " set lines above/below cursor
 set scrolloff=0
@@ -159,10 +170,8 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
+" use matchit
+runtime macros/matchit.vim
 
 " }}}
 
@@ -232,10 +241,6 @@ set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 " git changes from vim-signify
 set statusline+=\%{GitStatus()}
-" syntastic status
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 " right section
 set statusline+=%=
@@ -322,59 +327,6 @@ let g:jedi#auto_close_doc = 1
 " vlime {{{
 
 let g:vlime_cl_use_terminal = 1
-
-" }}}
-
-" syntastic {{{
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-
-" set syntastic checkers
-let g:syntastic_json_checkers=['jsonlint', 'jsonval']
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_perl_checkers = ['perl', 'perlcritic', 'podchecker']
-let g:syntastic_python_checkers = ['pylint', 'pep8', 'python', 'pyflakes']
-let g:syntastic_ruby_checkers=['mri', 'rubocop']
-let g:syntastic_sh_checkers=['sh','shellcheck','checkbashisms']
-let g:syntastic_vim_checkers=['vimlint']
-let g:syntastic_yaml_checkers=['jsyaml']
-
-" custom checker location
-"let g:syntastic_python_pylint_exec = $HOME . '/anaconda3/bin/pylint'
-
-" }}}
-
-" ale {{{
-"let g:ale_completion_enabled = 1
-"set omnifunc=ale#completion#OmniFunc
-"
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_insert_leave = 0
-"let g:ale_lint_on_enter = 0
-"
-"" and use a simpler warning
-"let g:ale_sign_warning = '∘'
-"" set erorr sign
-"let g:ale_sign_error = '●'
-"
-"" update error msg
-"let g:ale_echo_msg_error_str = 'E'
-"let g:ale_echo_msg_warning_str = 'W'
-"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"
-"" ignore annoying erorrs
-"let g:ale_python_flake8_options = '--ignore=E501'
-"
-"let g:ale_linters = {
-"      \   'python': ['flake8', 'pylint', 'mypy'],
-"      \   'perl': ['perlcritic']
-"      \}
 
 " }}}
 
@@ -648,9 +600,52 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 " }}}
 
+" helpful listing of jumps buffers etc {{{
+
+cnoremap <expr> <CR> <SID>CCR()
+function! s:CCR()
+	command! -bar Z silent set more|delcommand Z
+	if getcmdtype() == ":"
+		let cmdline = getcmdline()
+		    if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
+		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
+		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
+		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
+		elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
+		elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
+		elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
+		elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
+		elseif cmdline =~ '\C^undol' | return "\<CR>:u "
+		else | return "\<CR>" | endif
+	else | return "\<CR>" | endif
+endfunction
+
+" }}}
+
 "}}}
 
 " custom mappings and stuff {{{
+
+" super quick search and replace
+" https://github.com/romainl/minivimrc/blob/master/vimrc
+nnoremap <Space><Space> :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
+nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
+
+" pair expansion
+" https://github.com/romainl/minivimrc/blob/master/vimrc
+inoremap (<CR> (<CR>)<Esc>O
+inoremap (;    (<CR>);<Esc>O
+inoremap (,    (<CR>),<Esc>O
+inoremap {<CR> {<CR>}<Esc>O
+inoremap {;    {<CR>};<Esc>O
+inoremap {,    {<CR>},<Esc>O
+inoremap [<CR> [<CR>]<Esc>O
+inoremap [;    [<CR>];<Esc>O
+inoremap [,    [<CR>],<Esc>O
+
+" smooth grepping
+" https://github.com/romainl/minivimrc/blob/master/vimrc
+command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' <args>')
 
 " echo current file full path
 nnoremap <leader>fp :echo expand("%:p")<cr>
@@ -658,7 +653,7 @@ nnoremap <leader>fp :echo expand("%:p")<cr>
 " view all todo in quickfix window
 nnoremap <silent> <leader>vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
-" vimgrep for word under cursor in current file and open in quickfix
+" vimgrep for word under cursor in current file and open in location list
 nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current directory open in quickfix
@@ -684,8 +679,8 @@ nnoremap ]] ]]zz
 nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
-nnoremap <silent> <localleader>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <localleader>r :exec("set cursorline!")<cr>
+nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> \r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -696,31 +691,19 @@ inoremap <S-Tab> <C-v><Tab>
 " stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-" move line of text up/down
-nnoremap <C-Down> mz:m+<cr>`z
-nnoremap <C-Up> mz:m-2<cr>`z
-vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
-
 " tagbar
-nnoremap <silent> <localleader><localleader> :exec("TagbarOpen('j')")<cr>
+nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
 nnoremap / /\v
 vnoremap / /\v
 
 " toggle line numbers
-nnoremap <silent> <Leader>n :set invnumber!<cr>
-"nnoremap <silent> <Leader>N :set relativenumber!<cr>
-
-" show avilable marks and be ready to swtich
-nnoremap <leader>M :<C-u>marks<cr>:normal! `
-
-" show buffers and be ready to switch
-nnoremap <silent> <localleader>bb :<C-u>:buffers<cr>:buffer<space>
+nnoremap <silent> <leader>n :set number!<cr>
+nnoremap <silent> <leader>N :set relativenumber!<cr>
 
 " Disable highlight
-nnoremap <silent> <leader><cr> :nohlsearch<cr>
+nnoremap <silent> <space><cr> :nohlsearch<cr>
 
 " higlight whitespace, but do not highlight in insert mode
 "highlight ExtraWhitespace ctermbg=red guibg=red
@@ -746,16 +729,12 @@ augroup resize
 augroup END
 
 " netrw
-nnoremap <Leader>o :Sexplore!<cr>
-
+nnoremap <leader>o :Sexplore!<cr>
 let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_winsize = 25
-
-" highlighting under cursor
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " terminal mode {{{
 " easily get into terminal normal mode
@@ -765,8 +744,8 @@ endif
 " }}}
 
 " easy editing {{{
-nnoremap <leader><space>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader><space>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
 " }}}
 
 " operator mappings {{{
