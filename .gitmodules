@@ -19,9 +19,6 @@
 [submodule "bundle/all/vim-repeat"]
 	path = bundle/all/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule "bundle/all/tabular"]
-	path = bundle/all/tabular
-	url = https://github.com/godlygeek/tabular.git
 [submodule "bundle/python/jedi-vim"]
 	path = bundle/python/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
@@ -55,3 +52,21 @@
 [submodule "bundle/colors/vim-dichromatic"]
 	path = bundle/colors/vim-dichromatic
 	url = https://github.com/romainl/vim-dichromatic.git
+[submodule "bundle/all/vim-qf"]
+	path = bundle/all/vim-qf
+	url = https://github.com/romainl/vim-qf.git
+[submodule "bundle/all/vim-characterize"]
+	path = bundle/all/vim-characterize
+	url = https://github.com/tpope/vim-characterize.git
+[submodule "bundle/all/vim-lion"]
+	path = bundle/all/vim-lion
+	url = https://github.com/tommcdo/vim-lion.git
+[submodule "bundle/all/vim-rsi"]
+	path = bundle/all/vim-rsi
+	url = https://github.com/tpope/vim-rsi.git
+[submodule "bundle/all/vim-sneak"]
+	path = bundle/all/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
+[submodule "bundle/all/vim-dirvish"]
+	path = bundle/all/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish.git

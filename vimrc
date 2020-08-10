@@ -83,6 +83,9 @@ highlight Todo ctermbg=226 ctermfg=52
 " initial settings {{{
 
 " basic settings {{{
+" filetype support
+filetype plugin indent on
+
 set hidden
 set showcmd
 set autoread
@@ -102,6 +105,7 @@ set novisualbell
 set magic
 set ttyfast
 
+" indentation
 set shiftwidth=4
 let softtabstop = &shiftwidth
 set shiftround
@@ -111,7 +115,7 @@ set smarttab
 command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal tabstop=" . <args> . " expandtab"   | silent execute "%!expand -it "  . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs   let b:wv = winsaveview() | execute "setlocal tabstop=" . <args> . " noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 
-
+" other setting stuff
 set laststatus=2
 set backspace=2
 set matchtime=3
@@ -135,9 +139,6 @@ if !exists("g:syntax_on")
   syntax enable
 endif
 
-" filetype support
-filetype plugin indent on
-
 set wildmenu
 set wildignorecase
 set wildmode=list:longest,full
@@ -147,7 +148,7 @@ set tags=./tags;,tags;
 
 " better completion
 set omnifunc=syntaxcomplete#Complete
-set complete=.,w,b,u,t,i,d
+set complete+=d
 set completeopt=longest,menuone
 
 " better completion menu
@@ -251,9 +252,9 @@ set statusline+=\ %{StatusLineFormat()}
 " file type
 set statusline+=\ %{StatusLineFiletype()}
 " line number
-set statusline+=\ [%l:
+set statusline+=\ [%l/%L
 " column number
-set statusline+=%c
+set statusline+=:%c
 " % of file
 set statusline+=\ %p%%]
 
@@ -354,6 +355,15 @@ nnoremap <Leader>sr :call RestoreSession()<cr>
 " freeze session
 nnoremap <Leader>sf :Obsession<CR>
  
+" }}}
+
+" sneak {{{
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
 " }}}
 
 " }}}
@@ -626,22 +636,17 @@ endfunction
 
 " custom mappings and stuff {{{
 
+" easily switch windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+nnoremap <leader>ww <C-w>w
+
 " super quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
 nnoremap <Space><Space> :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
 nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
-
-" pair expansion
-" https://github.com/romainl/minivimrc/blob/master/vimrc
-inoremap (<CR> (<CR>)<Esc>O
-inoremap (;    (<CR>);<Esc>O
-inoremap (,    (<CR>),<Esc>O
-inoremap {<CR> {<CR>}<Esc>O
-inoremap {;    {<CR>};<Esc>O
-inoremap {,    {<CR>},<Esc>O
-inoremap [<CR> [<CR>]<Esc>O
-inoremap [;    [<CR>];<Esc>O
-inoremap [,    [<CR>],<Esc>O
 
 " smooth grepping
 " https://github.com/romainl/minivimrc/blob/master/vimrc
@@ -693,10 +698,6 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 
 " tagbar
 nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
-
-" use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
-nnoremap / /\v
-vnoremap / /\v
 
 " toggle line numbers
 nnoremap <silent> <leader>n :set number!<cr>
@@ -755,58 +756,4 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " }}}
-
-" moving around, tabs, windows and buffers {{{
-
-" windows {{{
-" Smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-nnoremap <leader>ww <C-w>w
-nmap <leader>w <C-W>
-
-" resize splits
-" 10<c-w><
-" 10<c-w>>
-" 10<c-w>-
-" 10<c-w>+
-
-" }}}
-
-" buffers and tabs {{{
-" tab and buffer management
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>bd :bdelete<cr>
-nnoremap <C-left> :bprevios<cr>
-nnoremap <C-right> :bnext<cr>
-nnoremap <leader>tp :tabprevious<cr>
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tt :tabnext<cr>
-nnoremap <C-left> :tabprevious<cr>
-nnoremap <C-right> :tabnext<cr>
-
-" Useful mappings for managing tabs
-nnoremap <leader>tN :tabnew<cr>
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>th :-tabmove<cr>
-nnoremap <leader>tl :+tabmove<cr>
-
-" }}}
-
-"}}}
-
-" notes {{{
-
-" :helpgrep <text> - grep for <text> in all help docs
-" :cn :cp to go to next or previous result from :helpgrep
-" Tags:
-" - Use ^] to jump to tag under cursor
-" - Use g^] for ambiguous tags
-" - Use ^t to jump back up the tag stack
-
-"}}}
 " vim: set ts=2 sw=2 tw=78 fdm=marker et:
