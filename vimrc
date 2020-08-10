@@ -769,7 +769,7 @@ endif
 " }}}
 
 " easy editing {{{
-nnoremap <leader><space>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader><space>ev :vsplit $MYVIMRC<cr>
 nnoremap <silent> <leader><space>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
 " }}}
 
