@@ -31,18 +31,12 @@
 [submodule "bundle/colors/badwolf"]
 	path = bundle/colors/badwolf
 	url = https://github.com/sjl/badwolf.git
-[submodule "bundle/colors/gruvbox"]
-	path = bundle/colors/gruvbox
-	url = https://github.com/morhetz/gruvbox.git
 [submodule "bundle/all/undotree"]
 	path = bundle/all/undotree
 	url = https://github.com/mbbill/undotree.git
 [submodule "bundle/all/syntastic"]
 	path = bundle/all/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
-[submodule "bundle/colors/gruvbox-material"]
-	path = bundle/colors/gruvbox-material
-	url = https://github.com/sainnhe/gruvbox-material.git
 [submodule "bundle/all/vim-gitgutter"]
 	path = bundle/all/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
