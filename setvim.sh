@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATETIME="`date +%Y%m%d%H%M%S`"
-VIMRC=$HOME/.vimrc
+VIMRC=$HOME/.vim/vimrc
 PLUGDIR=$HOME/.vim/bundle
 
 # to update submodules to latest master: git submodule update --remote --merge
