@@ -54,6 +54,8 @@ endif
 
 " colorscheme {{{
 
+set t_Co=256
+
 if has('termgucolors')
   set termgucolors
 end
