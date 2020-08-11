@@ -368,6 +368,12 @@ map T <Plug>Sneak_T
 
 " }}}
 
+" polyglot {{{
+
+let g:python_highlight_space_errors = 0
+
+" }}}
+
 " }}}
 
 " general language settings {{{
