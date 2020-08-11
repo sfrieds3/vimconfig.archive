@@ -354,7 +354,7 @@ nnoremap <Leader>sr :call RestoreSession()<cr>
 
 " freeze session
 nnoremap <Leader>sf :Obsession<CR>
- 
+
 " }}}
 
 " sneak {{{
@@ -632,6 +632,22 @@ endfunction
 
 " }}}
 
+" clean whitespace {{{
+
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+  endif
+endfunction
+
+nnoremap <leader>W :call StripTrailingWhitespace()<cr>
+
+" }}}
+
 "}}}
 
 " custom mappings and stuff {{{
@@ -705,20 +721,6 @@ nnoremap <silent> <leader>N :set relativenumber!<cr>
 
 " Disable highlight
 nnoremap <silent> <space><cr> :nohlsearch<cr>
-
-" higlight whitespace, but do not highlight in insert mode
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+$/
-"augroup hiwhitespace
-"  autocmd!
-"  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-"  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-"  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-"  autocmd BufWinLeave * call clearmatches()
-"augroup END
-
-" Clean trailing whitespace
-nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z :exec("echo \"Cleaned Whitespace..\"")<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>Cd :cd %:p:h<cr>:pwd<cr>
