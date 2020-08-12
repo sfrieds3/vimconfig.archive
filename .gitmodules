@@ -67,3 +67,6 @@
 [submodule "bundle/all/vim-dirvish"]
 	path = bundle/all/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
+[submodule "bundle/all/vim-qlist"]
+	path = bundle/all/vim-qlist
+	url = https://github.com/romainl/vim-qlist.git

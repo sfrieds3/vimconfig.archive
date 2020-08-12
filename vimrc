@@ -88,6 +88,7 @@ highlight Todo ctermbg=226 ctermfg=52
 " filetype support
 filetype plugin indent on
 
+set relativenumber
 set hidden
 set showcmd
 set autoread
@@ -667,6 +668,9 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <leader>ww <C-w>w
 
+nnoremap gb :bnext<cr>
+nnoremap gB :bprevious<cr>
+
 " super quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
 nnoremap <Space><Space> :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
@@ -692,14 +696,6 @@ nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("co
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
 :command! -nargs=+ Calc :r! python -c 'from math import *; print (<args>)'
 
-" various command shortcuts
-cnoreabbrev f find
-cnoreabbrev F find
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev B b
-cnoreabbrev E e
-
 " auto center when going to prev/next function definition
 nnoremap [[ [[zz
 nnoremap ]] ]]zz
@@ -722,10 +718,6 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 
 " tagbar
 nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
-
-" toggle line numbers
-nnoremap <silent> <leader>n :set number!<cr>
-nnoremap <silent> <leader>N :set relativenumber!<cr>
 
 " Disable highlight
 nnoremap <silent> <space><cr> :nohlsearch<cr>
