@@ -235,7 +235,13 @@ endfunction
 
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
-  return printf(' [+%d ~%d -%d]', a, m, r)
+  let s =(' [')
+  let s = a > 0 ? s . printf('+%d', a) : s
+  let s = m > 0 ? s . printf('~%d', m) : s
+  let s = r > 0 ? s . printf('-%d', r) : s
+  let s .= ']'
+  return s
+  " return printf(' [+%d ~%d -%d]', a, m, r)
 endfunction
 
 " format the statusline
