@@ -88,8 +88,8 @@ highlight Todo ctermbg=226 ctermfg=52
 " filetype support
 filetype plugin indent on
 
-set number
-set relativenumber
+set nonumber
+set norelativenumber
 set hidden
 set showcmd
 set autoread
@@ -621,23 +621,23 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 " helpful listing of jumps buffers etc {{{
 
-"cnoremap <expr> <CR> <SID>CCR()
-"function! s:CCR()
-"	command! -bar Z silent set more|delcommand Z
-"	if getcmdtype() == ":"
-"		let cmdline = getcmdline()
-"		    if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
-"		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
-"		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
-"		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
-"		elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
-"		elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
-"		elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
-"		elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
-"		elseif cmdline =~ '\C^undol' | return "\<CR>:u "
-"		else | return "\<CR>" | endif
-"	else | return "\<CR>" | endif
-"endfunction
+cnoremap <expr> <CR> <SID>CCR()
+function! s:CCR()
+command! -bar Z silent set more|delcommand Z
+if getcmdtype() == ":"
+	let cmdline = getcmdline()
+	if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
+	elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
+	elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
+	elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
+	elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
+	elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
+	elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
+	elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
+	elseif cmdline =~ '\C^undol' | return "\<CR>:u "
+	else | return "\<CR>" | endif
+  else | return "\<CR>" | endif
+endfunction
 
 " }}}
 
@@ -653,9 +653,28 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 
+command! CleanWhitespace call StripTrailingWhitespace()
 nnoremap <leader>W :call StripTrailingWhitespace()<cr>
 
 " }}}
+
+" line number management {{
+
+function! ToggleLineNum()
+  if &number || &relativenumber
+    set nonumber
+    set norelativenumber
+  else
+    set number
+    set relativenumber
+  endif
+endfunction
+
+command! ToggleLineNum call ToggleLineNum()
+nnoremap _n :call ToggleLineNum()<cr>
+
+" }}}
+
 
 "}}}
 
@@ -668,8 +687,12 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <leader>ww <C-w>w
 
+" easy buffer switching
 nnoremap gb :bnext<cr>
 nnoremap gB :bprevious<cr>
+
+" easily call :Ilist
+nnoremap _i :Ilist<Space>
 
 " super quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
