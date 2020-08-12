@@ -552,20 +552,6 @@ endfunction
 command! T call GenerateTags()
 " }}}
 
-" verbose debugging {{{
-
-function! ToggleVerbose()
-  if !&verbose
-    set verbosefile=~/.vim/log/verbose.log
-    set verbose=15
-  else
-    set verbose=0
-    set verbosefile=
-  endif
-endfunction
-
-" }}}
-
 " highlight interesting words {{{
 
 " This mini-plugin provides a few mappings for highlighting words temporarily.
@@ -658,7 +644,7 @@ nnoremap <leader>W :call StripTrailingWhitespace()<cr>
 
 " }}}
 
-" line number management {{
+" line number management {{{
 
 function! ToggleLineNum()
   if &number || &relativenumber
@@ -691,8 +677,10 @@ nnoremap <leader>ww <C-w>w
 nnoremap gb :bnext<cr>
 nnoremap gB :bprevious<cr>
 
-" easily call :Ilist
-nnoremap _i :Ilist<Space>
+" ilist
+nnoremap _i :Ilist!<Space>
+nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
+
 
 " super quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
