@@ -542,7 +542,7 @@ function! GitGrepWord()
     normal! "zyiw
     call GitGrep('-w -e ', getreg('z'))
 endfunction
-nnoremap <C-x>G :call GitGrepWord()<cr>
+nnoremap _G :call GitGrepWord()<cr>
 " }}}
 
 " generate tags quickly {{{
