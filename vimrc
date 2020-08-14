@@ -640,6 +640,12 @@ nnoremap _n :call ToggleLineNum()<cr>
 
 " move lines {{{
 
+" make this repeatable with .
+function! Repeatable(f)
+  let &operatorfunc = a:f
+  return 'g@ '
+endfunction
+
 function! MoveLineUp(ignore)
   execute ":.m-2<CR>"
 endfunction
@@ -648,14 +654,8 @@ function! MoveLineDown(ignore)
   execute ":.m+1<CR>"
 endfunction
 
-" make this repeatable with .
-function! Repeatable(f)
-  let &opfunc = a:f
-  return 'g@ '
-endfunction
-
-nnoremap <expr> _j Repeatable('MoveLineDown')
-nnoremap <expr> _k Repeatable('MoveLineUp')
+nnoremap <expr> _j. Repeatable('MoveLineDown')
+nnoremap <expr> _k. Repeatable('MoveLineUp')
 
 " }}}
 
