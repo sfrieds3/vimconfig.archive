@@ -617,7 +617,7 @@ function! StripTrailingWhitespace()
 endfunction
 
 command! CleanWhitespace call StripTrailingWhitespace()
-nnoremap <leader>W :call StripTrailingWhitespace()<cr>
+nnoremap _W :call StripTrailingWhitespace()<cr>
 
 " }}}
 
