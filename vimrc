@@ -678,6 +678,8 @@ nnoremap gB :bprevious<cr>
 nnoremap _i :Ilist!<Space>
 nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
+" quick jump to tag under curosr
+nnoremap _t :tj <C-r>=expand("<cword>")<CR><CR>
 
 " super quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
@@ -692,7 +694,7 @@ command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' 
 nnoremap <leader>fp :echo expand("%:p")<cr>
 
 " view all todo in quickfix window
-nnoremap <silent> _t :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
+nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current file and open in location list
 nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
