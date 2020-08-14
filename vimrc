@@ -154,14 +154,6 @@ set omnifunc=syntaxcomplete#Complete
 set complete+=d
 set completeopt=longest,menuone
 
-" better completion menu
-" https://github.com/romainl/minivimrc/blob/master/vimrc
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap        ,,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-
 " pwd and current file dir is path
 set path=.,,
 
@@ -235,6 +227,9 @@ endfunction
 
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
+  if a + m + r == 0
+    return ''
+  endif
   let s =(' [')
   let s = a > 0 ? s . printf('+%d', a) : s
   let s = m > 0 ? s . printf('~%d', m) : s
@@ -293,6 +288,7 @@ function! Tabline()
     if bufmodified
       let s .= '[+] '
     endif
+    let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
   endfor
 
   let s .= '%#TabLineFill#'
@@ -300,9 +296,6 @@ function! Tabline()
     let s .= '%=%999XX'
   endif
 
-  " right align this portion
-  let s .= '%=%'
-  let s .= (tab == tabpagenr() ? printf('[%s%s', gstatus, ostatus) : '')
   return s
 endfunction
 
@@ -398,7 +391,7 @@ augroup END
 augroup python
   autocmd!
   " open quickfix with list of functions
-  nnoremap <silent> <localleader>f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
+  nnoremap <silent> \f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
 
   if executable('autopep8')
     "autopep8 on gq, if available
@@ -467,7 +460,7 @@ function! AppendModeline()
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <localleader>ml :call AppendModeline()<CR>
+nnoremap <silent> _ml :call AppendModeline()<CR>
 
 " }}}
 
@@ -611,28 +604,6 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 " }}}
 
-" helpful listing of jumps buffers etc {{{
-
-cnoremap <expr> <CR> <SID>CCR()
-function! s:CCR()
-command! -bar Z silent set more|delcommand Z
-if getcmdtype() == ":"
-	let cmdline = getcmdline()
-	if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
-	elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
-	elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
-	elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
-	elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
-	elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
-	elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
-	elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
-	elseif cmdline =~ '\C^undol' | return "\<CR>:u "
-	else | return "\<CR>" | endif
-  else | return "\<CR>" | endif
-endfunction
-
-" }}}
-
 " clean whitespace {{{
 
 function! StripTrailingWhitespace()
@@ -667,7 +638,6 @@ nnoremap _n :call ToggleLineNum()<cr>
 
 " }}}
 
-
 "}}}
 
 " custom mappings and stuff {{{
@@ -701,7 +671,7 @@ command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' 
 nnoremap <leader>fp :echo expand("%:p")<cr>
 
 " view all todo in quickfix window
-nnoremap <silent> <leader>vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
+nnoremap <silent> _t :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current file and open in location list
 nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
@@ -765,7 +735,7 @@ endif
 
 " easy editing {{{
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
+nnoremap <silent> <leader>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
 " }}}
 
 " operator mappings {{{
