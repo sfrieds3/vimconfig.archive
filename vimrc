@@ -651,7 +651,7 @@ endfunction
 " make this repeatable with .
 function! Repeatable(f)
   let &opfunc = a:f
-  return 'g@l'
+  return 'g@ '
 endfunction
 
 nnoremap <expr> _j Repeatable('MoveLineDown')
