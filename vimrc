@@ -718,7 +718,7 @@ nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
 nnoremap <silent> \r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
-inoremap <C-u> <esc>mzgUiw`za
+inoremap <C-u> <C-o>gUiw<C-o>e<C-o>a
 
 " Shift-Tab enters actual tab
 inoremap <S-Tab> <C-v><Tab>
