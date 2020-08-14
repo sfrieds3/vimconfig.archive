@@ -638,6 +638,27 @@ nnoremap _n :call ToggleLineNum()<cr>
 
 " }}}
 
+" move lines {{{
+
+function! MoveLineUp(ignore)
+  execute ":.m-2<CR>"
+endfunction
+
+function! MoveLineDown(ignore)
+  execute ":.m+1<CR>"
+endfunction
+
+" make this repeatable with .
+function! Repeatable(f)
+  let &opfunc = a:f
+  return 'g@l'
+endfunction
+
+nnoremap <expr> _j Repeatable('MoveLineDown')
+nnoremap <expr> _k Repeatable('MoveLineUp')
+
+" }}}
+
 "}}}
 
 " custom mappings and stuff {{{
