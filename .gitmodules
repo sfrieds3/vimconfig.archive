@@ -19,9 +19,6 @@
 [submodule "bundle/all/vim-repeat"]
 	path = bundle/all/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule "bundle/colors/vim-code-dark"]
-	path = bundle/colors/vim-code-dark
-	url = https://github.com/tomasiser/vim-code-dark.git
 [submodule "bundle/colors/badwolf"]
 	path = bundle/colors/badwolf
 	url = https://github.com/sjl/badwolf.git
@@ -31,9 +28,6 @@
 [submodule "bundle/all/vim-gitgutter"]
 	path = bundle/all/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "bundle/ruby/vim-ruby"]
-	path = bundle/ruby/vim-ruby
-	url = https://github.com/vim-ruby/vim-ruby.git
 [submodule "bundle/all/vim-polyglot"]
 	path = bundle/all/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
