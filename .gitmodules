@@ -19,9 +19,6 @@
 [submodule "bundle/all/vim-repeat"]
 	path = bundle/all/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule "bundle/python/jedi-vim"]
-	path = bundle/python/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim
 [submodule "bundle/colors/vim-code-dark"]
 	path = bundle/colors/vim-code-dark
 	url = https://github.com/tomasiser/vim-code-dark.git
