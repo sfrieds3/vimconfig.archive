@@ -741,13 +741,21 @@ augroup resize
   autocmd VimResized * :wincmd =
 augroup END
 
+
 " insert mode completions
+" file name completion
 inoremap <silent> ,f <C-x><C-f>
-inoremap <silent> ,i <C-x><C-i>
+" path completion
+inoremap <silent> ,p <C-x><C-i>
+" whole line completion
 inoremap <silent> ,l <C-x><C-l>
+" local keyword completion
 inoremap <silent> ,n <C-x><C-n>
+" omni completion
 inoremap <silent> ,o <C-x><C-o>
+" tag completion
 inoremap <silent> ,t <C-x><C-]>
+" 'completefunc'
 inoremap <silent> ,u <C-x><C-u>
 
 " netrw
