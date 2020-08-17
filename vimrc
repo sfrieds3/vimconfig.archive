@@ -674,6 +674,9 @@ nnoremap <leader>ww <C-w>w
 nnoremap gb :bnext<cr>
 nnoremap gB :bprevious<cr>
 
+" default Y mapping is just.. wrong
+nnoremap Y y$
+
 " ilist
 nnoremap _i :Ilist!<Space>
 nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
