@@ -711,7 +711,7 @@ nnoremap [[ [[zz
 nnoremap ]] ]]zz
 
 " show list of digraphs -- special symbols
-nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
+nnoremap _vd :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
 nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
