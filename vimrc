@@ -213,7 +213,7 @@ function! StatusLineBuffNum()
 endfunction
 
 function! StatusLineFiletype()
-  return winwidth(0) > 160 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return (strlen(&filetype) ? printf("[%s]", &filetype) : '[no ft]')
 endfunction
 
 function! StatusLineFormat()
@@ -221,10 +221,11 @@ function! StatusLineFormat()
 endfunction
 
 function! StatusLineFileName()
-  let fname = '' != expand('%:f') ? expand('%:f') : '[No Name]'
+  llet fname = '' != expand('%:f') ? printf("%s", expand('%:f')) : '[No Name]'
   return printf("%s", fname)
 endfunction
 
+" TODO: this functions is bad.. fix it
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
   if a + m + r == 0
@@ -242,9 +243,10 @@ endfunction
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
-set statusline+=\ %{StatusLineFileName()}
+set statusline+=%<
+set statusline+=%{StatusLineFileName()}
 set statusline+=%m
-" git changes from vim-signify
+set statusline+=%{StatusLineFiletype()}
 set statusline+=\%{GitStatus()}
 
 " right section
@@ -253,8 +255,7 @@ set statusline+=%=
 set statusline+=%{tagbar#currenttag('[%s]','')}
 " file format
 set statusline+=\ %{StatusLineFormat()}
-" file type
-set statusline+=\ %{StatusLineFiletype()}
+
 " line number
 set statusline+=\ [%l/%L
 " column number
