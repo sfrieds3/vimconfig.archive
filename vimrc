@@ -128,6 +128,7 @@ set showtabline=3
 set clipboard=unnamed
 set foldmethod=marker
 set foldcolumn=0
+set foldlevel=99
 set formatoptions=qrn1j
 
 " }}}
@@ -449,8 +450,8 @@ endif
 " Append modeline after last line in buffer. {{{
 " from https://vim.fandom.com/wiki/Modeline_magic
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set:",
-        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s foldlevel=%s %set:",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &foldlevel, &expandtab ? '' : 'no')
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
