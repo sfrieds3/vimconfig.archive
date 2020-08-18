@@ -195,7 +195,7 @@ endif
 
 " sessions {{{
 
-let g:session_dir = '~/.vim/vim-session'
+let g:session_dir = '~/.vim/sessions'
 
 if !isdirectory(expand(g:session_dir))
   call mkdir(expand(g:session_dir), "p")
@@ -318,12 +318,6 @@ let g:gitgutter_set_sign_backgrounds = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:show_linenumbers = 1
-
-" }}}
-
-" jedi {{{
-let g:jedi#show_call_signatures = 1
-let g:jedi#auto_close_doc = 1
 
 " }}}
 
