@@ -449,8 +449,8 @@ endif
 " Append modeline after last line in buffer. {{{
 " from https://vim.fandom.com/wiki/Modeline_magic
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s fen=%s %set:",
-        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &foldenable, &expandtab ? '' : 'no')
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %s %set:",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &foldenable ? 'fen' : 'nofen', &expandtab ? '' : 'no')
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
