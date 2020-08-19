@@ -123,7 +123,6 @@ set laststatus=2
 set backspace=2
 set matchtime=3
 set encoding=utf8
-set tabstop=4
 set showtabline=3
 set clipboard=unnamed
 set foldmethod=marker
