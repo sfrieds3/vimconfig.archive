@@ -111,6 +111,7 @@ set ttyfast
 " indentation
 set shiftwidth=4
 let softtabstop = &shiftwidth
+set tabstop=4
 set shiftround
 set expandtab
 set smarttab
