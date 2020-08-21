@@ -55,25 +55,16 @@ endif
 " colorscheme {{{
 
 set t_Co=256
+set t_ut=
 
 if has('termgucolors')
   set termgucolors
 end
 
-" customizations for codedark colorscheme {{{
-highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
-highlight Search term=reverse ctermbg=24 cterm=undercurl
+"highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
+"highlight Search term=reverse ctermbg=24 cterm=
 
-" }}}
-
-" gruvbox {{{
-let g:gruvbox_contrast_dark = 'hard'
 let g:gitgutter_override_sign_column_highlight = 1
-" }}}
-
-" gruvbox-material {{{
-let g:gruvbox_material_background = 'hard'
-" }}}
 
 set background=dark
 colorscheme apprentice
@@ -129,6 +120,7 @@ set clipboard=unnamed
 set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
+set showbreak=↪
 
 " }}}
 
