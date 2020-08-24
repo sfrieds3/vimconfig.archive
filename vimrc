@@ -3,33 +3,33 @@
 " plugins {{{
 
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
-  " always load these plugins
-  execute pathogen#infect('bundle/all/{}')
-  execute pathogen#infect('bundle/colors/{}')
+    " always load these plugins
+    execute pathogen#infect('bundle/all/{}')
+    execute pathogen#infect('bundle/colors/{}')
 
-  " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
-  if isdirectory(glob('$HOME/.vim/plugtest'))
-    execute pathogen#infect('plugtest/{}')
-  endif
+    " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
+    if isdirectory(glob('$HOME/.vim/plugtest'))
+        execute pathogen#infect('plugtest/{}')
+    endif
 
-  " load nvim specific plugins
-  if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
-    execute pathogen#infect('bundle/nvim/{}')
-  else
-    execute pathogen#infect('bundle/vim/{}')
-  endif
+    " load nvim specific plugins
+    if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
+        execute pathogen#infect('bundle/nvim/{}')
+    else
+        execute pathogen#infect('bundle/vim/{}')
+    endif
 
-  augroup pload
-    autocmd!
+    augroup pload
+        autocmd!
 
-    autocmd FileType python execute pathogen#infect('bundle/python/{}')
-    autocmd FileType perl execute pathogen#infect('bundle/perl/{}')
-    autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
-    autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
+        autocmd FileType python execute pathogen#infect('bundle/python/{}')
+        autocmd FileType perl execute pathogen#infect('bundle/perl/{}')
+        autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
+        autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
 
-    " generate helptags
-    autocmd FileType * execute pathogen#helptags()
-  augroup END
+        " generate helptags
+        autocmd FileType * execute pathogen#helptags()
+    augroup END
 endif
 
 " }}}
@@ -37,17 +37,17 @@ endif
 " nvim/vim specific settings {{{
 
 if has('terminal')
-  " easy terminal exit
-  tnoremap <esc> <C-\><C-n>
+    " easy terminal exit
+    tnoremap <esc> <C-\><C-n>
 endif
 
 if has('nvim')
-  set inccommand=split
+    set inccommand=split
 
-  augroup HighlightOnYank
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup END
+    augroup HighlightOnYank
+        autocmd!
+        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+    augroup END
 endif
 
 " }}}
@@ -58,7 +58,7 @@ set t_Co=256
 set t_ut=
 
 if has('termgucolors')
-  set termgucolors
+    set termgucolors
 end
 
 "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
@@ -69,7 +69,14 @@ let g:gitgutter_override_sign_column_highlight = 1
 set background=dark
 colorscheme apprentice
 
-highlight Todo ctermbg=226 ctermfg=52
+function! MyHighlights() abort
+    autocmd ColorScheme * highlight Todo ctermbg=226 ctermfg=52
+endfunction
+
+augroup CustomizeTheme
+    autocmd!
+    autocmd ColorScheme * call MyHighlights()
+augroup END
 
 " }}}
 
@@ -131,7 +138,7 @@ let maplocalleader = "\\"
 
 " enable syntax
 if !exists("g:syntax_on")
-  syntax enable
+    syntax enable
 endif
 
 set wildmenu
@@ -174,13 +181,13 @@ set directory=~/.vim/tmp/swap// " swap files
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-  call mkdir(expand(&undodir), "p")
+    call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-  call mkdir(expand(&backupdir), "p")
+    call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-  call mkdir(expand(&directory), "p")
+    call mkdir(expand(&directory), "p")
 endif
 
 " }}}
@@ -190,7 +197,7 @@ endif
 let g:session_dir = '~/.vim/sessions'
 
 if !isdirectory(expand(g:session_dir))
-  call mkdir(expand(g:session_dir), "p")
+    call mkdir(expand(g:session_dir), "p")
 endif
 
 " }}}
@@ -200,36 +207,36 @@ endif
 set laststatus=2
 
 function! StatusLineBuffNum()
-  let bnum = expand(bufnr('%'))
-  return printf("[%d]", bnum)
+    let bnum = expand(bufnr('%'))
+    return printf("[%d]", bnum)
 endfunction
 
 function! StatusLineFiletype()
-  return (strlen(&filetype) ? printf("[%s]", &filetype) : '[no ft]')
+    return (strlen(&filetype) ? printf("[%s]", &filetype) : '[no ft]')
 endfunction
 
 function! StatusLineFormat()
-  return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
+    return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
 endfunction
 
 function! StatusLineFileName()
-  let fname = '' != expand('%:f') ? printf("%s", expand('%:f')) : '[No Name]'
-  return printf("%s", fname)
+    let fname = '' != expand('%:f') ? printf("%s", expand('%:f')) : '[No Name]'
+    return printf("%s", fname)
 endfunction
 
 " TODO: this functions is bad.. fix it
 function! GitStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  if a + m + r == 0
-    return ''
-  endif
-  let s =(' [')
-  let s = a > 0 ? s . printf('+%d', a) : s
-  let s = m > 0 ? s . printf('~%d', m) : s
-  let s = r > 0 ? s . printf('-%d', r) : s
-  let s .= ']'
-  return s
-  " return printf(' [+%d ~%d -%d]', a, m, r)
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a + m + r == 0
+        return ''
+    endif
+    let s =(' [')
+    let s = a > 0 ? s . printf('+%d', a) : s
+    let s = m > 0 ? s . printf('~%d', m) : s
+    let s = r > 0 ? s . printf('-%d', r) : s
+    let s .= ']'
+    return s
+    " return printf(' [+%d ~%d -%d]', a, m, r)
 endfunction
 
 " format the statusline
@@ -262,34 +269,34 @@ set statusline+=\ %p%%]
 " a lot of this taken from https://github.com/mkitt/tabline.vim
 " with a few slight tweaks
 function! Tabline()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    let tab = i + 1
-    let winnr = tabpagewinnr(tab)
-    let buflist = tabpagebuflist(tab)
-    let bufnr = buflist[winnr - 1]
-    let bufname = bufname(bufnr)
-    let bufmodified = getbufvar(bufnr, "&mod")
-    let gstatus = expand(fugitive#statusline())
-    let ostatus = expand(ObsessionStatus())
+    let s = ''
+    for i in range(tabpagenr('$'))
+        let tab = i + 1
+        let winnr = tabpagewinnr(tab)
+        let buflist = tabpagebuflist(tab)
+        let bufnr = buflist[winnr - 1]
+        let bufname = bufname(bufnr)
+        let bufmodified = getbufvar(bufnr, "&mod")
+        let gstatus = expand(fugitive#statusline())
+        let ostatus = expand(ObsessionStatus())
 
-    let s .= '%' . tab . 'T'
-    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-    let s .= ' ' . tab .':'
-    let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
+        let s .= '%' . tab . 'T'
+        let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+        let s .= ' ' . tab .':'
+        let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
 
-    if bufmodified
-      let s .= '[+] '
+        if bufmodified
+            let s .= '[+] '
+        endif
+        let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
+    endfor
+
+    let s .= '%#TabLineFill#'
+    if (exists("g:tablineclosebutton"))
+        let s .= '%=%999XX'
     endif
-    let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
-  endfor
 
-  let s .= '%#TabLineFill#'
-  if (exists("g:tablineclosebutton"))
-    let s .= '%=%999XX'
-  endif
-
-  return s
+    return s
 endfunction
 
 set tabline=%!Tabline()
@@ -330,14 +337,14 @@ nnoremap U :exec("UndotreeToggle")<cr>
 " obsession {{{
 
 function! MakeSession()
-  ":Obsession g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-  let s = 'Obsession'
-  execute s
+    ":Obsession g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+    let s = 'Obsession'
+    execute s
 endfunction
 nnoremap <Leader>ss :call MakeSession()<cr>
 
 function! RestoreSession()
-  :source ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>
+    :source ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>
 endfunction
 nnoremap <Leader>sr :call RestoreSession()<cr>
 
@@ -366,24 +373,22 @@ let g:python_highlight_space_errors = 0
 " general language settings {{{
 
 augroup lang
-  autocmd!
-
-  autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
-  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4
-  autocmd FileType vim,perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
+    autocmd!
+    autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
+    autocmd FileType python, vim setlocal shiftwidth=4 softtabstop=4 tabstop=4
+    autocmd FileType perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
 
 " python {{{
 augroup python
-  autocmd!
-  " open quickfix with list of functions
-  nnoremap <silent> \f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
+    autocmd!
+    " open quickfix with list of functions
+    nnoremap <silent> \f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
 
-  if executable('autopep8')
-    "autopep8 on gq, if available
-    autocmd FileType python setlocal formatprg=autopep8\ -
-  endif
+    if executable('autopep8')
+        "autopep8 on gq, if available
+        autocmd FileType python setlocal formatprg=autopep8\ -
+    endif
 augroup END
 " }}}
 
@@ -399,8 +404,8 @@ imap <C-Space> <C-X><C-O>
 " this really should go in ~/.vim/ftdetect/markdown.vim
 " but I'm too lazy
 augroup markdown
-  autocmd!
-  autocmd BufNewFile,BufRead *.md set filetype=markdown
+    autocmd!
+    autocmd BufNewFile,BufRead *.md set filetype=markdown
 augroup END
 
 " }}}
@@ -408,14 +413,14 @@ augroup END
 " perl {{{
 
 augroup perl
-  autocmd!
-  " do not include ':' as part of word
-  autocmd FileType perl set iskeyword-=:
+    autocmd!
+    " do not include ':' as part of word
+    autocmd FileType perl set iskeyword-=:
 
-  " if perltidy available, use that for formatting
-  if executable('perltidy')
-    autocmd FileType perl setlocal equalprg=perltidy\ -st
-  endif
+    " if perltidy available, use that for formatting
+    if executable('perltidy')
+        autocmd FileType perl setlocal equalprg=perltidy\ -st
+    endif
 augroup END
 
 " settings for vim-perl
@@ -428,9 +433,9 @@ let perl_no_extended_vars = 0
 " ruby {{{
 
 if has('ruby')
-  let g:rubycomplete_buffer_loading = 1
-  let g:rubycomplete_classes_in_global = 1
-  let g:rubycomplete_rails = 1
+    let g:rubycomplete_buffer_loading = 1
+    let g:rubycomplete_classes_in_global = 1
+    let g:rubycomplete_rails = 1
 endif
 
 " }}}
@@ -442,10 +447,10 @@ endif
 " Append modeline after last line in buffer. {{{
 " from https://vim.fandom.com/wiki/Modeline_magic
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %s %set:",
-        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &foldenable ? 'fen' : 'nofen', &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %s %set:",
+                \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &foldenable ? 'fen' : 'nofen', &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> _ml :call AppendModeline()<CR>
 
@@ -456,38 +461,38 @@ nnoremap <silent> _ml :call AppendModeline()<CR>
 " use vat to select tags and inside
 " vit to select data inside tag
 function! DoPrettyXML()
-  " save the filetype so we can restore it later
-  let l:origft = &ft
-  set ft=
-  " delete the xml header if it exists. This will
-  " permit us to surround the document with fake tags
-  " without creating invalid xml.
-  1s/<?xml .*?>//e
-  " insert fake tags around the entire document.
-  " This will permit us to pretty-format excerpts of
-  " XML that may contain multiple top-level elements.
-  0put ='<PrettyXML>'
-  $put ='</PrettyXML>'
-  silent %!xmllint --format -
-  " xmllint will insert an <?xml?> header. it's easy enough to delete
-  " if you don't want it.
-  " delete the fake tags
-  2d
-  $d
-  " restore the 'normal' indentation, which is one extra level
-  " too deep due to the extra tags we wrapped around the document.
-  silent %<
-  " back to home
-  1
-  " restore the filetype
-  exe "set ft=" . l:origft
+    " save the filetype so we can restore it later
+    let l:origft = &ft
+    set ft=
+    " delete the xml header if it exists. This will
+    " permit us to surround the document with fake tags
+    " without creating invalid xml.
+    1s/<?xml .*?>//e
+    " insert fake tags around the entire document.
+    " This will permit us to pretty-format excerpts of
+    " XML that may contain multiple top-level elements.
+    0put ='<PrettyXML>'
+    $put ='</PrettyXML>'
+    silent %!xmllint --format -
+    " xmllint will insert an <?xml?> header. it's easy enough to delete
+    " if you don't want it.
+    " delete the fake tags
+    2d
+    $d
+    " restore the 'normal' indentation, which is one extra level
+    " too deep due to the extra tags we wrapped around the document.
+    silent %<
+    " back to home
+    1
+    " restore the filetype
+    exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
 " }}}}
 
 " quick way to open quickfix window {{{
 function! OpenQuickfix()
-  :copen
+    :copen
 endfunction
 command! C call OpenQuickfix()
 nnoremap <leader>q :call OpenQuickfix()<cr>
@@ -495,10 +500,10 @@ nnoremap <leader>q :call OpenQuickfix()<cr>
 
 " use ctrl-s to vimgrep and open uesults in quickfix window {{{
 function! FindAll()
-  call inputsave()
-  let p = input('Enter pattern:')
-  call inputrestore()
-  execute 'vimgrep! "'.p.'" % | copen'
+    call inputsave()
+    let p = input('Enter pattern:')
+    call inputrestore()
+    execute 'vimgrep! "'.p.'" % | copen'
 endfunction
 "nnoremap <leader>s :call FindAll()<cr>
 "nnoremap <leader>S :call FindAll()<cr><cword><cr>
@@ -550,26 +555,26 @@ command! T call GenerateTags()
 " credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
 
 function! HiInterestingWord(n) " {{{
-  " Save our location.
-  normal! mz
+    " Save our location.
+    normal! mz
 
-  " Yank the current word into the z register.
-  normal! "zyiw
+    " Yank the current word into the z register.
+    normal! "zyiw
 
-  " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-  let mid = 86750 + a:n
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
 
-  " Clear existing matches, but don't worry if they don't exist.
-  silent! call matchdelete(mid)
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
 
-  " Construct a literal pattern that has to match at boundaries.
-  let pat = '\V\<' . escape(@z, '\') . '\>'
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
 
-  " Actually match the words.
-  call matchadd("InterestingWord" . a:n, pat, 1, mid)
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
 
-  " Move back to our original location.
-  normal! `z
+    " Move back to our original location.
+    normal! `z
 endfunction " }}}
 
 " Mappings {{{
@@ -594,13 +599,13 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " clean whitespace {{{
 
 function! StripTrailingWhitespace()
-  if !&binary && &filetype != 'diff'
-    normal mz
-    normal Hmy
-    %s/\s\+$//e
-    normal 'yz<CR>
-    normal `z
-  endif
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<CR>
+        normal `z
+    endif
 endfunction
 
 command! CleanWhitespace call StripTrailingWhitespace()
@@ -611,13 +616,13 @@ nnoremap _W :call StripTrailingWhitespace()<cr>
 " line number management {{{
 
 function! ToggleLineNum()
-  if &number || &relativenumber
-    set nonumber
-    set norelativenumber
-  else
-    set number
-    set relativenumber
-  endif
+    if &number || &relativenumber
+        set nonumber
+        set norelativenumber
+    else
+        set number
+        set relativenumber
+    endif
 endfunction
 
 command! ToggleLineNum call ToggleLineNum()
@@ -629,21 +634,37 @@ nnoremap _n :call ToggleLineNum()<cr>
 
 " make this repeatable with .
 function! Repeatable(f)
-  let &operatorfunc = a:f
-  return 'g@ '
+    let &operatorfunc = a:f
+    return 'g@ '
 endfunction
 
 function! MoveLineUp(ignore)
-  execute ":.m-2<CR>"
+    execute ":.m-2<CR>"
 endfunction
 
 function! MoveLineDown(ignore)
-  execute ":.m+1<CR>"
+    execute ":.m+1<CR>"
 endfunction
 
 nnoremap <expr> _j. Repeatable('MoveLineDown')
 nnoremap <expr> _k. Repeatable('MoveLineUp')
 
+" }}}
+
+" show declaration {{{
+" from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
+function! ShowDeclaration(global) abort
+	let pos = getpos('.')
+	if searchdecl(expand('<cword>'), a:global) == 0
+		let line_of_declaration = line('.')
+		execute line_of_declaration . "#"
+	else
+		echo 'Sorry, no declaration found.'
+	endif
+	call cursor(pos[1], pos[2])
+endfunction
+nnoremap sd :call ShowDeclaration(0)<CR>
+nnoremap sD :call ShowDeclaration(1)<CR>
 " }}}
 
 "}}}
@@ -727,8 +748,8 @@ nnoremap <leader>Cd :cd %:p:h<cr>:pwd<cr>
 
 " resize splits when window is resized
 augroup resize
-  autocmd!
-  autocmd VimResized * :wincmd =
+    autocmd!
+    autocmd VimResized * :wincmd =
 augroup END
 
 
@@ -759,7 +780,7 @@ let g:netrw_winsize = 25
 " terminal mode {{{
 " easily get into terminal normal mode
 if has('terminal')
-  tnoremap <esc> <C-w>N
+    tnoremap <esc> <C-w>N
 endif
 " }}}
 
@@ -775,4 +796,4 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " }}}
-" vim: set ts=2 sw=2 tw=78 fdm=marker fen et:
+" vim: set ts=4 sw=4 tw=78 fdm=marker fen et:
