@@ -168,6 +168,13 @@ set ttimeoutlen=10
 " use matchit
 runtime macros/matchit.vim
 
+" open quickfix automatically when there is something to show
+" https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
+augroup AutoQuickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow 
+augroup END
+
 " }}}
 
 " backup settings {{{
@@ -377,6 +384,10 @@ augroup lang
     autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
     autocmd FileType python, vim setlocal shiftwidth=4 softtabstop=4 tabstop=4
     autocmd FileType perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
+
+	autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable    
+    autocmd FileType perl setlocal makeprg=perlcritic\ -verbose\ 1
+
 augroup END
 
 " python {{{
@@ -663,8 +674,33 @@ function! ShowDeclaration(global) abort
 	endif
 	call cursor(pos[1], pos[2])
 endfunction
-nnoremap sd :call ShowDeclaration(0)<CR>
-nnoremap sD :call ShowDeclaration(1)<CR>
+nnoremap _d :call ShowDeclaration(0)<CR>
+nnoremap _D :call ShowDeclaration(1)<CR>
+" }}}
+
+" substitute operator {{{
+"credit: https://gist.github.com/romainl/b00ccf58d40f522186528012fd8cd13d
+function! Substitute(type, ...)
+	let cur = getpos("''")
+	call cursor(cur[1], cur[2])
+	let cword = expand('<cword>')
+	execute "'[,']s/" . cword . "/" . input(cword . '/')
+	call cursor(cur[1], cur[2])
+endfunction
+nmap <silent> _s  m':set opfunc=Substitute<CR>g@
+
+" Usage:
+"   <key>ipfoo<CR>         Substitute every occurrence of the word under
+"                          the cursor with 'foo' n the current paragraph
+"   <key>Gfoo<CR>          Same, from here to the end of the buffer
+"   <key>?bar<CR>foo<CR>   Same, from previous occurrence of 'bar'
+"                          to current line
+" }}}
+
+" Global <pattern> -> location list {{{
+" soure: https://gist.github.com/romainl/f7e2e506dc4d7827004e4994f1be2df6
+set errorformat^=%f:%l:%c\ %m
+command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
 " }}}
 
 "}}}
