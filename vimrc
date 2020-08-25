@@ -610,11 +610,11 @@ nnoremap _n :call ToggleLineNum()<cr>
 " }}}
 
 " move lines {{{
-function! MoveLineUp(ignore)
+function! MoveLineUp(arg)
     execute ":.m-2<CR>"
 endfunction
 
-function! MoveLineDown(ignore)
+function! MoveLineDown(arg)
     execute ":.m+1<CR>"
 endfunction
 
