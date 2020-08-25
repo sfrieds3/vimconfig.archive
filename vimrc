@@ -757,7 +757,7 @@ augroup END
 " insert mode completions
 " file name completion
 inoremap <silent> ;f <C-x><C-f>
-" i completion
+" path completion
 inoremap <silent> ;i <c-x><c-i>
 " path completion
 inoremap <silent> ;p <C-x><C-i>
@@ -769,7 +769,7 @@ inoremap <silent> ;n <C-x><C-n>
 inoremap <silent> ;o <C-x><C-o>
 " tag completion
 inoremap <silent> ;t <C-x><C-]>
-" 'completefunc'
+" user defined completion
 inoremap <silent> ;u <C-x><C-u>
 
 " netrw
