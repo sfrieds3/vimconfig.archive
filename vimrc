@@ -660,6 +660,8 @@ endfunction
 nnoremap <expr> _j. Repeatable('MoveLineDown')
 nnoremap <expr> _k. Repeatable('MoveLineUp')
 
+"nnoremap <silent> _j :set opfunc=MoveLineUp<CR>g@
+"nnoremap <silent> _k :set opfunc=MoveLineDown<CR>g@
 " }}}
 
 " show declaration {{{
