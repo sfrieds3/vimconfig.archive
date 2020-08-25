@@ -658,9 +658,10 @@ nmap <silent> _s  m':set operatorfunc=Substitute<CR>g@
 " }}}
 
 " Global <pattern> -> location list {{{
-" soure: https://gist.github.com/romainl/f7e2e506dc4d7827004e4994f1be2df6
+" original soure: https://gist.github.com/romainl/f7e2e506dc4d7827004e4994f1be2df6
 set errorformat^=%f:%l:%c\ %m
-command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
+" command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
+command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
 " }}}
 
 "}}}
