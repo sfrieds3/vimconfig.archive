@@ -757,6 +757,8 @@ augroup END
 " insert mode completions
 " file name completion
 inoremap <silent> ;f <C-x><C-f>
+" i completion
+inoremap <silent> ;i <c-x><c-i>
 " path completion
 inoremap <silent> ;p <C-x><C-i>
 " whole line completion
