@@ -501,25 +501,6 @@ endfunction
 command! PrettyXML call DoPrettyXML()
 " }}}}
 
-" quick way to open quickfix window {{{
-function! OpenQuickfix()
-    :copen
-endfunction
-command! C call OpenQuickfix()
-nnoremap <leader>q :call OpenQuickfix()<cr>
-" }}}
-
-" use ctrl-s to vimgrep and open uesults in quickfix window {{{
-function! FindAll()
-    call inputsave()
-    let p = input('Enter pattern:')
-    call inputrestore()
-    execute 'vimgrep! "'.p.'" % | copen'
-endfunction
-"nnoremap <leader>s :call FindAll()<cr>
-"nnoremap <leader>S :call FindAll()<cr><cword><cr>
-" }}}
-
 " gitgrep {{{
 function! GitGrep(...)
     " store grepprg to restore after running
@@ -539,19 +520,11 @@ endfunction
 command! -nargs=+ GitGrep call GitGrep(<f-args>)
 " }}}
 
-" git grep for word under cursor {{{
-function! GitGrepWord()
-    normal! "zyiw
-    call GitGrep('-w -e ', getreg('z'))
-endfunction
-nnoremap _G :call GitGrepWord()<cr>
-" }}}
-
 " generate tags quickly {{{
 function! GenerateTags()
     :! ctags -R
 endfunction
-command! T call GenerateTags()
+command! Tags call GenerateTags()
 " }}}
 
 " highlight interesting words {{{
@@ -642,13 +615,6 @@ nnoremap _n :call ToggleLineNum()<cr>
 " }}}
 
 " move lines {{{
-
-" make this repeatable with .
-function! Repeatable(f)
-    let &operatorfunc = a:f
-    return 'g@ '
-endfunction
-
 function! MoveLineUp(ignore)
     execute ":.m-2<CR>"
 endfunction
@@ -657,11 +623,8 @@ function! MoveLineDown(ignore)
     execute ":.m+1<CR>"
 endfunction
 
-nnoremap <expr> _j. Repeatable('MoveLineDown')
-nnoremap <expr> _k. Repeatable('MoveLineUp')
-
-"nnoremap <silent> _j :set opfunc=MoveLineUp<CR>g@
-"nnoremap <silent> _k :set opfunc=MoveLineDown<CR>g@
+nnoremap <silent> _j :set operatorfunc=MoveLineUp<CR>g@<CR>
+nnoremap <silent> _k :set operatorfunc=MoveLineDown<CR>g@<CR>
 " }}}
 
 " show declaration {{{
@@ -689,7 +652,7 @@ function! Substitute(type, ...)
 	execute "'[,']s/" . cword . "/" . input(cword . '/')
 	call cursor(cur[1], cur[2])
 endfunction
-nmap <silent> _s  m':set opfunc=Substitute<CR>g@
+nmap <silent> _s  m':set operatorfunc=Substitute<CR>g@
 
 " Usage:
 "   <key>ipfoo<CR>         Substitute every occurrence of the word under
