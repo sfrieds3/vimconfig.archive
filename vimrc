@@ -376,7 +376,7 @@ let g:python_highlight_space_errors = 0
 augroup lang
     autocmd!
     autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
-    autocmd FileType python, vim setlocal shiftwidth=4 softtabstop=4 tabstop=4
+    autocmd FileType python,vim setlocal shiftwidth=4 softtabstop=4 tabstop=4
     autocmd FileType perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 	autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable    
