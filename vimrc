@@ -36,11 +36,6 @@ endif
 
 " nvim/vim specific settings {{{
 
-if has('terminal')
-    " easy terminal exit
-    tnoremap <esc> <C-\><C-n>
-endif
-
 if has('nvim')
     set inccommand=split
 
@@ -680,8 +675,14 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>ww <C-w>w
 
 " easy buffer switching
-nnoremap gb :bnext<cr>
-nnoremap gB :bprevious<cr>
+function! BuffNext(arg)
+    :bnext
+endfunction
+function! BuffPrev(arg)
+    :bprevious
+endfunction
+nnoremap gb :set operatorfunc=BuffNext<CR>g@<CR>
+nnoremap gB :set operatorfunc=BuffPrev<CR>g@<CR>
 
 " default Y mapping is just.. wrong
 nnoremap Y y$
@@ -703,7 +704,7 @@ nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
 command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' <args>')
 
 " echo current file full path
-nnoremap <leader>fp :echo expand("%:p")<cr>
+nnoremap \fp :echo expand("%:p")<cr>
 
 " view all todo in quickfix window
 nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
@@ -753,7 +754,6 @@ augroup resize
     autocmd VimResized * :wincmd =
 augroup END
 
-
 " insert mode completions
 " file name completion
 inoremap <silent> ,f <C-x><C-f>
@@ -779,9 +779,9 @@ let g:netrw_liststyle=3
 let g:netrw_winsize = 25
 
 " terminal mode {{{
-" easily get into terminal normal mode
 if has('terminal')
-    tnoremap <esc> <C-w>N
+    " easy terminal exit
+    tnoremap <esc> <C-\><C-n>
 endif
 " }}}
 
