@@ -126,7 +126,6 @@ set showbreak=↪
 
 " }}}
 
-" space as leader, unmap it from normal and select-mode
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 let maplocalleader = "\\"
@@ -343,15 +342,15 @@ function! MakeSession()
     let s = 'Obsession'
     execute s
 endfunction
-nnoremap <Leader>ss :call MakeSession()<cr>
+nnoremap _ss :call MakeSession()<cr>
 
 function! RestoreSession()
     :source ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>
 endfunction
-nnoremap <Leader>sr :call RestoreSession()<cr>
+nnoremap _sr :call RestoreSession()<cr>
 
 " freeze session
-nnoremap <Leader>sf :Obsession<CR>
+nnoremap _sf :Obsession<CR>
 
 " }}}
 
@@ -524,13 +523,6 @@ command! Tags call GenerateTags()
 
 " highlight interesting words {{{
 
-" This mini-plugin provides a few mappings for highlighting words temporarily.
-"
-" Sometimes you're looking at a hairy piece of code and would like a certain
-" word or two to stand out temporarily.  You can search for it, but that only
-" gives you one color of highlighting.  Now you can use <leader>N where N is
-" a number from 1-6 to highlight the current word in a specific color.
-
 " credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
 
 function! HiInterestingWord(n) " {{{
@@ -557,12 +549,12 @@ function! HiInterestingWord(n) " {{{
 endfunction " }}}
 
 " Mappings {{{
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> _1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> _2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> _3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> _4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> _5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> _6 :call HiInterestingWord(6)<cr>
 " }}}
 
 " Default Highlights {{{
@@ -673,7 +665,7 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
-nnoremap <leader>ww <C-w>w
+nnoremap _ww <C-w>w
 
 " easy buffer switching
 function! BuffNext(arg)
@@ -747,7 +739,7 @@ nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
 nnoremap <silent> <space><cr> :nohlsearch<cr>
 
 " Switch CWD to the directory of the open buffer
-nnoremap <leader>Cd :cd %:p:h<cr>:pwd<cr>
+nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " resize splits when window is resized
 augroup resize
@@ -789,8 +781,8 @@ endif
 " }}}
 
 " easy editing {{{
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
+nnoremap <Space>ev :vsplit $MYVIMRC<cr>
+nnoremap <silent> <Space>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
 " }}}
 
 " operator mappings {{{
