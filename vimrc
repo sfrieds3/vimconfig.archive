@@ -2,6 +2,9 @@
 
 " plugins {{{
 
+" pre-load plugin settings {{{
+let g:polyglot_disabled = ['jsx', 'graphql']
+" }}}
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
     " always load these plugins
     execute pathogen#infect('bundle/all/{}')
