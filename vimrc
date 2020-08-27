@@ -62,15 +62,13 @@ end
 function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
     "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
-	"highlight Search term=reverse ctermbg=24 cterm=
+    "highlight Search term=reverse ctermbg=24 cterm=
 endfunction
 
 augroup CustomizeTheme
     autocmd!
     autocmd ColorScheme * call MyHighlights()
 augroup END
-
-let g:gitgutter_override_sign_column_highlight = 1
 
 set background=dark
 colorscheme apprentice
@@ -387,11 +385,17 @@ augroup lang
 augroup END
 
 " python {{{
+
+function! PythonFuncGrep()
+    exec("vimgrep /def /j %")
+    exec("copen")
+endfunction
+
 augroup python
     autocmd!
     " open quickfix with list of functions
-    nnoremap <silent> \f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
-
+    autocmd FileType python nnoremap <silent> \f call PythonFuncGrep()
+    
     if executable('autopep8')
         "autopep8 on gq, if available
         autocmd FileType python setlocal formatprg=autopep8\ -
@@ -701,7 +705,7 @@ nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
 command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' <args>')
 
 " echo current file full path
-nnoremap \fp :echo expand("%:p")<cr>
+nnoremap _fp :echo expand("%:p")<cr>
 
 " view all todo in quickfix window
 nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
