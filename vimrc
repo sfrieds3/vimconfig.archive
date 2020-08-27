@@ -657,6 +657,8 @@ nmap <silent> _s  m':set operatorfunc=Substitute<CR>g@
 set errorformat^=%f:%l:%c\ %m
 " command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
 command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
+
+nnoremap <Space>g :Global<Space>
 " }}}
 
 "}}}
