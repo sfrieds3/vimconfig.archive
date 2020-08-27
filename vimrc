@@ -59,7 +59,6 @@ if has('termgucolors')
     set termgucolors
 end
 
-
 function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
     "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
