@@ -59,22 +59,22 @@ if has('termgucolors')
     set termgucolors
 end
 
-"highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
-"highlight Search term=reverse ctermbg=24 cterm=
-
-let g:gitgutter_override_sign_column_highlight = 1
-
-set background=dark
-colorscheme apprentice
 
 function! MyHighlights() abort
-    autocmd ColorScheme * highlight Todo ctermbg=226 ctermfg=52
+    highlight Todo ctermbg=226 ctermfg=235
+    "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
+	"highlight Search term=reverse ctermbg=24 cterm=
 endfunction
 
 augroup CustomizeTheme
     autocmd!
     autocmd ColorScheme * call MyHighlights()
 augroup END
+
+let g:gitgutter_override_sign_column_highlight = 1
+
+set background=dark
+colorscheme apprentice
 
 " }}}
 
