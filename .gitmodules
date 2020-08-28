@@ -1,51 +1,51 @@
-[submodule "bundle/all/tagbar"]
-	path = bundle/all/tagbar
+[submodule "pack/bundle/all/tagbar"]
+	path = pack/bundle/all/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "bundle/all/vim-fugitive"]
-	path = bundle/all/vim-fugitive
+[submodule "pack/bundle/all/vim-fugitive"]
+	path = pack/bundle/all/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/all/vim-surround"]
-	path = bundle/all/vim-surround
+[submodule "pack/bundle/all/vim-surround"]
+	path = pack/bundle/all/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/lisp/vlime"]
-	path = bundle/lisp/vlime
+[submodule "pack/bundle/all/vlime"]
+	path = pack/bundle/all/vlime
 	url = https://github.com/vlime/vlime.git
-[submodule "bundle/all/vim-obsession"]
-	path = bundle/all/vim-obsession
+[submodule "pack/bundle/all/vim-obsession"]
+	path = pack/bundle/all/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
-[submodule "bundle/all/vim-unimpaired"]
-	path = bundle/all/vim-unimpaired
+[submodule "pack/bundle/all/vim-unimpaired"]
+	path = pack/bundle/all/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "bundle/colors/badwolf"]
-	path = bundle/colors/badwolf
+[submodule "pack/bundle/colors/badwolf"]
+	path = pack/bundle/colors/badwolf
 	url = https://github.com/sjl/badwolf.git
-[submodule "bundle/all/undotree"]
-	path = bundle/all/undotree
+[submodule "pack/bundle/all/undotree"]
+	path = pack/bundle/all/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "bundle/all/vim-gitgutter"]
-	path = bundle/all/vim-gitgutter
+[submodule "pack/bundle/all/vim-gitgutter"]
+	path = pack/bundle/all/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "bundle/all/vim-polyglot"]
-	path = bundle/all/vim-polyglot
+[submodule "pack/bundle/all/vim-polyglot"]
+	path = pack/bundle/all/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
-[submodule "bundle/all/targets.vim"]
-	path = bundle/all/targets.vim
+[submodule "pack/bundle/all/targets.vim"]
+	path = pack/bundle/all/targets.vim
 	url = https://github.com/wellle/targets.vim.git
-[submodule "bundle/colors/Apprentice"]
-	path = bundle/colors/Apprentice
+[submodule "pack/bundle/colors/Apprentice"]
+	path = pack/bundle/colors/Apprentice
 	url = https://github.com/romainl/Apprentice.git
-[submodule "bundle/colors/vim-dichromatic"]
-	path = bundle/colors/vim-dichromatic
+[submodule "pack/bundle/colors/vim-dichromatic"]
+	path = pack/bundle/colors/vim-dichromatic
 	url = https://github.com/romainl/vim-dichromatic.git
-[submodule "bundle/all/vim-qf"]
-	path = bundle/all/vim-qf
+[submodule "pack/bundle/all/vim-qf"]
+	path = pack/bundle/all/vim-qf
 	url = https://github.com/romainl/vim-qf.git
-[submodule "bundle/all/vim-lion"]
-	path = bundle/all/vim-lion
+[submodule "pack/bundle/all/vim-lion"]
+	path = pack/bundle/all/vim-lion
 	url = https://github.com/tommcdo/vim-lion.git
-[submodule "bundle/all/vim-sneak"]
-	path = bundle/all/vim-sneak
+[submodule "pack/bundle/all/vim-sneak"]
+	path = pack/bundle/all/vim-sneak
 	url = https://github.com/justinmk/vim-sneak.git
-[submodule "bundle/all/vim-qlist"]
-	path = bundle/all/vim-qlist
+[submodule "pack/bundle/all/vim-qlist"]
+	path = pack/bundle/all/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git
