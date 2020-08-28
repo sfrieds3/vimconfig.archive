@@ -1,0 +1,39 @@
+[submodule "pack/bundle/start/tagbar"]
+	path = pack/bundle/start/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule "pack/bundle/start/targets.vim"]
+	path = pack/bundle/start/targets.vim
+	url = https://github.com/wellle/targets.vim.git
+[submodule "pack/bundle/start/undotree"]
+	path = pack/bundle/start/undotree
+	url = https://github.com/mbbill/undotree.git
+[submodule "pack/bundle/start/vim-fugitive"]
+	path = pack/bundle/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/bundle/start/vim-gitgutter"]
+	path = pack/bundle/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "pack/bundle/start/vim-lion"]
+	path = pack/bundle/start/vim-lion
+	url = https://github.com/tommcdo/vim-lion.git
+[submodule "pack/bundle/start/vim-obsession"]
+	path = pack/bundle/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule "pack/bundle/start/vim-polyglot"]
+	path = pack/bundle/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "pack/bundle/start/vim-qf"]
+	path = pack/bundle/start/vim-qf
+	url = https://github.com/romainl/vim-qf.git
+[submodule "pack/bundle/start/vim-qlist"]
+	path = pack/bundle/start/vim-qlist
+	url = https://github.com/romainl/vim-qlist.git
+[submodule "pack/bundle/start/vim-sneak"]
+	path = pack/bundle/start/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
+[submodule "pack/bundle/start/vim-surround"]
+	path = pack/bundle/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "pack/bundle/start/vlime"]
+	path = pack/bundle/start/vlime
+	url = https://github.com/vlime/vlime.git
