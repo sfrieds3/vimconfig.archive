@@ -5,34 +5,12 @@
 " pre-load plugin settings {{{
 let g:polyglot_disabled = ['jsx', 'graphql']
 " }}}
-if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
-    " always load these plugins
-    execute pathogen#infect('bundle/all/{}')
-    execute pathogen#infect('bundle/colors/{}')
-
-    " put test plugins in $HOME/.vim/plugtest and they will be autoloaded
-    if isdirectory(glob('$HOME/.vim/plugtest'))
-        execute pathogen#infect('plugtest/{}')
-    endif
-
-    " load nvim specific plugins
-    if has('nvim') && isdirectory(glob('$HOME/.vim/bundle/nvim'))
-        execute pathogen#infect('bundle/nvim/{}')
-    else
-        execute pathogen#infect('bundle/vim/{}')
-    endif
-
-    augroup pload
-        autocmd!
-
-        autocmd FileType python execute pathogen#infect('bundle/python/{}')
-        autocmd FileType perl execute pathogen#infect('bundle/perl/{}')
-        autocmd FileType ruby,eruby execute pathogen#infect('bundle/ruby/{}')
-        autocmd FileType lisp execute pathogen#infect('bundle/lisp/{}')
-
-        " generate helptags
-        autocmd FileType * execute pathogen#helptags()
-    augroup END
+"
+"use pathogen if not on vim8, otherwise use vim8 packages
+if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
+    execute pathogen#infect('pack/bundle/all/{}')
+    execute pathogen#infect('pack/bundle/opt/{}')
+    execute pathogen#helptags()
 endif
 
 " }}}
