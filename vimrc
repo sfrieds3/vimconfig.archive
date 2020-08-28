@@ -664,6 +664,22 @@ command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" 
 nnoremap <Space>g :Global<Space>
 " }}}
 
+" cdo/cfdo if not available {{{
+" from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
+if !exists(':cdo')
+  command! -nargs=1 -complete=command Cdo try | sil cfirst |
+        \ while 1 | exec <q-args> | sil cn | endwhile |
+      \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+      \ endtry
+
+  command! -nargs=1 -complete=command Cfdo try | sil cfirst |
+        \ while 1 | exec <q-args> | sil cnf | endwhile |
+      \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+      \ endtry
+endif
+
+" }}}
+
 "}}}
 
 " custom mappings and stuff {{{
