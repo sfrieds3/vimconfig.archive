@@ -695,14 +695,10 @@ nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
 " quick jump to tag under curosr
 nnoremap _t :tj <C-r>=expand("<cword>")<CR><CR>
 
-" super quick search and replace
+" quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
 nnoremap <Space><Space> :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
 nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
-
-" smooth grepping
-" https://github.com/romainl/minivimrc/blob/master/vimrc
-command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' <args>')
 
 " echo current file full path
 nnoremap _fp :echo expand("%:p")<cr>
