@@ -708,7 +708,7 @@ nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("co
 
 " Do and insert results of fancy math equations via python
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
-command! -nargs=+ Calc :r! python -c 'from math import *; print (<args>)'
+command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 
 " auto center when going to prev/next function definition
 nnoremap [[ [[zz
