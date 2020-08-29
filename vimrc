@@ -286,12 +286,6 @@ set tabline=%!Tabline()
 
 " plugin config {{{
 
-" gitgutter {{{
-
-let g:gitgutter_set_sign_backgrounds = 1
-
-" }}}
-
 " tagbar {{{
 
 let g:tagbar_autofocus = 1
@@ -309,7 +303,7 @@ let g:vlime_cl_use_terminal = 1
 " undotree {{{
 
 let g:undotree_WindowLayout = 2
-nnoremap U :exec("UndotreeToggle")<cr>
+nnoremap _U :exec("UndotreeToggle")<cr>
 
 " }}}
 
