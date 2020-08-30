@@ -1,4 +1,4 @@
-My vim config files. Optimized for Python, Perl, common lisp, and Ruby (Rails).
+My vim config files.
 
 Run the following to clone the repository, init package submodules, and link all the stuff:
-$ git clone https://github.com/scwfri/vimconfig.git ~/vimconfig && ~/vimconfig/setvim.sh
+$ git clone https://github.com/scwfri/vimconfig.git ~/vimconfig && ~/vimconfig/bin/setvim.sh
