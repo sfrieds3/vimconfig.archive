@@ -788,4 +788,4 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " }}}
-" vim: set ts=4 sw=4 tw=78 fdm=marker fen et:
+" vim: set ts=4 sw=4 ft=vim fdm=marker fen et:
