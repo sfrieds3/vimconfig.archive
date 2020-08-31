@@ -39,6 +39,10 @@ end
 
 function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
+    " slight adjustment to comments in apprentice.. to make them more readable
+    if g:colors_name == 'apprentice'
+        highlight Comment ctermfg=242
+    endif
     "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
     "highlight Search term=reverse ctermbg=24 cterm=
 endfunction
