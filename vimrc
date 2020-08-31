@@ -1,5 +1,10 @@
 " vim settings {{{
 
+" local settings {{{
+" load local pre vimrc settings
+runtime! local_pre.vim
+" }}}
+
 " plugins {{{
 
 " pre-load plugin settings {{{
@@ -142,7 +147,7 @@ set ttimeout
 set ttimeoutlen=10
 
 " use matchit
-runtime macros/matchit.vim
+runtime! macros/matchit.vim
 
 " open quickfix automatically when there is something to show
 " https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
@@ -792,4 +797,10 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " }}}
+
+" local settings {{{
+" load local pre vimrc settings
+runtime! local_post.vim
+" }}}
+
 " vim: set ts=4 sw=4 ft=vim fdm=marker fen et:
