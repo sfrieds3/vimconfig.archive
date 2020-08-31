@@ -8,7 +8,7 @@ let g:polyglot_disabled = ['jsx', 'graphql']
 "
 "use pathogen if not on vim8, otherwise use vim8 packages
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
-    execute pathogen#infect('pack/bundle/all/{}')
+    execute pathogen#infect('pack/bundle/start/{}')
     execute pathogen#infect('pack/bundle/opt/{}')
     execute pathogen#helptags()
 endif
