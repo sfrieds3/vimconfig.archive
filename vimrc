@@ -717,10 +717,6 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 nnoremap [[ [[zz
 nnoremap ]] ]]zz
 
-" ';' always moves right and ',' always moves left 
-nnoremap <expr> ; getcharsearch().forward ? ';' : ','
-nnoremap <expr> , getcharsearch().forward ? ',' : ';'
-
 " show list of digraphs -- special symbols
 nnoremap _vd :help digraphs<cr>:179<cr>zt
 
