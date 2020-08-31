@@ -34,8 +34,8 @@
 [submodule "pack/bundle/start/vim-surround"]
 	path = pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "pack/bundle/start/vlime"]
-	path = pack/bundle/start/vlime
+[submodule "pack/bundle/opt/vlime"]
+	path = pack/bundle/opt/vlime
 	url = https://github.com/vlime/vlime.git
 [submodule "pack/bundle/opt/Apprentice"]
 	path = pack/bundle/opt/Apprentice
