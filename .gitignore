@@ -1,2 +1,5 @@
 .netrwhist
 tmp/*
+
+local_pre.vim
+local_post.vim
