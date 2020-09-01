@@ -164,7 +164,7 @@ augroup END
 set undofile
 set backup
 set backupext=.bak
-set patchmode=.orig
+"set patchmode=.orig
 set noswapfile
 
 " save lots of history
