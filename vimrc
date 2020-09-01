@@ -150,6 +150,9 @@ set ttimeoutlen=10
 " use matchit
 runtime! macros/matchit.vim
 
+" easy manpages with <leader>K or :Man <manpage>
+runtime! ftplugin/man.vim
+
 " open quickfix automatically when there is something to show
 " https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
 augroup AutoQuickfix
