@@ -138,9 +138,6 @@ set completeopt=longest,menuone
 " pwd and current file dir is path
 set path=.,,
 
-" set lines above/below cursor
-set scrolloff=0
-
 " timeout on key codes but not mappings
 " for terminal vim
 set notimeout
@@ -169,6 +166,10 @@ set backup
 set backupext=.bak
 set patchmode=.orig
 set noswapfile
+
+" save lots of history
+set viminfo='1000,f1,<500
+
 set undodir=~/.vim/tmp/undo// " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap// " swap files
