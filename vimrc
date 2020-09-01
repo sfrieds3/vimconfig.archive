@@ -162,6 +162,8 @@ augroup END
 
 set undofile
 set backup
+set backupext=.bak
+set patchmode=.orig
 set noswapfile
 set undodir=~/.vim/tmp/undo// " undo files
 set backupdir=~/.vim/tmp/backup// " backups
