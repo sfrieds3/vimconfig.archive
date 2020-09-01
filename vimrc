@@ -87,6 +87,7 @@ set hlsearch
 set novisualbell
 set magic
 set ttyfast
+set equalalways
 
 " indentation
 set shiftwidth=4
@@ -745,10 +746,10 @@ nnoremap <silent> <space><cr> :nohlsearch<cr>
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " resize splits when window is resized
-augroup resize
-    autocmd!
-    autocmd VimResized * :wincmd =
-augroup END
+"augroup resize
+"    autocmd!
+"    autocmd VimResized * :wincmd =
+"augroup END
 
 " insert mode completions
 " file name completion
