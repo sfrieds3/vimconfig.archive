@@ -46,3 +46,6 @@
 [submodule "pack/bundle/opt/vim-dichromatic"]
 	path = pack/bundle/opt/vim-dichromatic
 	url = https://github.com/romainl/vim-dichromatic.git
+[submodule "pack/bundle/start/vim-tmux-navigator"]
+	path = pack/bundle/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
