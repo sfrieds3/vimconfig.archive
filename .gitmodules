@@ -49,3 +49,6 @@
 [submodule "pack/bundle/start/vim-tmux-navigator"]
 	path = pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "pack/bundle/opt/vim-sexp-mappings-for-regular-people"]
+	path = pack/bundle/opt/vim-sexp-mappings-for-regular-people
+	url = https://github.com/tpope/vim-sexp-mappings-for-regular-people.git
