@@ -8,11 +8,6 @@ setlocal shiftwidth=4 softtabstop=4 tabstop=4
 " open quickfix with list of functions
 nnoremap <silent> \f call PythonFuncGrep()
 
-if executable('autopep8')
-    "autopep8 on gq, if available
-    setlocal formatprg=autopep8\ -
-endif
+setlocal formatprg=/home/scwfri/.local/bin/autopep8\ -
 
-if executable('pylint')
-    setlocal makeprg=pylint\ --output-format=parseable
-endif
+setlocal makeprg=/home/scwfri/.local/bin/pylint\ --output-format=parseable
