@@ -5,3 +5,4 @@ else
 endif
 
 setlocal shiftwidth=8 softtabstop=8 tabstop=8
+setlocal foldmethod=syntax

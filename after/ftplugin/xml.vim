@@ -1,3 +1,5 @@
+set equalprg=xmllint\ --format\ -
+
 " pretty format xml {{{
 " https://vim.fandom.com/wiki/Pretty-formatting_XML
 " use vat to select tags and inside
