@@ -16,19 +16,6 @@ endif
 
 " }}}
 
-" nvim/vim specific settings {{{
-
-if has('nvim')
-    set inccommand=split
-
-    augroup HighlightOnYank
-        autocmd!
-        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-    augroup END
-endif
-
-" }}}
-
 " colorscheme {{{
 
 set t_Co=256
@@ -102,7 +89,7 @@ set backspace=2
 set matchtime=3
 set encoding=utf8
 set showtabline=3
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
@@ -135,7 +122,6 @@ set completeopt=longest,menuone
 set path=.,,
 
 " timeout on key codes but not mappings
-" for terminal vim
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -612,7 +598,6 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
-nnoremap _ww <C-w>w
 
 " easy buffer switching
 function! BuffNext(arg)
@@ -632,7 +617,7 @@ nnoremap _i :Ilist!<Space>
 nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " quick jump to tag under curosr
-nnoremap _t :tj <C-r>=expand("<cword>")<CR><CR>
+nnoremap _t :tjump <C-r>=expand("<cword>")<CR><CR>
 
 " quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
@@ -692,21 +677,21 @@ nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " insert mode completions
 " file name completion
-inoremap <silent> ;f <C-x><C-f>
+inoremap <silent> ,f <C-x><C-f>
 " path completion
-inoremap <silent> ;i <c-x><c-i>
+inoremap <silent> ,i <c-x><c-i>
 " path completion
-inoremap <silent> ;p <C-x><C-i>
+inoremap <silent> ,p <C-x><C-i>
 " whole line completion
-inoremap <silent> ;l <C-x><C-l>
+inoremap <silent> ,l <C-x><C-l>
 " local keyword completion
-inoremap <silent> ;n <C-x><C-n>
+inoremap <silent> ,n <C-x><C-n>
 " omni completion
-inoremap <silent> ;o <C-x><C-o>
+inoremap <silent> ,o <C-x><C-o>
 " tag completion
-inoremap <silent> ;t <C-x><C-]>
+inoremap <silent> ,t <C-x><C-]>
 " user defined completion
-inoremap <silent> ;u <C-x><C-u>
+inoremap <silent> ,u <C-x><C-u>
 
 " netrw
 nnoremap <leader>o :Sexplore!<cr>
@@ -730,8 +715,8 @@ nnoremap <silent> <Space>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
 
 " operator mappings {{{
 onoremap p i(
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap il( :<c-u>normal! F)vi(<cr>
+onoremap in( :<C-u>normal! f(vi(<cr>
+onoremap il( :<C-u>normal! F)vi(<cr>
 " }}}
 
 " }}}
