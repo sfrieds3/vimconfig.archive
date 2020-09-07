@@ -11,3 +11,5 @@ nnoremap <silent> \f call PythonFuncGrep()
 setlocal formatprg=/home/scwfri/.local/bin/autopep8\ -
 
 setlocal makeprg=/home/scwfri/.local/bin/pylint\ --output-format=parseable
+
+setlocal foldmethod=indent
