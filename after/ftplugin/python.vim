@@ -3,13 +3,15 @@ function! PythonFuncGrep()
     exec("copen")
 endfunction
 
-setlocal shiftwidth=4 softtabstop=4 tabstop=4
+setlocal shiftwidth=4 softtabstop=4 tabstop=4 foldmethod=indent
 
 " open quickfix with list of functions
 nnoremap <silent> \f call PythonFuncGrep()
 
-setlocal formatprg=/home/scwfri/.local/bin/autopep8\ -
-
-setlocal makeprg=/home/scwfri/.local/bin/pylint\ --output-format=parseable
-
-setlocal foldmethod=indent
+if exists("g:py_dir")
+    setlocal formatprg=expand(g:py_dir) . 'autopep8\ -'
+    setlocal makeprg=expand(g:py_dir) . 'pylint\ --output-format=parseable'
+else
+    setlocal formatprg=autopep8\ -
+    setlocal makeprg=pylint\ --output-format=parseable
+endif
