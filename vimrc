@@ -139,6 +139,14 @@ augroup AutoQuickfix
     autocmd QuickFixCmdPost [^l]* cwindow 
 augroup END
 
+" some versions of vim (looking at you 7.4..)
+" think .md means modula2 source code..
+" thats not right, so lets fix it
+augroup markdown
+    autocmd!
+    autocmd BufNewFile,BufRead *.md set filetype=markdown
+augroup END
+
 " }}}
 
 " backup settings {{{
@@ -336,27 +344,6 @@ map T <Plug>Sneak_T
 " polyglot {{{
 
 let g:python_highlight_space_errors = 0
-
-" }}}
-
-" }}}
-
-" general language settings {{{
-
-augroup lang
-    autocmd!
-    autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
-    autocmd FileType perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
-augroup END
-
-" markdown {{{
-
-" some versions of vim think .md means modula2 source code..
-" thats not right, so lets fix it
-augroup markdown
-    autocmd!
-    autocmd BufNewFile,BufRead *.md set filetype=markdown
-augroup END
 
 " }}}
 
@@ -581,6 +568,9 @@ nnoremap Y y$
 " ilist
 nnoremap _i :Ilist!<Space>
 nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
+
+" ijump
+nnoremap <Space>i :ijump! <C-r>=expand("<cword>")<CR><CR>
 
 " quick jump to tag under curosr
 nnoremap _t :tjump <C-r>=expand("<cword>")<CR><CR>
