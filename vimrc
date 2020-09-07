@@ -360,78 +360,17 @@ let g:python_highlight_space_errors = 0
 augroup lang
     autocmd!
     autocmd FileType c,go setlocal shiftwidth=8 softtabstop=8 tabstop=8
-    autocmd FileType python,vim setlocal shiftwidth=4 softtabstop=4 tabstop=4
     autocmd FileType perl,ruby,eruby,html setlocal shiftwidth=2 softtabstop=2 tabstop=2
-
-	autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable    
-    autocmd FileType perl setlocal makeprg=perlcritic\ -verbose\ 1
-
 augroup END
-
-" python {{{
-
-function! PythonFuncGrep()
-    exec("vimgrep /def /j %")
-    exec("copen")
-endfunction
-
-augroup python
-    autocmd!
-    " open quickfix with list of functions
-    autocmd FileType python nnoremap <silent> \f call PythonFuncGrep()
-    
-    if executable('autopep8')
-        "autopep8 on gq, if available
-        autocmd FileType python setlocal formatprg=autopep8\ -
-    endif
-augroup END
-" }}}
-
-" {{{ HTML
-iabbrev </ </<C-X><C-O>
-imap <C-Space> <C-X><C-O>
-" }}}
 
 " markdown {{{
 
 " some versions of vim think .md means modula2 source code..
-" thats not right, so fix it here
-" this really should go in ~/.vim/ftdetect/markdown.vim
-" but I'm too lazy
+" thats not right, so lets fix it
 augroup markdown
     autocmd!
     autocmd BufNewFile,BufRead *.md set filetype=markdown
 augroup END
-
-" }}}
-
-" perl {{{
-
-augroup perl
-    autocmd!
-    " do not include ':' as part of word
-    autocmd FileType perl set iskeyword-=:
-
-    " if perltidy available, use that for formatting
-    if executable('perltidy')
-        autocmd FileType perl setlocal equalprg=perltidy\ -st
-    endif
-augroup END
-
-" settings for vim-perl
-let perl_include_pod = 1
-let perl_no_scope_in_variables = 0
-let perl_no_extended_vars = 0
-
-" }}}
-
-" ruby {{{
-
-if has('ruby')
-    let g:rubycomplete_buffer_loading = 1
-    let g:rubycomplete_classes_in_global = 1
-    let g:rubycomplete_rails = 1
-endif
 
 " }}}
 
