@@ -1,1 +1,1 @@
-set makeprg=javac
+setlocal makeprg=javac
