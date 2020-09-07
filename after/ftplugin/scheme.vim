@@ -1,10 +1,8 @@
 let b:is_chicken=1
 
-setl lispwords+=let-values,condition-case,with-input-from-string
-setl lispwords+=with-output-to-string,handle-exceptions,call/cc,rec,receive
-setl lispwords+=call-with-output-file
-
-nmap <silent> == :call Scheme_indent_top_sexp()<cr>
+setlocal lispwords+=let-values,condition-case,with-input-from-string
+setlocal lispwords+=with-output-to-string,handle-exceptions,call/cc,rec,receive
+setlocal lispwords+=call-with-output-file
 
 " Indent a toplevel sexp.
 fun! Scheme_indent_top_sexp()
@@ -13,7 +11,9 @@ fun! Scheme_indent_top_sexp()
 	call setpos('.', pos)
 endfun
 
-setl include=\^\(\\(use\\\|require-extension\\)\\s\\+
-setl includeexpr=substitute(v:fname,'$','.scm','')
-setl path+=/usr/local/lib/chicken/3
-setl suffixesadd=.scm
+nmap <silent> == :call Scheme_indent_top_sexp()<cr>
+
+setlocal include=\^\(\\(use\\\|require-extension\\)\\s\\+
+setlocal includeexpr=substitute(v:fname,'$','.scm','')
+setlocal path+=/usr/local/lib/chicken/3
+setlocal suffixesadd=.scm
