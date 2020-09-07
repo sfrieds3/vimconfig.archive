@@ -1,5 +1,5 @@
 " do not include ':' as part of word
-set iskeyword-=:
+setlocal iskeyword-=:
 
 " if perltidy available, use that for formatting
 if executable('perltidy')
