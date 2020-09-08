@@ -31,8 +31,6 @@ function! MyHighlights() abort
     if g:colors_name == 'apprentice'
         highlight Comment ctermfg=242
     endif
-    "highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
-    "highlight Search term=reverse ctermbg=24 cterm=
 endfunction
 
 augroup CustomizeTheme
@@ -48,7 +46,6 @@ colorscheme apprentice
 " initial settings {{{
 
 " basic settings {{{
-" filetype support
 filetype plugin indent on
 
 set hidden
@@ -82,13 +79,12 @@ command! -nargs=1 Tabs   let b:wv = winsaveview() | execute "setlocal tabstop=" 
 " other setting stuff
 set laststatus=2
 set backspace=2
-set matchtime=3
 set encoding=utf8
 set showtabline=3
 set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
 set foldcolumn=0
-set formatoptions=qrn1j
+set formatoptions=qrn1
 set showbreak=↪
 
 " }}}
