@@ -51,8 +51,6 @@ colorscheme apprentice
 " filetype support
 filetype plugin indent on
 
-set nonumber
-set norelativenumber
 set hidden
 set showcmd
 set autoread
@@ -65,12 +63,10 @@ set splitright
 set autoindent
 set wrap
 set incsearch
-set showmatch
 set hlsearch
 set novisualbell
 set magic
 set ttyfast
-set equalalways
 
 " indentation
 set shiftwidth=4
@@ -154,7 +150,6 @@ augroup END
 set undofile
 set backup
 set backupext=.bak
-"set patchmode=.orig
 set noswapfile
 
 " save lots of history
@@ -162,7 +157,6 @@ set viminfo='1000,f1,<500
 
 set undodir=~/.vim/tmp/undo// " undo files
 set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap// " swap files
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -170,19 +164,6 @@ if !isdirectory(expand(&undodir))
 endif
 if !isdirectory(expand(&backupdir))
     call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
-endif
-
-" }}}
-
-" sessions {{{
-
-let g:session_dir = '~/.vim/sessions'
-
-if !isdirectory(expand(g:session_dir))
-    call mkdir(expand(g:session_dir), "p")
 endif
 
 " }}}
