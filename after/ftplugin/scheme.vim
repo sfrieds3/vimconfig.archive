@@ -5,13 +5,13 @@ setlocal lispwords+=with-output-to-string,handle-exceptions,call/cc,rec,receive
 setlocal lispwords+=call-with-output-file
 
 " Indent a toplevel sexp.
-fun! Scheme_indent_top_sexp()
+function! Scheme_indent_top_sexp()
 	let pos = getpos('.')
 	silent! exec "normal! 99[(=%"
 	call setpos('.', pos)
-endfun
+endfunction
 
-nmap <silent> == :call Scheme_indent_top_sexp()<cr>
+nmap <buffer> <silent> == :call Scheme_indent_top_sexp()<cr>
 
 setlocal include=\^\(\\(use\\\|require-extension\\)\\s\\+
 setlocal includeexpr=substitute(v:fname,'$','.scm','')
