@@ -529,15 +529,23 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
-" easy buffer switching
+" easy buffer and tab switching
 function! BuffNext(arg)
     :bnext
 endfunction
 function! BuffPrev(arg)
     :bprevious
 endfunction
+function! TabNext(arg)
+    :tabnext
+endfunction
+function! TabPrev(arg)
+    :tabprevious
+endfunction
 nnoremap gb :set operatorfunc=BuffNext<CR>g@<CR>
 nnoremap gB :set operatorfunc=BuffPrev<CR>g@<CR>
+nnoremap gt :set operatorfunc=TabNext<CR>g@<CR>
+nnoremap gT :set operatorfunc=TabPrev<CR>g@<CR>
 nnoremap <BS> <C-^>
 
 " default Y mapping is just.. wrong
