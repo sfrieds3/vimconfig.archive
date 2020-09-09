@@ -538,6 +538,7 @@ function! BuffPrev(arg)
 endfunction
 nnoremap gb :set operatorfunc=BuffNext<CR>g@<CR>
 nnoremap gB :set operatorfunc=BuffPrev<CR>g@<CR>
+nnoremap <BS> <C-^>
 
 " default Y mapping is just.. wrong
 nnoremap Y y$
