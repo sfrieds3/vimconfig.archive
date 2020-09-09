@@ -17,13 +17,13 @@ endif
 if exists("g:py_makeprg")
     let &l:makeprg=expand(g:py_makeprg)
 else
-    let &l:makeprg=pylint\ --reports=n\ --output-format=parseable\ --reports=n\ --output-format=parseable
+    let &l:makeprg=pylint\ --reports=n\ --output-format=parseable
 endif
 
 if exists("g:py_equalprg")
     let &l:equalprg=expand(g:py_equalprg)
 else
-    let &l:equalprg=pylint\ --output-format=parseable
+    let &l:equalprg=autopep8
 endif
 
 let &l:errorformat="%f:%l:\ %m"
