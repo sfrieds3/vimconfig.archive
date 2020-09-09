@@ -20,10 +20,4 @@ else
     let &l:makeprg=pylint\ --reports=n\ --output-format=parseable
 endif
 
-if exists("g:py_equalprg")
-    let &l:equalprg=expand(g:py_equalprg)
-else
-    let &l:equalprg=autopep8
-endif
-
 let &l:errorformat="%f:%l:\ %m"
