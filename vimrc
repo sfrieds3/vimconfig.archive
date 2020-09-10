@@ -131,14 +131,6 @@ augroup AutoQuickfix
     autocmd QuickFixCmdPost [^l]* cwindow 
 augroup END
 
-" some versions of vim (looking at you 7.4..)
-" think .md means modula2 source code..
-" thats not right, so lets fix it
-augroup markdown
-    autocmd!
-    autocmd BufNewFile,BufRead *.md set filetype=markdown
-augroup END
-
 " }}}
 
 " backup settings {{{
@@ -610,12 +602,6 @@ nnoremap <silent> <space><cr> :nohlsearch<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
-
-" resize splits when window is resized
-"augroup resize
-"    autocmd!
-"    autocmd VimResized * :wincmd =
-"augroup END
 
 " insert mode completions
 " file name completion
