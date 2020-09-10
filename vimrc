@@ -298,7 +298,11 @@ let g:python_highlight_space_errors = 0
 " }}}
 
 " git gutter {{{
-nnoremap _gs :echo GitGutterGetHunkSummary()<CR>
+function! GitGutterStatus()
+    let [a, m, r] = GitGutterGetHunkSummary()
+    return printf(' [+%d ~%d -%d]', a, m, r)
+endfunction
+nnoremap _gs :echo GitGutterStatus()<CR>
 nnoremap _gt :GitGutterToggle<CR>
 " }}}
 
