@@ -1,4 +1,3 @@
-" vim: set ts=4 sw=4 et:
 " vim settings {{{
 
 " local settings {{{
@@ -52,7 +51,7 @@ filetype plugin indent on
 set hidden
 set showcmd
 set autoread
-set modeline
+set nomodeline
 set ignorecase
 set smartcase
 set showmatch
@@ -179,21 +178,6 @@ function! StatusLineFileName()
     return printf("%s", fname)
 endfunction
 
-" TODO: this functions is bad.. fix it
-function! GitStatus()
-    let [a,m,r] = GitGutterGetHunkSummary()
-    if a + m + r == 0
-        return ''
-    endif
-    let s =(' [')
-    let s = a > 0 ? s . printf('+%d', a) : s
-    let s = m > 0 ? s . printf('~%d', m) : s
-    let s = r > 0 ? s . printf('-%d', r) : s
-    let s .= ']'
-    return s
-    " return printf(' [+%d ~%d -%d]', a, m, r)
-endfunction
-
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -201,12 +185,9 @@ set statusline+=%<
 set statusline+=%{StatusLineFileName()}
 set statusline+=%m
 set statusline+=%{StatusLineFiletype()}
-set statusline+=\%{GitStatus()}
 
 " right section
 set statusline+=%=
-" current function
-set statusline+=%{tagbar#currenttag('[%s]','')}
 " file format
 set statusline+=\ %{StatusLineFormat()}
 
@@ -263,11 +244,10 @@ set tabline=%!Tabline()
 " plugin config {{{
 
 " tagbar {{{
-
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:show_linenumbers = 1
-
+nnoremap <Space>f :echo tagbar#currenttag('[%s]', '')<CR>
 " }}}
 
 " vlime {{{
@@ -315,6 +295,11 @@ map T <Plug>Sneak_T
 
 let g:python_highlight_space_errors = 0
 
+" }}}
+
+" git gutter {{{
+nnoremap _gs :echo GitGutterGetHunkSummary()<CR>
+nnoremap _gt :GitGutterToggle<CR>
 " }}}
 
 " }}}
@@ -499,15 +484,15 @@ nnoremap <Space>g :Global<Space>
 " cdo/cfdo if not available {{{
 " from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
 if !exists(':cdo')
-  command! -nargs=1 -complete=command Cdo try | sil cfirst |
+    command! -nargs=1 -complete=command Cdo try | sil cfirst |
         \ while 1 | exec <q-args> | sil cn | endwhile |
-      \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-      \ endtry
+        \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+        \ endtry
 
-  command! -nargs=1 -complete=command Cfdo try | sil cfirst |
+    command! -nargs=1 -complete=command Cfdo try | sil cfirst |
         \ while 1 | exec <q-args> | sil cnf | endwhile |
-      \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-      \ endtry
+        \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+        \ endtry
 endif
 
 " }}}
