@@ -40,12 +40,6 @@
 [submodule "pack/bundle/opt/Apprentice"]
 	path = pack/bundle/opt/Apprentice
 	url = https://github.com/romainl/Apprentice.git
-[submodule "pack/bundle/opt/badwolf"]
-	path = pack/bundle/opt/badwolf
-	url = https://github.com/sjl/badwolf.git
-[submodule "pack/bundle/opt/vim-dichromatic"]
-	path = pack/bundle/opt/vim-dichromatic
-	url = https://github.com/romainl/vim-dichromatic.git
 [submodule "pack/bundle/start/vim-tmux-navigator"]
 	path = pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
