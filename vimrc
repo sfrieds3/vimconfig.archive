@@ -21,10 +21,6 @@ endif
 set t_Co=256
 set t_ut=
 
-if has('termguicolors')
-    set termguicolors
-end
-
 function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
     " slight adjustment to comments in apprentice.. to make them more readable
