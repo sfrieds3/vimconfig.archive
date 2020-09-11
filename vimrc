@@ -49,7 +49,6 @@ colorscheme apprentice
 filetype plugin indent on
 
 set hidden
-set showcmd
 set autoread
 set nomodeline
 set ignorecase
@@ -58,12 +57,9 @@ set showmatch
 set splitbelow
 set splitright
 set autoindent
-set wrap
 set incsearch
 set hlsearch
-set novisualbell
-set magic
-set ttyfast
+set lazyredraw
 
 " indentation
 set shiftwidth=4
@@ -84,7 +80,7 @@ set showtabline=3
 set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
 set foldcolumn=0
-set formatoptions=qrn1
+set formatoptions=qrn1j
 set showbreak=↪
 
 " }}}
@@ -112,11 +108,6 @@ set completeopt=longest,menuone
 
 " pwd and current file dir is path
 set path=.,,
-
-" timeout on key codes but not mappings
-set notimeout
-set ttimeout
-set ttimeoutlen=10
 
 " use matchit
 runtime! macros/matchit.vim
@@ -592,24 +583,6 @@ nnoremap <silent> <space><cr> :nohlsearch<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
-
-" insert mode completions
-" file name completion
-inoremap <silent> ;f <C-x><C-f>
-" path completion
-inoremap <silent> ;i <c-x><c-i>
-" path completion
-inoremap <silent> ;p <C-x><C-i>
-" whole line completion
-inoremap <silent> ;l <C-x><C-l>
-" local keyword completion
-inoremap <silent> ;n <C-x><C-n>
-" omni completion
-inoremap <silent> ;o <C-x><C-o>
-" tag completion
-inoremap <silent> ;t <C-x><C-]>
-" user defined completion
-inoremap <silent> ;u <C-x><C-u>
 
 " netrw
 nnoremap <leader>o :Sexplore!<cr>
