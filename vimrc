@@ -595,21 +595,21 @@ nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " insert mode completions
 " file name completion
-inoremap <silent> ,f <C-x><C-f>
+inoremap <silent> ;f <C-x><C-f>
 " path completion
-inoremap <silent> ,i <c-x><c-i>
+inoremap <silent> ;i <c-x><c-i>
 " path completion
-inoremap <silent> ,p <C-x><C-i>
+inoremap <silent> ;p <C-x><C-i>
 " whole line completion
-inoremap <silent> ,l <C-x><C-l>
+inoremap <silent> ;l <C-x><C-l>
 " local keyword completion
-inoremap <silent> ,n <C-x><C-n>
+inoremap <silent> ;n <C-x><C-n>
 " omni completion
-inoremap <silent> ,o <C-x><C-o>
+inoremap <silent> ;o <C-x><C-o>
 " tag completion
-inoremap <silent> ,t <C-x><C-]>
+inoremap <silent> ;t <C-x><C-]>
 " user defined completion
-inoremap <silent> ,u <C-x><C-u>
+inoremap <silent> ;u <C-x><C-u>
 
 " netrw
 nnoremap <leader>o :Sexplore!<cr>
