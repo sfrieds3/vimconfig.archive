@@ -21,8 +21,8 @@ endif
 set t_Co=256
 set t_ut=
 
-if has('termgucolors')
-    set termgucolors
+if has('termguicolors')
+    set termguicolors
 end
 
 function! MyHighlights() abort
