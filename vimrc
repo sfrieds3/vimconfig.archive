@@ -78,6 +78,9 @@ set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
 set showbreak=↪
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 
 " }}}
 
