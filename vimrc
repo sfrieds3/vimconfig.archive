@@ -102,8 +102,8 @@ set omnifunc=syntaxcomplete#Complete
 set complete+=d
 set completeopt=longest,menuone
 
-" pwd and current file dir is path
-set path=.,,
+" add path fir whitelist
+set path+=src/**,config/
 
 " use matchit
 runtime! macros/matchit.vim
