@@ -20,4 +20,4 @@ else
     let &l:makeprg=pylint\ --reports=n\ --output-format=parseable
 endif
 
-let &l:errorformat="%f:%l:\ %m"
+let &l:errorformat="%A%f:%l:\ %m,%C,%Z%m"
