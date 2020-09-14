@@ -488,6 +488,7 @@ endif
 " }}}
 
 " redir {{{
+" https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 
 function! Redir(cmd, rng, start, end)
 	for win in range(1, winnr('$'))
