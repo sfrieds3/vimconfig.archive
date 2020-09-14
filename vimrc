@@ -529,7 +529,7 @@ nnoremap <Space>i :ijump! <C-r>=expand("<cword>")<CR><CR>
 nnoremap _t :tjump <C-r>=expand("<cword>")<CR><CR>
 
 " g search
-nnoremap \g :g//#<Left><Left>
+nnoremap \|g :g//#<Left><Left>
 nnoremap \|G :g/<C-r>=expand("<cword>")<CR>/#<CR>
 
 " quick search and replace
