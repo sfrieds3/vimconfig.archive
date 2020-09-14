@@ -55,7 +55,6 @@ set splitright
 set autoindent
 set incsearch
 set hlsearch
-set lazyredraw
 
 " indentation
 set shiftwidth=4
