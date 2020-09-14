@@ -536,7 +536,7 @@ nnoremap \|G :g/<C-r>=expand("<cword>")<CR>/#<CR>
 " quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
 nnoremap _rp :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
-nnoremap _ra :%s/\<<C-r>=expand("<cword>")<CR>\>/
+nnoremap _ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
 
 " echo current file full path
 nnoremap _fp :echo expand("%:p")<cr>
