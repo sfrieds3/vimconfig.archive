@@ -509,10 +509,10 @@ endfunction
 function! TabPrev(arg)
     :tabprevious
 endfunction
-nnoremap gb :set operatorfunc=BuffNext<CR>g@<CR>
-nnoremap gB :set operatorfunc=BuffPrev<CR>g@<CR>
-nnoremap gt :set operatorfunc=TabNext<CR>g@<CR>
-nnoremap gT :set operatorfunc=TabPrev<CR>g@<CR>
+nnoremap gb :set operatorfunc=BuffNext<CR>g@<Space>
+nnoremap gB :set operatorfunc=BuffPrev<CR>g@<Space>
+nnoremap gt :set operatorfunc=TabNext<CR>g@<Space>
+nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
 nnoremap <BS> <C-^>
 
 " default Y mapping is just.. wrong
