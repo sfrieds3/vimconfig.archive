@@ -423,8 +423,8 @@ function! MoveLineDown(arg)
     execute ":.m+1<CR>"
 endfunction
 
-nnoremap <silent> _j :set operatorfunc=MoveLineUp<CR>g@<CR>
-nnoremap <silent> _k :set operatorfunc=MoveLineDown<CR>g@<CR>
+nnoremap <silent> _j :set operatorfunc=MoveLineUp<CR>g@<Space>
+nnoremap <silent> _k :set operatorfunc=MoveLineDown<CR>g@<Space>
 " }}}
 
 " show declaration {{{
