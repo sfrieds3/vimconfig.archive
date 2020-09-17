@@ -98,7 +98,7 @@ set tags=./tags;,tags;
 " better completion
 set omnifunc=syntaxcomplete#Complete
 set complete+=d
-set completeopt=longest,menuone
+set completeopt=longest,menuone,preview
 
 " simple default path
 set path+=.,,
