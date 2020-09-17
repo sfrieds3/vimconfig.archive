@@ -69,7 +69,7 @@ command! -nargs=1 Tabs   let b:wv = winsaveview() | execute "setlocal tabstop=" 
 
 " other setting stuff
 set laststatus=2
-set backspace=2
+set backspace=indent,eol,start
 set encoding=utf8
 set showtabline=3
 set clipboard^=unnamed,unnamedplus
