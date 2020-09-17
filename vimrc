@@ -110,7 +110,7 @@ runtime! macros/matchit.vim
 runtime! ftplugin/man.vim
 
 " open quickfix or location-list automatically when there is something to show
-https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
+" source: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 augroup AutoQuickfix
     autocmd!
     autocmd QuickFixCmdPost [^l]* cwindow
