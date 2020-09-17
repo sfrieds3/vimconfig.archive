@@ -20,6 +20,7 @@ endif
 
 set t_Co=256
 set t_ut=
+set background=dark
 
 function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
@@ -34,7 +35,6 @@ augroup CustomizeTheme
     autocmd ColorScheme * call MyHighlights()
 augroup END
 
-set background=dark
 colorscheme apprentice
 
 " }}}
@@ -526,7 +526,7 @@ nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
 nnoremap <Space>i :ijump! <C-r>=expand("<cword>")<CR><CR>
 
 " quick jump to tag under curosr
-nnoremap _t :tjump <C-r>=expand("<cword>")<CR><CR>
+nnoremap _t :tjump /<C-r>=expand("<cword>")<CR><CR>
 
 " g search
 nnoremap \|g :g//#<Left><Left>
