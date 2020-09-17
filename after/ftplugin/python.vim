@@ -21,3 +21,5 @@ else
 endif
 
 let &l:errorformat="%A%f:%l:\ %m,%C,%Z%m"
+
+let g:python_highlight_space_errors = 0
