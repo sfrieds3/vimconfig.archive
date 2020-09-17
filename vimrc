@@ -277,12 +277,6 @@ map T <Plug>Sneak_T
 
 " }}}
 
-" polyglot {{{
-
-let g:python_highlight_space_errors = 0
-
-" }}}
-
 " git gutter {{{
 function! GitGutterStatus()
     let [a, m, r] = GitGutterGetHunkSummary()
