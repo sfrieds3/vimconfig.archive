@@ -91,7 +91,7 @@ endif
 
 set wildmenu
 set wildignorecase
-set wildmode=list:longest,full
+set wildmode=list,full
 set wildcharm=<C-z>
 
 set tags=./tags;,tags;
