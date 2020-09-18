@@ -374,23 +374,25 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 " }}}
 
-" Preserve..util function {{{
-
-function! Preserve(command)
-    " Preparation: save window state
-    let l:saved_winview = winsaveview()
-    " Run the command:
-    execute a:command
-    " Clean up: restore previous window position
-    call winrestview(l:saved_winview)
-endfunction
-
-" }}}
-
 " trim trailing whitespace {{{
 
-command! CleanWhitespace call Preserve("'<,'>s/\\s\\+$//e")<CR>
-nnoremap _W :call Preserve("'<,'>s/\\s\\+$//e")<CR>
+function! StripTrailingWhitespace() range
+    if !&binary && &filetype != 'diff'
+        call Preserve(":" . a:firstline . "," . a:lastline . "s/\\s\\+$//e")
+    endif
+endfunction
+
+function! Preserve(command)
+    try
+        let l:win_view = winsaveview()
+        silent! execute 'keeppatterns keepjumps ' . a:command
+    finally
+        call winrestview(l:win_view)
+    endtry
+endfunction
+
+command! CleanWhitespace call StripTrailingWhitespace()<CR>
+nnoremap _W :call StripTrailingWhitespace()<CR>
 
 " }}}
 
