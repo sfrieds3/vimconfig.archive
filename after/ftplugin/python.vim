@@ -21,8 +21,8 @@ else
 endif
 
 " pylint
-let &l:errorformat^="%A%f:%l:\ %m,%C,%Z%m"
+"let &l:errorformat="%A%f:%l:\ %m,%C,%Z%m"
 " pep8/pycodestyle
-let &l:errorformat^="%f:%l:%c:\ %m"
+let &l:errorformat="%f:%l:%c:\ %m"
 
 let g:python_highlight_space_errors = 0
