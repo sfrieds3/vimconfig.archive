@@ -376,23 +376,28 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 " trim trailing whitespace {{{
 
+" returns an extranous 0...
 function! StripTrailingWhitespace() range
     if !&binary && &filetype != 'diff'
-        call Preserve(":" . a:firstline . "," . a:lastline . "s/\\s\\+$//e")
+        execute "redir => numclean"
+        silent! execute "%s/\\s\\+$//en"
+        execute "redir END"
+        silent! call Preserve(":%s/\\s\\+$//e")
+        execute "echo numclean"
     endif
 endfunction
 
 function! Preserve(command)
     try
         let l:win_view = winsaveview()
-        silent! execute 'keeppatterns keepjumps ' . a:command
+        execute 'keeppatterns keepjumps ' . a:command
     finally
         call winrestview(l:win_view)
     endtry
 endfunction
 
-command! CleanWhitespace call StripTrailingWhitespace()<CR>
-nnoremap _W :call StripTrailingWhitespace()<CR>
+command! CleanWhitespace call echo StripTrailingWhitespace()<CR>
+nnoremap _W :echo StripTrailingWhitespace()<CR>
 
 " }}}
 
