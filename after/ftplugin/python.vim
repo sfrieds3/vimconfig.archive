@@ -17,9 +17,12 @@ endif
 if exists("g:py_makeprg")
     let &l:makeprg=expand(g:py_makeprg)
 else
-    let &l:makeprg=pylint\ --reports=n\ --output-format=parseable
+    let &l:makeprg=pycodestyle
 endif
 
-let &l:errorformat="%A%f:%l:\ %m,%C,%Z%m"
+" pylint
+let &l:errorformat^="%A%f:%l:\ %m,%C,%Z%m"
+" pep8/pycodestyle
+let &l:errorformat^="%f:%l:%c:\ %m"
 
 let g:python_highlight_space_errors = 0
