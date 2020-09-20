@@ -71,6 +71,7 @@ command! -nargs=1 Tabs   let b:wv = winsaveview() | execute "setlocal tabstop=" 
 set laststatus=2
 set backspace=indent,eol,start
 set encoding=utf8
+set fileencoding=utf8
 set showtabline=3
 set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
@@ -266,15 +267,6 @@ nnoremap _sr :call RestoreSession()<cr>
 
 " freeze session
 nnoremap _sf :Obsession<CR>
-
-" }}}
-
-" sneak {{{
-
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
 
 " }}}
 

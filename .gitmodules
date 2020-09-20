@@ -28,9 +28,6 @@
 [submodule "pack/bundle/start/vim-qlist"]
 	path = pack/bundle/start/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git
-[submodule "pack/bundle/start/vim-sneak"]
-	path = pack/bundle/start/vim-sneak
-	url = https://github.com/justinmk/vim-sneak.git
 [submodule "pack/bundle/start/vim-surround"]
 	path = pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
