@@ -518,7 +518,6 @@ nnoremap gb :set operatorfunc=BuffNext<CR>g@<Space>
 nnoremap gB :set operatorfunc=BuffPrev<CR>g@<Space>
 nnoremap gt :set operatorfunc=TabNext<CR>g@<Space>
 nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
-nnoremap <BS> <C-^>
 
 " default Y mapping is just.. wrong
 nnoremap Y y$
