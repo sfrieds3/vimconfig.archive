@@ -238,36 +238,20 @@ let g:show_linenumbers = 1
 nnoremap <Space>f :echo tagbar#currenttag('[%s]', '')<CR>
 " }}}
 
+" sneak {{{
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+" }}}
+
 " vlime {{{
-
 let g:vlime_cl_use_terminal = 1
-
 " }}}
 
 " undotree {{{
-
 let g:undotree_WindowLayout = 2
 nnoremap _U :exec("UndotreeToggle")<cr>
-
-" }}}
-
-" obsession {{{
-
-function! MakeSession()
-    ":Obsession g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-    let s = 'Obsession'
-    execute s
-endfunction
-nnoremap _ss :call MakeSession()<cr>
-
-function! RestoreSession()
-    :source ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>
-endfunction
-nnoremap _sr :call RestoreSession()<cr>
-
-" freeze session
-nnoremap _sf :Obsession<CR>
-
 " }}}
 
 " git gutter {{{
