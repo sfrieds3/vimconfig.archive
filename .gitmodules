@@ -40,3 +40,6 @@
 [submodule "pack/bundle/start/vim-tmux-navigator"]
 	path = pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "pack/bundle/start/vim-sneak"]
+	path = pack/bundle/start/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
