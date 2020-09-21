@@ -536,6 +536,9 @@ nnoremap _ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
 " echo current file full path
 nnoremap _fp :echo expand("%:p")<cr>
 
+" quick make to location list
+nnoremap <F5> :lmake %<CR> 
+
 " view all todo in quickfix window
 nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
