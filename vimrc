@@ -543,6 +543,9 @@ nnoremap ]] ]]zz
 " show list of digraphs -- special symbols
 nnoremap _vd :help digraphs<cr>:179<cr>zt
 
+" search for non-ASCII characters
+nnoremap _Va /[^\x00-\x7F]<CR>
+
 " toggle line and column markers
 nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
 nnoremap <silent> \r :exec("set cursorline!")<cr>
