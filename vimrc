@@ -471,6 +471,11 @@ endif
 
 " custom mappings and stuff {{{
 
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 " easily switch windows
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
