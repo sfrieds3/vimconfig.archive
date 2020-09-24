@@ -231,6 +231,10 @@ set tabline=%!Tabline()
 
 " plugin config {{{
 
+" ctrlp {{{
+let g:ctrlp_clear_cache_on_exit = 0
+""}}}
+
 " tagbar {{{
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
