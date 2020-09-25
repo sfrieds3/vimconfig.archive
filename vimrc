@@ -506,6 +506,49 @@ nnoremap gB :set operatorfunc=BuffPrev<CR>g@<Space>
 nnoremap gt :set operatorfunc=TabNext<CR>g@<Space>
 nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
 
+" quickfix / location list shortcuts
+" these are hacked together and likely could be improved...
+function! CNext(arg)
+    try
+        :cnext!
+    catch /E553:/
+        :cc!
+    catch /E42:/
+        echo "No quickfix errors!" 
+    endtry
+endfunction
+function! CPrevious(arg)
+    try
+        :cprevious!
+    catch /E553:/
+        :cc!
+    catch /E42:/
+        echo "No quickfix errors!" 
+    endtry
+endfunction
+function! LNext(arg) abort
+    try
+        :lnext!
+    catch /E553:/
+        :ll!
+    catch /E42:/
+        echo "No location list errors!" 
+    endtry
+endfunction
+function! LPrevious(arg) abort
+    try
+        :lprevious!
+    catch /E553:/
+        :ll!
+    catch /E42:/
+        echo "No location list errors!" 
+    endtry
+endfunction
+nnoremap ]q :set operatorfunc=CNext<CR>g@<Space>
+nnoremap [q :set operatorfunc=CPrevious<CR>g@<Space>
+nnoremap ]l :set operatorfunc=LNext<CR>g@<Space>
+nnoremap [l :set operatorfunc=LPrevious<CR>g@<Space>
+
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
