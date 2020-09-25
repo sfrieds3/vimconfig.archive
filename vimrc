@@ -234,6 +234,7 @@ set tabline=%!Tabline()
 
 " ctrlp {{{
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
 ""}}}
 
 " tagbar {{{
