@@ -130,6 +130,7 @@ set noswapfile
 
 " save lots of history
 set viminfo='1000,f1,<500
+set history=500
 
 set undodir=~/.vim/tmp/undo// " undo files
 set backupdir=~/.vim/tmp/backup// " backups
