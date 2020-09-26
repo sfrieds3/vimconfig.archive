@@ -37,9 +37,6 @@
 [submodule "pack/bundle/opt/Apprentice"]
 	path = pack/bundle/opt/Apprentice
 	url = https://github.com/romainl/Apprentice.git
-[submodule "pack/bundle/start/vim-tmux-navigator"]
-	path = pack/bundle/start/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator.git
 [submodule "pack/bundle/start/vim-sneak"]
 	path = pack/bundle/start/vim-sneak
 	url = https://github.com/justinmk/vim-sneak.git
