@@ -482,6 +482,9 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+
 " easily switch windows
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
