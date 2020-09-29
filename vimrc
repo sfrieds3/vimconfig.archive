@@ -23,7 +23,7 @@ set t_ut=
 set background=dark
 
 function! MyHighlights() abort
-    highlight Todo ctermfg=235
+    highlight Todo ctermbg=226 ctermfg=235
     " slight adjustment to comments in apprentice.. to make them more readable
     if g:colors_name == 'apprentice'
         highlight Comment ctermfg=242
