@@ -79,6 +79,11 @@ set foldcolumn=0
 set formatoptions=qrn1j
 set showbreak=↪
 
+" timeout on key codes but not on mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
 " }}}
 
 let mapleader = "\<space>"
