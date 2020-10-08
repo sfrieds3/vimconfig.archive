@@ -518,44 +518,48 @@ nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
 " these are hacked together and likely could be improved...
 function! CNext(arg)
     try
-        :cnext!
+        :cnext
     catch /E553:/
-        :cc!
+        :cc
     catch /E42:/
         echo "No quickfix errors!" 
     endtry
 endfunction
 function! CPrevious(arg)
     try
-        :cprevious!
+        :cprevious
     catch /E553:/
-        :cc!
+        :cc
     catch /E42:/
         echo "No quickfix errors!" 
     endtry
 endfunction
 function! LNext(arg) abort
     try
-        :lnext!
+        :lnext
     catch /E553:/
-        :ll!
+        :ll
     catch /E42:/
         echo "No location list errors!" 
     endtry
 endfunction
 function! LPrevious(arg) abort
     try
-        :lprevious!
+        :lprevious
     catch /E553:/
-        :ll!
+        :ll
     catch /E42:/
         echo "No location list errors!" 
     endtry
 endfunction
 nnoremap ]q :set operatorfunc=CNext<CR>g@<Space>
 nnoremap [q :set operatorfunc=CPrevious<CR>g@<Space>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
 nnoremap ]l :set operatorfunc=LNext<CR>g@<Space>
 nnoremap [l :set operatorfunc=LPrevious<CR>g@<Space>
+nnoremap [L :lfirst<CR>
+nnoremap ]L :llast<CR>
 
 " default Y mapping is just.. wrong
 nnoremap Y y$
