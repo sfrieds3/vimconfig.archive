@@ -265,7 +265,7 @@ let g:undotree_WindowLayout = 2
 nnoremap _U :exec("UndotreeToggle")<CR>
 nnoremap <Space>u :exec("UndotreeFocus")<CR>
 
-function g:Undotree_CustomMap()
+function! g:Undotree_CustomMap()
     nmap <buffer> J <plug>UndotreeNextState
     nmap <buffer> K <plug>UndotreePreviousState
     nmap <buffer> <Space>u q
