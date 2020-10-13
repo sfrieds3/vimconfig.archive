@@ -262,7 +262,15 @@ let g:vlime_cl_use_terminal = 1
 
 " undotree {{{
 let g:undotree_WindowLayout = 2
-nnoremap _U :exec("UndotreeToggle")<cr>
+nnoremap _U :exec("UndotreeToggle")<CR>
+nnoremap <Space>u :exec("UndotreeFocus")<CR>
+
+function g:Undotree_CustomMap()
+    nmap <buffer> J <plug>UndotreeNextState
+    nmap <buffer> K <plug>UndotreePreviousState
+    nmap <buffer> <Space>u q
+    nmap <buffer> _U q
+endfunction
 " }}}
 
 " git gutter {{{
