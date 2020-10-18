@@ -46,3 +46,6 @@
 [submodule "pack/bundle/start/linediff.vim"]
 	path = pack/bundle/start/linediff.vim
 	url = https://github.com/AndrewRadev/linediff.vim.git
+[submodule "pack/bundle/opt/flattened"]
+	path = pack/bundle/opt/flattened
+	url = https://github.com/romainl/flattened.git
