@@ -26,7 +26,7 @@ function! MyHighlights() abort
     highlight Todo ctermbg=226 ctermfg=235
     " slight adjustment to comments in apprentice.. to make them more readable
     if g:colors_name == 'apprentice'
-        highlight Comment ctermfg=242
+        highlight Comment ctermfg=245
     endif
 endfunction
 
@@ -468,7 +468,7 @@ set errorformat^=%f:%l:%c\ %m
 " command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
 command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
 
-nnoremap gs :Global<Space>
+nnoremap gsg :Global<Space>
 " }}}
 
 " cdo/cfdo if not available {{{
@@ -581,13 +581,13 @@ cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<C-z>"
 
 " ilist
 nnoremap _i :Ilist!<Space>
-nnoremap _I :Ilist! <C-r>=expand("<cword>")<CR><CR>
+nnoremap gsi :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " ijump
 nnoremap <Space>i :ijump! <C-r>=expand("<cword>")<CR><CR>
 
 " quick jump to tag under curosr
-nnoremap _t :tjump /<C-r>=expand("<cword>")<CR><CR>
+nnoremap gst :tjump /<C-r>=expand("<cword>")<CR><CR>
 
 " g search
 nnoremap \|g :g//#<Left><Left>
@@ -613,10 +613,10 @@ nnoremap <F5> :lmake %<CR>
 nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current file and open in location list
-nnoremap <silent> \gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
+nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current directory open in quickfix
-nnoremap <silent> \gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("copen")<cr>
+nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("copen")<cr>
 
 " Do and insert results of fancy math equations via python
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
@@ -676,9 +676,4 @@ onoremap in( :<C-u>normal! f(vi(<cr>
 onoremap il( :<C-u>normal! F)vi(<cr>
 " }}}
 
-" }}}
-
-" local settings {{{
-" load local pre vimrc settings
-runtime! local_post.vim
 " }}}
