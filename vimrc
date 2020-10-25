@@ -569,8 +569,15 @@ nnoremap [l :set operatorfunc=LPrevious<CR>g@<Space>
 nnoremap [L :lfirst<CR>
 nnoremap ]L :llast<CR>
 
+" easy switch to prev buffer
+nnoremap <BS> <C-^>
+
 " default Y mapping is just.. wrong
 nnoremap Y y$
+
+" use <Tab> to jump to next hit without leaving search mode
+cnoremap <expr> <Tab> getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<C-z>"
 
 " ilist
 nnoremap _i :Ilist!<Space>
@@ -591,6 +598,11 @@ nnoremap \|G :g/<C-r>=expand("<cword>")<CR>/#<CR>
 nnoremap _rp :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
 nnoremap _ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
 
+" :help include-search shortcuts
+nnoremap <Space>p :<C-u>psearch <C-r><C-w><CR>
+nnoremap <Space>i [<C-i>
+nnoremap <Space>d [<C-d>
+
 " echo current file full path
 nnoremap _fp :echo expand("%:p")<cr>
 
@@ -609,10 +621,6 @@ nnoremap <silent> \gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("c
 " Do and insert results of fancy math equations via python
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
 command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
-
-" auto center when going to prev/next function definition
-nnoremap [[ [[zz
-nnoremap ]] ]]zz
 
 " show list of digraphs -- special symbols
 nnoremap _vd :help digraphs<cr>:179<cr>zt
