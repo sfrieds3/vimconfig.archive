@@ -1,4 +1,4 @@
-function! Redir(cmd, rng, start, end)
+function! utils#redir(cmd, rng, start, end)
 	for win in range(1, winnr('$'))
 		if getwinvar(win, 'scratch')
 			execute win . 'windo close'
@@ -27,4 +27,4 @@ function! Redir(cmd, rng, start, end)
 	call setline(1, output)
 endfunction
 
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
+command! -nargs=1 -complete=command -bar -range utils#redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
