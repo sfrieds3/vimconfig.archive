@@ -593,9 +593,9 @@ nnoremap <BS> <C-^>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
-" poor man's c_CTRL-G/c_CTRL-T.. use Tab/S-Tab to move thru search res as typing
-cnoremap <expr> <Tab> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<Tab>"
-cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-Tab>"
+" poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
+cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
+cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
 
 " ilist
 nnoremap _i :Ilist!<Space>
