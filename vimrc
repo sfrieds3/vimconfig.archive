@@ -239,6 +239,22 @@ set tabline=%!Tabline()
 
 " plugin config {{{
 
+" airline {{{                                                                                                                                                                                      
+let g:airline_left_sep = ''                                                                                                                                                                       
+let g:airline_left_alt_sep = ''                                                                                                                                                                   
+let g:airline_right_sep = ''                                                                                                                                                                      
+let g:airline_right_alt_sep = ''                                                                                                                                                                  
+let g:airline_extensions = [                                                                                                                                                                       
+            \ "ctrlp",                                                                                                                                                                              
+            \ "quickfix",                                                                                                                                                                           
+            \ "keymap",                                                                                                                                                                             
+            \ "netrw",                                                                                                                                                                              
+            \ "obsession",                                                                                                                                                                          
+            \ "undotree",                                                                                                                                                                           
+            \ "whitespace"                                                                                                                                                                          
+            \ ]                                                                                                                                                                                     
+" }}} 
+
 " ctrlp {{{
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
