@@ -25,7 +25,7 @@ set background=dark
 function! MyHighlights() abort
     if g:colors_name == 'apprentice'
         highlight Comment ctermfg=242
-	highlight Todo cterm=reverse ctermbg=226 ctermfg=235
+    highlight Todo cterm=reverse ctermbg=226 ctermfg=235
     endif
     if g:colors_name == 'flattened_dark'
         highlight Todo term=NONE cterm=reverse ctermfg=8 ctermbg=226
@@ -242,18 +242,18 @@ set tabline=%!Tabline()
 " airline {{{
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_extensions = [                                                                                                                                                                       
-            \ "ctrlp",                                                                                                                                                                              
-            \ "quickfix",                                                                                                                                                                           
-            \ "keymap",                                                                                                                                                                             
-            \ "netrw",                                                                                                                                                                              
-            \ "obsession",                                                                                                                                                                          
-            \ "undotree",                                                                                                                                                                           
-            \ "whitespace"                                                                                                                                                                          
-            \ ]                                                                                                                                                                                     
-" }}} 
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_extensions = [
+            \ "ctrlp",
+            \ "quickfix",
+            \ "keymap",
+            \ "netrw",
+            \ "obsession",
+            \ "undotree",
+            \ "whitespace"
+            \ ]
+" }}}
 
 " ctrlp {{{
 let g:ctrlp_clear_cache_on_exit = 0
@@ -448,14 +448,14 @@ nnoremap <silent> _k :set operatorfunc=MoveLineDown<CR>g@<Space>
 " show declaration {{{
 " from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
 function! ShowDeclaration(global) abort
-	let pos = getpos('.')
-	if searchdecl(expand('<cword>'), a:global) == 0
-		let line_of_declaration = line('.')
-		execute line_of_declaration . "#"
-	else
-		echo 'Sorry, no declaration found.'
-	endif
-	call cursor(pos[1], pos[2])
+    let pos = getpos('.')
+    if searchdecl(expand('<cword>'), a:global) == 0
+        let line_of_declaration = line('.')
+        execute line_of_declaration . "#"
+    else
+        echo 'Sorry, no declaration found.'
+    endif
+    call cursor(pos[1], pos[2])
 endfunction
 nnoremap _d :call ShowDeclaration(0)<CR>
 nnoremap _D :call ShowDeclaration(1)<CR>
@@ -464,11 +464,11 @@ nnoremap _D :call ShowDeclaration(1)<CR>
 " substitute operator {{{
 "credit: https://gist.github.com/romainl/b00ccf58d40f522186528012fd8cd13d
 function! Substitute(type, ...)
-	let cur = getpos("''")
-	call cursor(cur[1], cur[2])
-	let cword = expand('<cword>')
-	execute "'[,']s/" . cword . "/" . input(cword . '/')
-	call cursor(cur[1], cur[2])
+    let cur = getpos("''")
+    call cursor(cur[1], cur[2])
+    let cword = expand('<cword>')
+    execute "'[,']s/" . cword . "/" . input(cword . '/')
+    call cursor(cur[1], cur[2])
 endfunction
 nmap <silent> _s  m':set operatorfunc=Substitute<CR>g@
 
@@ -548,7 +548,7 @@ function! CNext(arg)
     catch /E553:/
         :cc
     catch /E42:/
-        echo "No quickfix errors!" 
+        echo "No quickfix errors!"
     endtry
 endfunction
 function! CPrevious(arg)
@@ -557,7 +557,7 @@ function! CPrevious(arg)
     catch /E553:/
         :cc
     catch /E42:/
-        echo "No quickfix errors!" 
+        echo "No quickfix errors!"
     endtry
 endfunction
 function! LNext(arg) abort
@@ -566,7 +566,7 @@ function! LNext(arg) abort
     catch /E553:/
         :ll
     catch /E42:/
-        echo "No location list errors!" 
+        echo "No location list errors!"
     endtry
 endfunction
 function! LPrevious(arg) abort
@@ -575,7 +575,7 @@ function! LPrevious(arg) abort
     catch /E553:/
         :ll
     catch /E42:/
-        echo "No location list errors!" 
+        echo "No location list errors!"
     endtry
 endfunction
 nnoremap ]q :set operatorfunc=CNext<CR>g@<Space>
@@ -625,7 +625,7 @@ nnoremap <Space>d [<C-d>
 nnoremap _fp :echo expand("%:p")<cr>
 
 " quick make to location list
-nnoremap <F5> :lmake %<CR> 
+nnoremap <F5> :lmake %<CR>
 
 " view all todo in quickfix window
 nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
