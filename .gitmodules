@@ -52,3 +52,6 @@
 [submodule "pack/bundle/start/Apprentice"]
 	path = pack/bundle/start/Apprentice
 	url = git@github.com:scwfri/Apprentice.git
+[submodule "pack/bundle/opt/tmuxline.vim"]
+	path = pack/bundle/opt/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim.git
