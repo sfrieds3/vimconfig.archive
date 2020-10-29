@@ -37,7 +37,8 @@ augroup CustomizeTheme
     autocmd ColorScheme * call MyHighlights()
 augroup END
 
-colorscheme apprentice
+colorscheme lucius
+LuciusDark
 
 " }}}
 
@@ -239,20 +240,9 @@ set tabline=%!Tabline()
 
 " plugin config {{{
 
-" airline {{{
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_extensions = [
-            \ "ctrlp",
-            \ "quickfix",
-            \ "keymap",
-            \ "netrw",
-            \ "obsession",
-            \ "undotree",
-            \ "whitespace"
-            \ ]
+" slime {{{
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
 " }}}
 
 " ctrlp {{{
@@ -504,25 +494,7 @@ if !exists(':cdo')
 endif
 " }}}
 
-"}}}
-
-" custom mappings and stuff {{{
-
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
-
-" easily switch windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-
-" easy buffer and tab switching
+" buffer/tab switching {{{
 function! BuffNext(arg)
     :bnext
 endfunction
@@ -539,8 +511,9 @@ nnoremap gb :set operatorfunc=BuffNext<CR>g@<Space>
 nnoremap gB :set operatorfunc=BuffPrev<CR>g@<Space>
 nnoremap gt :set operatorfunc=TabNext<CR>g@<Space>
 nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
+" }}}
 
-" quickfix / location list shortcuts
+" quickfix / location list shortcuts {{{
 " these are hacked together and likely could be improved...
 function! CNext(arg)
     try
@@ -582,10 +555,31 @@ nnoremap ]q :set operatorfunc=CNext<CR>g@<Space>
 nnoremap [q :set operatorfunc=CPrevious<CR>g@<Space>
 nnoremap [Q :cfirst<CR>
 nnoremap ]Q :clast<CR>
+nnoremap _Q :cclose<CR>
 nnoremap ]l :set operatorfunc=LNext<CR>g@<Space>
 nnoremap [l :set operatorfunc=LPrevious<CR>g@<Space>
 nnoremap [L :lfirst<CR>
 nnoremap ]L :llast<CR>
+nnoremap _L :lclose<CR>
+" }}}
+
+"}}}
+
+" custom mappings and stuff {{{
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+
+" easily switch windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " easy switch to prev buffer
 nnoremap <BS> <C-^>

@@ -43,18 +43,15 @@
 [submodule "pack/bundle/start/linediff.vim"]
 	path = pack/bundle/start/linediff.vim
 	url = https://github.com/AndrewRadev/linediff.vim.git
-[submodule "pack/bundle/opt/flattened"]
-	path = pack/bundle/opt/flattened
-	url = https://github.com/romainl/flattened.git
-[submodule "pack/bundle/start/vim-airline"]
-	path = pack/bundle/start/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
-[submodule "pack/bundle/start/Apprentice"]
-	path = pack/bundle/start/Apprentice
-	url = git@github.com:scwfri/Apprentice.git
 [submodule "pack/bundle/opt/tmuxline.vim"]
 	path = pack/bundle/opt/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
 [submodule "pack/bundle/opt/vim-lucius"]
 	path = pack/bundle/opt/vim-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule "pack/bundle/opt/Apprentice"]
+	path = pack/bundle/opt/Apprentice
+	url = https://github.com/romainl/Apprentice.git
+[submodule "pack/bundle/opt/vim-slime"]
+	path = pack/bundle/opt/vim-slime
+	url = https://github.com/jpalardy/vim-slime.git
