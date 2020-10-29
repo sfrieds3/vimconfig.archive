@@ -55,3 +55,6 @@
 [submodule "pack/bundle/opt/tmuxline.vim"]
 	path = pack/bundle/opt/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule "pack/bundle/opt/vim-lucius"]
+	path = pack/bundle/opt/vim-lucius
+	url = https://github.com/jonathanfilip/vim-lucius.git
