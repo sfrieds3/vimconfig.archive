@@ -281,15 +281,6 @@ function! g:Undotree_CustomMap()
 endfunction
 " }}}
 
-" git gutter {{{
-function! GitGutterStatus()
-    let [a, m, r] = GitGutterGetHunkSummary()
-    return printf(' [+%d ~%d -%d]', a, m, r)
-endfunction
-nnoremap _gs :echo GitGutterStatus()<CR>
-nnoremap _gt :GitGutterSignsToggle<CR>
-" }}}
-
 " }}}
 
 " functions {{{
