@@ -578,6 +578,11 @@ nnoremap <BS> <C-^>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
+" git shortcuts
+nnoremap _GG :echo system('git branch --show-current')<CR>
+nnoremap _GD :echo system('git diff ' . expand("%"))<CR>
+nnoremap _Gd :!clear && git diff %<CR>
+
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
 cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
