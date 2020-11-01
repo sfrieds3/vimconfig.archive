@@ -210,18 +210,17 @@ function! Tabline()
         let bufnr = buflist[winnr - 1]
         let bufname = bufname(bufnr)
         let bufmodified = getbufvar(bufnr, "&mod")
-        let gstatus = expand(fugitive#statusline())
         let ostatus = expand(ObsessionStatus())
 
         let s .= '%' . tab . 'T'
         let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
         let s .= ' ' . tab .':'
-        let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
+        let s .= (bufname != '' ? '['. fnamemodify(bufname, ':.') . ']' : '[No Name]')
 
         if bufmodified
             let s .= '[+] '
         endif
-        let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
+        let s .= (tab == tabpagenr() ? printf('%s', ostatus) : '')
     endfor
 
     let s .= '%#TabLineFill#'
@@ -579,9 +578,9 @@ nnoremap <BS> <C-^>
 nnoremap Y y$
 
 " git shortcuts
-nnoremap _GG :echo system('git branch --show-current')<CR>
-nnoremap _GD :echo system('git diff ' . expand("%"))<CR>
-nnoremap _Gd :!clear && git diff %<CR>
+nnoremap <Space>gg :echo system('git branch --show-current && git status')<CR>
+nnoremap <Space>gd :echo system('git diff ' . expand("%"))<CR>
+nnoremap <Space>gD :!clear && git diff %<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
