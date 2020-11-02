@@ -159,20 +159,20 @@ set laststatus=2
 
 function! StatusLineBuffNum()
     let bnum = expand(bufnr('%'))
-    return printf("[%d]", bnum)
+    return printf("[%d]\ ", bnum)
+endfunction
+
+function! StatusLineFileName()
+    let fname = '' != expand('%:f') ? printf("%s\ ", expand('%:t')) : '[No Name]\ '
+    return printf("%s", fname)
 endfunction
 
 function! StatusLineFiletype()
-    return (strlen(&filetype) ? printf("[%s]", &filetype) : '[no ft]')
+    return (strlen(&filetype) ? printf("(%s)", &filetype) : '(no ft)')
 endfunction
 
 function! StatusLineFormat()
     return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
-endfunction
-
-function! StatusLineFileName()
-    let fname = '' != expand('%:f') ? printf("%s", expand('%:f')) : '[No Name]'
-    return printf("%s", fname)
 endfunction
 
 " format the statusline
