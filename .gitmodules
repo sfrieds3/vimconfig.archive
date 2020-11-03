@@ -16,9 +16,6 @@
 [submodule "pack/bundle/start/vim-polyglot"]
 	path = pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
-[submodule "pack/bundle/start/vim-qf"]
-	path = pack/bundle/start/vim-qf
-	url = https://github.com/romainl/vim-qf.git
 [submodule "pack/bundle/start/vim-qlist"]
 	path = pack/bundle/start/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git
