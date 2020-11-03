@@ -591,7 +591,7 @@ nnoremap _i :Ilist!<Space>
 nnoremap gsi :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " ijump
-nnoremap <Space>i :ijump! <C-r>=expand("<cword>")<CR><CR>
+nnoremap gsj :ijump! <C-r>=expand("<cword>")<CR><CR>
 
 " quick jump to tag under curosr
 nnoremap gst :tjump /<C-r>=expand("<cword>")<CR><CR>
