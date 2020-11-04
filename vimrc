@@ -163,7 +163,7 @@ function! StatusLineBuffNum()
 endfunction
 
 function! StatusLineFileName()
-    let fname = '' != expand('%:f') ? printf("%s\ ", expand('%:t')) : '[No Name] '
+    let fname = '' != expand('%:t') ? printf("%s\ ", expand('%:f')) : '[No Name] '
     return printf("%s", fname)
 endfunction
 
