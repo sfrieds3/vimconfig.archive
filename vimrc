@@ -280,6 +280,11 @@ function! g:Undotree_CustomMap()
 endfunction
 " }}}
 
+" linediff {{{
+nnoremap <Space>la ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap <Space>ls :LinediffShow<CR>
+" }}}
+
 " }}}
 
 " functions {{{
