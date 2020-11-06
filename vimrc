@@ -602,8 +602,8 @@ nnoremap gsj :ijump! <C-r>=expand("<cword>")<CR><CR>
 nnoremap gst :tjump /<C-r>=expand("<cword>")<CR><CR>
 
 " g search
-nnoremap \|g :g//#<Left><Left>
-nnoremap \|G :g/<C-r>=expand("<cword>")<CR>/#<CR>
+nnoremap gsw :g//#<Left><Left>
+nnoremap gsW :g/<C-r>=expand("<cword>")<CR>/#<CR>
 
 " quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
