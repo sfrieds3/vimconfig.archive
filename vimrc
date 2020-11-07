@@ -582,6 +582,8 @@ nnoremap <BS> <C-^>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
+cabbrev E e
+
 " git shortcuts
 nnoremap <Space>gg :echo system('git branch && git status')<CR>
 nnoremap <Space>gd :echo system('git diff ' . expand("%"))<CR>
