@@ -558,6 +558,27 @@ nnoremap ]L :llast<CR>
 nnoremap _L :lclose<CR>
 " }}}
 
+" diff from original file {{{
+" similar to :help diff-original-file
+" original: https://gist.github.com/romainl/7198a63faffdadd741e4ae81ae6dd9e6
+function! Diff(spec)
+    vertical new
+    setlocal bufhidden=wipe buftype=nofile nobuflisted noswapfile
+        let cmd = "++edit #"
+    if len(a:spec)
+        let cmd = "!git -C " . shellescape(fnamemodify(finddir('.git', '.;'), ':p:h:h')) . " show " . a:spec . ":#"
+    endif
+    execute "read " . cmd
+    silent 0d_
+    diffthis
+    wincmd p
+    diffthis
+    execute "wincmd l"
+endfunction
+command! -nargs=? Diff call Diff(<q-args>)
+nnoremap <Space>dh :Diff HEAD<CR>
+" }}}
+
 "}}}
 
 " custom mappings and stuff {{{
@@ -582,7 +603,13 @@ nnoremap <BS> <C-^>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
+" no Explore shortcut..
 cabbrev E e
+
+" insert current line into command line
+if !has('patch-8.0.1787')
+    cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
+endif
 
 " git shortcuts
 nnoremap <Space>gg :echo system('git branch && git status')<CR>
