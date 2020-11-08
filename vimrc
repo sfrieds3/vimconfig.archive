@@ -307,10 +307,10 @@ endif
 " }}}
 
 " buffer/tab switching {{{
-nnoremap gb :set operatorfunc=buftag#BuffNext<CR>g@<Space>
-nnoremap gB :set operatorfunc=buftag#BuffPrev<CR>g@<Space>
-nnoremap gt :set operatorfunc=buftag#TabNext<CR>g@<Space>
-nnoremap gT :set operatorfunc=buftag#TabPrev<CR>g@<Space>
+nnoremap gb :set operatorfunc=buftab#BuffNext<CR>g@<Space>
+nnoremap gB :set operatorfunc=buftab#BuffPrev<CR>g@<Space>
+nnoremap gt :set operatorfunc=buftab#TabNext<CR>g@<Space>
+nnoremap gT :set operatorfunc=buftab#TabPrev<CR>g@<Space>
 " }}}
 
 " quickfix / location list shortcuts {{{

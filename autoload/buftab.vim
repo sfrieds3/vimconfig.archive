@@ -3,15 +3,15 @@ if exists('g:loaded_buftab')
 endif
 let g:loaded_buftab = 1
 
-function! buftag#BuffNext(arg)
+function! buftab#BuffNext(arg)
     :bnext
 endfunction
-function! buftag#BuffPrev(arg)
+function! buftab#BuffPrev(arg)
     :bprevious
 endfunction
-function! buftag#TabNext(arg)
+function! buftab#TabNext(arg)
     :tabnext
 endfunction
-function! buftag#TabPrev(arg)
+function! buftab#TabPrev(arg)
     :tabprevious
 endfunction
