@@ -22,19 +22,9 @@ set t_Co=256
 set t_ut=
 set background=dark
 
-function! MyHighlights() abort
-    if g:colors_name == 'apprentice'
-        highlight Comment ctermfg=242
-    highlight Todo cterm=reverse ctermbg=226 ctermfg=235
-    endif
-    if g:colors_name == 'flattened_dark'
-        highlight Todo term=NONE cterm=reverse ctermfg=8 ctermbg=226
-    endif
-endfunction
-
 augroup CustomizeTheme
     autocmd!
-    autocmd ColorScheme * call MyHighlights()
+    autocmd ColorScheme * call highlights#MyHighlights()
 augroup END
 
 colorscheme lucius
@@ -154,39 +144,20 @@ endif
 " }}}
 
 " statusline {{{
-
 set laststatus=2
-
-function! StatusLineBuffNum()
-    let bnum = expand(bufnr('%'))
-    return printf("[%d]\ ", bnum)
-endfunction
-
-function! StatusLineFileName()
-    let fname = '' != expand('%:t') ? printf("%s\ ", expand('%:f')) : '[No Name] '
-    return printf("%s", fname)
-endfunction
-
-function! StatusLineFiletype()
-    return (strlen(&filetype) ? printf("(%s)", &filetype) : '(no ft)')
-endfunction
-
-function! StatusLineFormat()
-    return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
-endfunction
 
 " format the statusline
 set statusline=
-set statusline+=%{StatusLineBuffNum()}
+set statusline+=%{statusline#StatusLineBuffNum()}
 set statusline+=%<
-set statusline+=%{StatusLineFileName()}
+set statusline+=%{statusline#StatusLineFileName()}
 set statusline+=%m
-set statusline+=%{StatusLineFiletype()}
+set statusline+=%{statusline#StatusLineFiletype()}
 
 " right section
 set statusline+=%=
 " file format
-set statusline+=\ %{StatusLineFormat()}
+set statusline+=\ %{statusline#StatusLineFormat()}
 
 " line number
 set statusline+=\ [%l/%L
@@ -194,45 +165,10 @@ set statusline+=\ [%l/%L
 set statusline+=:%c
 " % of file
 set statusline+=\ %p%%]
-
 " }}}
 
 " tabline {{{
-
-" a lot of this taken from https://github.com/mkitt/tabline.vim
-" with a few slight tweaks
-function! Tabline()
-    let s = ''
-    for i in range(tabpagenr('$'))
-        let tab = i + 1
-        let winnr = tabpagewinnr(tab)
-        let buflist = tabpagebuflist(tab)
-        let bufnr = buflist[winnr - 1]
-        let bufname = bufname(bufnr)
-        let bufmodified = getbufvar(bufnr, "&mod")
-        let ostatus = expand(ObsessionStatus())
-
-        let s .= '%' . tab . 'T'
-        let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-        let s .= ' ' . tab .':'
-        let s .= (bufname != '' ? '['. fnamemodify(bufname, ':.') . ']' : '[No Name]')
-
-        if bufmodified
-            let s .= '[+] '
-        endif
-        let s .= (tab == tabpagenr() ? printf('%s', ostatus) : '')
-    endfor
-
-    let s .= '%#TabLineFill#'
-    if (exists("g:tablineclosebutton"))
-        let s .= '%=%999XX'
-    endif
-
-    return s
-endfunction
-
-set tabline=%!Tabline()
-
+set tabline=%!tabline#Tabline()
 " }}}
 
 "}}}
@@ -290,77 +226,25 @@ nnoremap <Space>ls :LinediffShow<CR>
 " functions {{{
 
 " Append modeline after last line in buffer. {{{
-" from https://vim.fandom.com/wiki/Modeline_magic
-function! AppendModeline()
-    let l:modeline = printf(" vim: set ts=%d sw=%d %set:",
-                \ &tabstop, &shiftwidth, &expandtab ? '' : 'no')
-    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-    call append(line('0'), l:modeline)
-endfunction
-nnoremap <silent> _ml :call AppendModeline()<CR>
-
+nnoremap <silent> _ml :call modeline#AppendModeline()<CR>
 " }}}
 
 " gitgrep {{{
-function! GitGrep(...)
-    " store grepprg to restore after running
-    let save = &grepprg
-    " set grepprg to git grep for use in function
-    set grepprg=git\ grep\ -n\ $*
-    let s = 'grep!'
-    let s = 'silent ' . s
-    for i in a:000
-        let s = s . ' ' . i
-    endfor
-    let s = s . ' | copen'
-    execute s
-    " restore grepprg to original setting
-    let &grepprg = save
-endfunction
-command! -nargs=+ GitGrep call GitGrep(<f-args>)
+command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
 " }}}
 
 " generate tags quickly {{{
-function! GenerateTags()
-    :! ctags -R
-endfunction
-command! Tags call GenerateTags()
+command! Tags call tags#GenerateTags()
 " }}}
 
 " highlight interesting words {{{
-
-" credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
-
-function! HiInterestingWord(n) " {{{
-    " Save our location.
-    normal! mz
-
-    " Yank the current word into the z register.
-    normal! "zyiw
-
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-endfunction " }}}
-
 " Mappings {{{
-nnoremap <silent> _1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> _2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> _3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> _4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> _5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> _6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> _1 :call hiwords#HiInterestingWord(1)<cr>
+nnoremap <silent> _2 :call hiwords#HiInterestingWord(2)<cr>
+nnoremap <silent> _3 :call hiwords#HiInterestingWord(3)<cr>
+nnoremap <silent> _4 :call hiwords#HiInterestingWord(4)<cr>
+nnoremap <silent> _5 :call hiwords#HiInterestingWord(5)<cr>
+nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
 " }}}
 
 " Default Highlights {{{
@@ -374,95 +258,28 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 
 " trim trailing whitespace {{{
-
-" returns an extranous 0...
-function! StripTrailingWhitespace() range
-    if !&binary && &filetype != 'diff'
-        execute "redir => numclean"
-        silent! execute "%s/\\s\\+$//en"
-        execute "redir END"
-        silent! call Preserve(":%s/\\s\\+$//e")
-        execute "echo numclean"
-    endif
-endfunction
-
-function! Preserve(command)
-    try
-        let l:win_view = winsaveview()
-        execute 'keeppatterns keepjumps ' . a:command
-    finally
-        call winrestview(l:win_view)
-    endtry
-endfunction
-
-command! CleanWhitespace call echo StripTrailingWhitespace()<CR>
-nnoremap _W :echo StripTrailingWhitespace()<CR>
-
+command! CleanWhitespace call echo whitespace#StripTrailingWhitespace()<CR>
+nnoremap _W :echo whitespace#StripTrailingWhitespace()<CR>
 " }}}
 
 " line number management {{{
-
-function! ToggleLineNum()
-    if &number || &relativenumber
-        set nonumber
-        set norelativenumber
-    else
-        set number
-        set relativenumber
-    endif
-endfunction
-
-command! ToggleLineNum call ToggleLineNum()
-nnoremap _n :call ToggleLineNum()<cr>
-
+command! ToggleLineNum call lnum#ToggleLineNum()
+nnoremap _n :call lnum#ToggleLineNum()<cr>
 " }}}
 
 " move lines {{{
-function! MoveLineUp(arg)
-    execute ":.m-2<CR>"
-endfunction
-
-function! MoveLineDown(arg)
-    execute ":.m+1<CR>"
-endfunction
-
-nnoremap <silent> _j :set operatorfunc=MoveLineUp<CR>g@<Space>
-nnoremap <silent> _k :set operatorfunc=MoveLineDown<CR>g@<Space>
+nnoremap <silent> _j :set operatorfunc=lines#MoveLineUp<CR>g@<Space>
+nnoremap <silent> _k :set operatorfunc=lines#MoveLineDown<CR>g@<Space>
 " }}}
 
 " show declaration {{{
 " from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
-function! ShowDeclaration(global) abort
-    let pos = getpos('.')
-    if searchdecl(expand('<cword>'), a:global) == 0
-        let line_of_declaration = line('.')
-        execute line_of_declaration . "#"
-    else
-        echo 'Sorry, no declaration found.'
-    endif
-    call cursor(pos[1], pos[2])
-endfunction
-nnoremap _d :call ShowDeclaration(0)<CR>
-nnoremap _D :call ShowDeclaration(1)<CR>
+nnoremap _d :call showdecl#ShowDeclaration(0)<CR>
+nnoremap _D :call showdecl#ShowDeclaration(1)<CR>
 " }}}
 
 " substitute operator {{{
-"credit: https://gist.github.com/romainl/b00ccf58d40f522186528012fd8cd13d
-function! Substitute(type, ...)
-    let cur = getpos("''")
-    call cursor(cur[1], cur[2])
-    let cword = expand('<cword>')
-    execute "'[,']s/" . cword . "/" . input(cword . '/')
-    call cursor(cur[1], cur[2])
-endfunction
-nmap <silent> _s  m':set operatorfunc=Substitute<CR>g@
-
-" Usage:
-"   <key>ipfoo<CR>         Substitute every occurrence of the word under
-"                          the cursor with 'foo' n the current paragraph
-"   <key>Gfoo<CR>          Same, from here to the end of the buffer
-"   <key>?bar<CR>foo<CR>   Same, from previous occurrence of 'bar'
-"                          to current line
+nmap <silent> _s  m':set operatorfunc=substitute#Substitute<CR>g@
 " }}}
 
 " Global <pattern> -> location list {{{
@@ -478,139 +295,45 @@ nnoremap gsg :Global<Space>
 " from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
 if !exists(':cdo')
     command! -nargs=1 -complete=command Cdo try | sil cfirst |
-        \ while 1 | exec <q-args> | sil cn | endwhile |
-        \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-        \ endtry
+                \ while 1 | exec <q-args> | sil cn | endwhile |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+            \ endtry
 
     command! -nargs=1 -complete=command Cfdo try | sil cfirst |
-        \ while 1 | exec <q-args> | sil cnf | endwhile |
-        \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-        \ endtry
+                \ while 1 | exec <q-args> | sil cnf | endwhile |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+            \ endtry
 endif
 " }}}
 
 " buffer/tab switching {{{
-function! BuffNext(arg)
-    :bnext
-endfunction
-function! BuffPrev(arg)
-    :bprevious
-endfunction
-function! TabNext(arg)
-    :tabnext
-endfunction
-function! TabPrev(arg)
-    :tabprevious
-endfunction
-nnoremap gb :set operatorfunc=BuffNext<CR>g@<Space>
-nnoremap gB :set operatorfunc=BuffPrev<CR>g@<Space>
-nnoremap gt :set operatorfunc=TabNext<CR>g@<Space>
-nnoremap gT :set operatorfunc=TabPrev<CR>g@<Space>
+nnoremap gb :set operatorfunc=buftag#BuffNext<CR>g@<Space>
+nnoremap gB :set operatorfunc=buftag#BuffPrev<CR>g@<Space>
+nnoremap gt :set operatorfunc=buftag#TabNext<CR>g@<Space>
+nnoremap gT :set operatorfunc=buftag#TabPrev<CR>g@<Space>
 " }}}
 
 " quickfix / location list shortcuts {{{
-" these are hacked together and likely could be improved...
-function! CNext(arg)
-    try
-        :cnext
-    catch /E553:/
-        :cc
-    catch /E42:/
-        echo "No quickfix errors!"
-    endtry
-endfunction
-function! CPrevious(arg)
-    try
-        :cprevious
-    catch /E553:/
-        :cc
-    catch /E42:/
-        echo "No quickfix errors!"
-    endtry
-endfunction
-function! LNext(arg) abort
-    try
-        :lnext
-    catch /E553:/
-        :ll
-    catch /E42:/
-        echo "No location list errors!"
-    endtry
-endfunction
-function! LPrevious(arg) abort
-    try
-        :lprevious
-    catch /E553:/
-        :ll
-    catch /E42:/
-        echo "No location list errors!"
-    endtry
-endfunction
-nnoremap ]q :set operatorfunc=CNext<CR>g@<Space>
-nnoremap [q :set operatorfunc=CPrevious<CR>g@<Space>
+nnoremap ]q :set operatorfunc=lists#CNext<CR>g@<Space>
+nnoremap [q :set operatorfunc=lists#CPrevious<CR>g@<Space>
 nnoremap [Q :cfirst<CR>
 nnoremap ]Q :clast<CR>
 nnoremap _Q :cclose<CR>
-nnoremap ]l :set operatorfunc=LNext<CR>g@<Space>
-nnoremap [l :set operatorfunc=LPrevious<CR>g@<Space>
+nnoremap ]l :set operatorfunc=lists#LNext<CR>g@<Space>
+nnoremap [l :set operatorfunc=lists#LPrevious<CR>g@<Space>
 nnoremap [L :lfirst<CR>
 nnoremap ]L :llast<CR>
 nnoremap _L :lclose<CR>
 " }}}
 
 " diff from original file {{{
-" similar to :help diff-original-file
-" original: https://gist.github.com/romainl/7198a63faffdadd741e4ae81ae6dd9e6
-function! Diff(spec)
-    vertical new
-    setlocal bufhidden=wipe buftype=nofile nobuflisted noswapfile
-        let cmd = "++edit #"
-    if len(a:spec)
-        let cmd = "!git -C " . shellescape(fnamemodify(finddir('.git', '.;'), ':p:h:h')) . " show " . a:spec . ":#"
-    endif
-    execute "read " . cmd
-    silent 0d_
-    diffthis
-    wincmd p
-    diffthis
-    execute "wincmd l"
-endfunction
-command! -nargs=? Diff call Diff(<q-args>)
+command! -nargs=? Diff call diff#Diff(<q-args>)
 nnoremap <Space>dh :Diff HEAD<CR>
 nnoremap <Space>dd :Diff<CR>
 " }}}
 
 " redir {{{
-function! Redir(cmd, rng, start, end)
-	for win in range(1, winnr('$'))
-		if getwinvar(win, 'scratch')
-			execute win . 'windo close'
-		endif
-	endfor
-	if a:cmd =~ '^!'
-		let cmd = a:cmd =~' %'
-			\ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
-			\ : matchstr(a:cmd, '^!\zs.*')
-		if a:rng == 0
-			let output = systemlist(cmd)
-		else
-			let joined_lines = join(getline(a:start, a:end), '\n')
-			let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-			let output = systemlist(cmd . " <<< $" . cleaned_lines)
-		endif
-	else
-		redir => output
-		execute a:cmd
-		redir END
-		let output = split(output, "\n")
-	endif
-	vnew
-	let w:scratch = 1
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-	call setline(1, output)
-endfunction
-
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
+command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q-args>, <range>, <line1>, <line2>)
 " }}}
 
 "}}}

@@ -1,4 +1,9 @@
-function! utils#redir(cmd, rng, start, end)
+if exists('g:loaded_redir')
+    finish
+endif
+let g:loaded_redir = 1
+
+function! redir#Redir(cmd, rng, start, end)
 	for win in range(1, winnr('$'))
 		if getwinvar(win, 'scratch')
 			execute win . 'windo close'
@@ -26,5 +31,3 @@ function! utils#redir(cmd, rng, start, end)
 	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
 	call setline(1, output)
 endfunction
-
-command! -nargs=1 -complete=command -bar -range utils#redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
