@@ -88,7 +88,7 @@ if !exists("g:syntax_on")
 endif
 
 set wildmenu
-set wildignore=*.pyc
+set wildignore+=*.pyc
 set wildignorecase
 set wildmode=list,full
 set wildcharm=<C-z>
