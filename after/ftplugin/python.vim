@@ -11,13 +11,13 @@ nnoremap <buffer> <silent> \f call PythonFuncGrep()
 if exists("g:py_formatprg")
     let &l:formatprg=expand(g:py_formatprg)
 else
-    let &l:formatprg="autopep8 --ignore=E501,E261,E262,E265,E266 --format=pylint "
+    let &l:formatprg="yapf"
 endif
 
 if exists("g:py_makeprg")
     let &l:makeprg=expand(g:py_makeprg)
 else
-    let &l:makeprg="pycodestyle"
+    let &l:makeprg="autopep8 --ignore=E501,E261,E262,E265,E266 --format=pylint "
 endif
 
 " pylint
