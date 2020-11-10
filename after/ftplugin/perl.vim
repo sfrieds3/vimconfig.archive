@@ -3,14 +3,14 @@ setlocal iskeyword-=:
 
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
-if exists("g:py_formatprg")
-    let &l:formatprg=expand(g:py_formatprg)
+if exists("g:pl_formatprg")
+    let &l:formatprg=expand(g:pl_formatprg)
 else
     let &l:formatprg=perltidy\ -st
 endif
 
-if exists("g:py_makeprg")
-    let &l:makeprg=expand(g:py_makeprg)
+if exists("g:pl_makeprg")
+    let &l:makeprg=expand(g:pl_makeprg)
 else
     let &l:makeprg=perlcritic
 endif
