@@ -6,13 +6,13 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 if exists("g:pl_formatprg")
     let &l:formatprg=expand(g:pl_formatprg)
 else
-    let &l:formatprg=perltidy\ -st
+    let &l:formatprg="perltidy\ -st"
 endif
 
 if exists("g:pl_makeprg")
     let &l:makeprg=expand(g:pl_makeprg)
 else
-    let &l:makeprg=perlcritic
+    let &l:makeprg="perlcritic"
 endif
 
 " settings for vim-perl
