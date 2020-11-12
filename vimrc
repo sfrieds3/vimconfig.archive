@@ -209,8 +209,8 @@ nnoremap _U :exec("UndotreeToggle")<CR>
 nnoremap <Space>u :exec("UndotreeFocus")<CR>
 
 function! g:Undotree_CustomMap()
-    nmap <buffer> J <plug>UndotreeNextState
-    nmap <buffer> K <plug>UndotreePreviousState
+    nmap <buffer> K <plug>UndotreeNextState
+    nmap <buffer> J <plug>UndotreePreviousState
     nmap <buffer> <Space>u q
     nmap <buffer> _U q
 endfunction
