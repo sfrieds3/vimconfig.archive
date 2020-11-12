@@ -17,5 +17,6 @@ function! diff#Diff(spec)
     diffthis
     wincmd p
     diffthis
-    execute "wincmd l"
+    wincmd r
+    wincmd h
 endfunction
