@@ -79,7 +79,7 @@ set ttimeoutlen=10
 
 " }}}
 
-let mapleader = <Bslash>
+let mapleader = "\\"
 let maplocalleader = "_"
 
 " enable syntax
