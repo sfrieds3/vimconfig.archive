@@ -31,9 +31,3 @@
 [submodule "pack/bundle/start/linediff.vim"]
 	path = pack/bundle/start/linediff.vim
 	url = https://github.com/AndrewRadev/linediff.vim.git
-[submodule "pack/bundle/opt/vim-lucius"]
-	path = pack/bundle/opt/vim-lucius
-	url = https://github.com/jonathanfilip/vim-lucius.git
-[submodule "pack/bundle/opt/Apprentice"]
-	path = pack/bundle/opt/Apprentice
-	url = https://github.com/romainl/Apprentice.git
