@@ -3,6 +3,15 @@ if exists('g:loaded_statusline')
 endif
 let g:loaded_statusline = 1
 
+function! statusline#ToggleStatusline()
+    if &laststatus == 1
+        set laststatus=2
+    else
+        set laststatus=1
+    endif
+    set laststatus?
+endfunction
+
 function! statusline#StatusLineBuffNum()
     let bnum = expand(bufnr('%'))
     return printf("[%d]\ ", bnum)

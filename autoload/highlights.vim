@@ -11,11 +11,14 @@ hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 function! highlights#MyHighlights() abort
-    if g:colors_name == 'apprentice'
+    if exists('g:colors_name') && g:colors_name ==# 'apprentice'
         highlight Comment ctermfg=242
-    highlight Todo cterm=reverse ctermbg=226 ctermfg=235
+        highlight Todo cterm=reverse ctermbg=226 ctermfg=235
     endif
-    if g:colors_name == 'flattened_dark'
-        highlight Todo term=NONE cterm=reverse ctermfg=8 ctermbg=226
+    if exists('g:colors_name') && g:colors_name ==# 'lucius'
+        LuciusDark
+    endif
+    if exists('g:colors_name') && g:colors_name ==# 'gooddog'
+        set cursorline
     endif
 endfunction

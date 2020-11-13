@@ -1,20 +1,11 @@
 " vim settings {{{
 
-" local settings {{{
-" load local pre vimrc settings
-runtime! local_pre.vim
-" }}}
-
-" plugins {{{
-
 "use pathogen if not on vim8, otherwise use vim8 packages
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
     execute pathogen#infect('pack/bundle/start/{}')
     execute pathogen#infect('pack/bundle/opt/{}')
     execute pathogen#helptags()
 endif
-
-" }}}
 
 " colorscheme {{{
 
@@ -27,14 +18,12 @@ augroup CustomizeTheme
     autocmd ColorScheme * call highlights#MyHighlights()
 augroup END
 
-colorscheme lucius
-LuciusDark
+colorscheme gooddog
 
 " }}}
 
 " initial settings {{{
 
-" basic settings {{{
 filetype plugin indent on
 
 set hidden
@@ -77,8 +66,6 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-" }}}
-
 let mapleader = "\\"
 let maplocalleader = "_"
 
@@ -117,6 +104,11 @@ augroup AutoQuickfix
     autocmd QuickFixCmdPost l* lwindow
 augroup END
 
+" no ruler by default
+if &ruler
+  set noruler
+endif
+
 " }}}
 
 " backup settings {{{
@@ -128,7 +120,7 @@ set noswapfile
 
 " save lots of history
 set viminfo='1000,f1,<500
-set history=500
+set history=5000
 
 set undodir=~/.vim/tmp/undo// " undo files
 set backupdir=~/.vim/tmp/backup// " backups
@@ -144,7 +136,20 @@ endif
 " }}}
 
 " statusline {{{
-set laststatus=2
+" statusline only if more than one buffer
+if &laststatus != 1
+  set laststatus=1
+endif
+
+" toggle statusline
+command! ToggleStatusline call statusline#ToggleStatusline()
+nnoremap \S :<C-u>:call statusline#ToggleStatusline()<CR>
+
+" toggle ruler
+nnoremap \N :<C-u>set ruler! ruler?<CR>
+if exists(':xnoremap')
+  xnoremap \N :<C-u>set ruler! ruler?<CR>gv
+endif
 
 " format the statusline
 set statusline=
@@ -208,8 +213,8 @@ endfunction
 " }}}
 
 " linediff {{{
-nnoremap <Bslash>db ggVG:LinediffAdd<CR><C-o><C-o>
-nnoremap <Bslash>ds :LinediffShow<CR>
+nnoremap \db ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap \ds :LinediffShow<CR>
 " }}}
 
 " }}}
@@ -239,7 +244,7 @@ nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
 
 " trim trailing whitespace {{{
 command! CleanWhitespace call echo whitespace#StripTrailingWhitespace()<CR>
-nnoremap _W :echo whitespace#StripTrailingWhitespace()<CR>
+nnoremap _W :call whitespace#StripTrailingWhitespace()<CR>
 " }}}
 
 " line number management {{{
@@ -308,8 +313,8 @@ nnoremap _L :lclose<CR>
 
 " diff from original file {{{
 command! -nargs=? Diff call diff#Diff(<q-args>)
-nnoremap <Bslash>dh :Diff HEAD<CR>
-nnoremap <Bslash>dd :Diff<CR>
+nnoremap \dh :Diff HEAD<CR>
+nnoremap \dd :Diff<CR>
 " }}}
 
 " redir {{{
@@ -348,20 +353,26 @@ if !has('patch-8.0.1787')
     cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
 endif
 
-" \s toggles spell checking
-nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
+" toggle spell checking
+nnoremap \s :<C-u>setlocal spell! spell?<CR>
+
+" reload filetype plugins
+nnoremap \F :<C-u>doautocmd filetypedetect BufRead<CR>
+
+" echo filetype
+nnoremap \t :<C-u>set filetype?<CR>
 
 " git shortcuts
-nnoremap <Bslash>gg :echo system('git branch && git status')<CR>
-nnoremap <Bslash>gd :echo system('git diff ' . expand("%"))<CR>
-nnoremap <Bslash>gD :!clear && git diff %<CR>
+nnoremap \gg :echo system('git branch && git status')<CR>
+nnoremap \gd :echo system('git diff ' . expand("%"))<CR>
+nnoremap \gD :!clear && git diff %<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
 cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
 
 " ilist
-nnoremap <Bslash>i :Ilist!<Space>
+nnoremap \i :Ilist!<Space>
 nnoremap gsi :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " ijump
@@ -406,20 +417,40 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 " show list of digraphs -- special symbols
 nnoremap _vd :help digraphs<cr>:179<cr>zt
 
-" \v shows all global variables
-nnoremap <Bslash>v :<C-U>let g: v:<CR>
-" \V shows all local variables
-nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
+" command history
+nnoremap \H :<C-u>history :<CR>
 
-" \y shows all registers
-nnoremap <Bslash>y :<C-U>registers<CR>
+" show global variables
+nnoremap \v :<C-u>let g: v:<CR>
+" show local variables
+nnoremap \V :<C-u>let b: t: w:<CR>
+
+" show all registers
+nnoremap \y :<C-u>registers<CR>
+
+" show marks
+nnoremap \k :<C-u>marks<CR>
+
+" toggle showing tab, end-of-line, and trailing whitespace
+nnoremap \l :<C-u>setlocal list! list?<CR>
+if exists(':xnoremap')
+  xnoremap \l :<C-u>setlocal list! list?<CR>gv
+endif
+
+" normal maps
+nnoremap \m :<C-u>map<CR>
+" buffer-local normal maps
+nnoremap \M :<C-u>map <buffer><CR>
 
 " search for non-ASCII characters
-nnoremap _Va /[^\x00-\x7F]<CR>
+nnoremap \Va /[^\x00-\x7F]<CR>
+
+" echo current highlight
+nnoremap \h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
 " toggle line and column markers
-nnoremap <silent> <Bslash>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <Bslash>r :exec("set cursorline!")<cr>
+nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> \r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <Esc>gUiwea
@@ -431,7 +462,7 @@ inoremap <S-Tab> <C-v><Tab>
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
 " tagbar
-nnoremap <silent> <Bslash><Bslash> :exec("TagbarOpen('j')")<cr>
+nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
 
 " Disable highlight
 nnoremap <silent> <space><cr> :nohlsearch<cr>
@@ -465,4 +496,8 @@ onoremap in( :<C-u>normal! f(vi(<cr>
 onoremap il( :<C-u>normal! F)vi(<cr>
 " }}}
 
+" }}}
+
+" Source any .vim files from ~/.vim/config {{{
+runtime! config/*.vim
 " }}}

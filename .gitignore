@@ -1,6 +1,4 @@
 .netrwhist
 tmp/*
 **/tags
-
-local_pre.vim
-local_post.vim
+config/*
