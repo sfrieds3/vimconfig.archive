@@ -79,8 +79,8 @@ set ttimeoutlen=10
 
 " }}}
 
-let mapleader = "\<space>"
-let maplocalleader = "\\"
+let mapleader = <Bslash>
+let maplocalleader = "_"
 
 " enable syntax
 if !exists("g:syntax_on")
@@ -175,11 +175,6 @@ set tabline=%!tabline#Tabline()
 
 " plugin config {{{
 
-" slime {{{
-let g:slime_target = "tmux"
-let g:slime_paste_file = tempname()
-" }}}
-
 " ctrlp {{{
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
@@ -199,10 +194,6 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 " }}}
 
-" vlime {{{
-let g:vlime_cl_use_terminal = 1
-" }}}
-
 " undotree {{{
 let g:undotree_WindowLayout = 2
 nnoremap _U :exec("UndotreeToggle")<CR>
@@ -217,8 +208,8 @@ endfunction
 " }}}
 
 " linediff {{{
-nnoremap <Space>la ggVG:LinediffAdd<CR><C-o><C-o>
-nnoremap <Space>ls :LinediffShow<CR>
+nnoremap <Bslash>db ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap <Bslash>ds :LinediffShow<CR>
 " }}}
 
 " }}}
@@ -238,23 +229,12 @@ command! Tags call tags#GenerateTags()
 " }}}
 
 " highlight interesting words {{{
-" Mappings {{{
 nnoremap <silent> _1 :call hiwords#HiInterestingWord(1)<cr>
 nnoremap <silent> _2 :call hiwords#HiInterestingWord(2)<cr>
 nnoremap <silent> _3 :call hiwords#HiInterestingWord(3)<cr>
 nnoremap <silent> _4 :call hiwords#HiInterestingWord(4)<cr>
 nnoremap <silent> _5 :call hiwords#HiInterestingWord(5)<cr>
 nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
-" }}}
-
-" Default Highlights {{{
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-" }}}
 " }}}
 
 " trim trailing whitespace {{{
@@ -328,8 +308,8 @@ nnoremap _L :lclose<CR>
 
 " diff from original file {{{
 command! -nargs=? Diff call diff#Diff(<q-args>)
-nnoremap <Space>dh :Diff HEAD<CR>
-nnoremap <Space>dd :Diff<CR>
+nnoremap <Bslash>dh :Diff HEAD<CR>
+nnoremap <Bslash>dd :Diff<CR>
 " }}}
 
 " redir {{{
@@ -368,17 +348,20 @@ if !has('patch-8.0.1787')
     cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
 endif
 
+" \s toggles spell checking
+nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
+
 " git shortcuts
-nnoremap <Space>gg :echo system('git branch && git status')<CR>
-nnoremap <Space>gd :echo system('git diff ' . expand("%"))<CR>
-nnoremap <Space>gD :!clear && git diff %<CR>
+nnoremap <Bslash>gg :echo system('git branch && git status')<CR>
+nnoremap <Bslash>gd :echo system('git diff ' . expand("%"))<CR>
+nnoremap <Bslash>gD :!clear && git diff %<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
 cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
 
 " ilist
-nnoremap _i :Ilist!<Space>
+nnoremap <Bslash>i :Ilist!<Space>
 nnoremap gsi :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " ijump
@@ -423,12 +406,20 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 " show list of digraphs -- special symbols
 nnoremap _vd :help digraphs<cr>:179<cr>zt
 
+" \v shows all global variables
+nnoremap <Bslash>v :<C-U>let g: v:<CR>
+" \V shows all local variables
+nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
+
+" \y shows all registers
+nnoremap <Bslash>y :<C-U>registers<CR>
+
 " search for non-ASCII characters
 nnoremap _Va /[^\x00-\x7F]<CR>
 
 " toggle line and column markers
-nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> \r :exec("set cursorline!")<cr>
+nnoremap <silent> <Bslash>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <Bslash>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <Esc>gUiwea
@@ -440,7 +431,7 @@ inoremap <S-Tab> <C-v><Tab>
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
 " tagbar
-nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
+nnoremap <silent> <Bslash><Bslash> :exec("TagbarOpen('j')")<cr>
 
 " Disable highlight
 nnoremap <silent> <space><cr> :nohlsearch<cr>
