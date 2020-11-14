@@ -19,6 +19,6 @@ function! highlights#MyHighlights() abort
         LuciusDark
     endif
     if exists('g:colors_name') && g:colors_name ==# 'gooddog'
-        set cursorline
+        "set cursorline
     endif
 endfunction

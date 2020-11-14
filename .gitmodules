@@ -7,9 +7,6 @@
 [submodule "pack/bundle/start/undotree"]
 	path = pack/bundle/start/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "pack/bundle/start/vim-lion"]
-	path = pack/bundle/start/vim-lion
-	url = https://github.com/tommcdo/vim-lion.git
 [submodule "pack/bundle/start/vim-obsession"]
 	path = pack/bundle/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git

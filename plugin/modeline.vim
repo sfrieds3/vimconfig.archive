@@ -10,3 +10,5 @@ function! modeline#AppendModeline()
     let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
     call append(line('0'), l:modeline)
 endfunction
+
+command! Modeline call modeline#AppendModeline()

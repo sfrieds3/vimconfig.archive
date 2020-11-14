@@ -143,12 +143,12 @@ endif
 
 " toggle statusline
 command! ToggleStatusline call statusline#ToggleStatusline()
-nnoremap \S :<C-u>:call statusline#ToggleStatusline()<CR>
+nnoremap _S :<C-u>:call statusline#ToggleStatusline()<CR>
 
 " toggle ruler
-nnoremap \N :<C-u>set ruler! ruler?<CR>
+nnoremap _N :<C-u>set ruler! ruler?<CR>
 if exists(':xnoremap')
-  xnoremap \N :<C-u>set ruler! ruler?<CR>gv
+  xnoremap _N :<C-u>set ruler! ruler?<CR>gv
 endif
 
 " format the statusline
@@ -201,129 +201,29 @@ map T <Plug>Sneak_T
 
 " undotree {{{
 let g:undotree_WindowLayout = 2
-nnoremap _U :exec("UndotreeToggle")<CR>
+nnoremap \u :exec("UndotreeToggle")<CR>
 nnoremap <Space>u :exec("UndotreeFocus")<CR>
 
 function! g:Undotree_CustomMap()
     nmap <buffer> K <plug>UndotreeNextState
     nmap <buffer> J <plug>UndotreePreviousState
     nmap <buffer> <Space>u q
-    nmap <buffer> _U q
+    nmap <buffer> \u q
 endfunction
 " }}}
 
 " linediff {{{
-nnoremap \db ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap \da ggVG:LinediffAdd<CR><C-o><C-o>
 nnoremap \ds :LinediffShow<CR>
 " }}}
 
 " }}}
 
-" functions {{{
-
-" Append modeline after last line in buffer. {{{
-nnoremap <silent> _ml :call modeline#AppendModeline()<CR>
-" }}}
-
-" gitgrep {{{
-command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
-" }}}
-
-" generate tags quickly {{{
-command! Tags call tags#GenerateTags()
-" }}}
-
-" highlight interesting words {{{
-nnoremap <silent> _1 :call hiwords#HiInterestingWord(1)<cr>
-nnoremap <silent> _2 :call hiwords#HiInterestingWord(2)<cr>
-nnoremap <silent> _3 :call hiwords#HiInterestingWord(3)<cr>
-nnoremap <silent> _4 :call hiwords#HiInterestingWord(4)<cr>
-nnoremap <silent> _5 :call hiwords#HiInterestingWord(5)<cr>
-nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
-" }}}
-
-" trim trailing whitespace {{{
-command! CleanWhitespace call echo whitespace#StripTrailingWhitespace()<CR>
-nnoremap _W :call whitespace#StripTrailingWhitespace()<CR>
-" }}}
-
-" line number management {{{
-command! ToggleLineNum call lnum#ToggleLineNum()
-nnoremap _n :call lnum#ToggleLineNum()<cr>
-" }}}
-
-" move lines {{{
-nnoremap <silent> _j :set operatorfunc=lines#MoveLineUp<CR>g@<Space>
-nnoremap <silent> _k :set operatorfunc=lines#MoveLineDown<CR>g@<Space>
-" }}}
-
-" show declaration {{{
-" from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
-nnoremap _d :call showdecl#ShowDeclaration(0)<CR>
-nnoremap _D :call showdecl#ShowDeclaration(1)<CR>
-" }}}
-
-" substitute operator {{{
-nmap <silent> _s  m':set operatorfunc=substitute#Substitute<CR>g@
-" }}}
-
-" Global <pattern> -> location list {{{
-" original soure: https://gist.github.com/romainl/f7e2e506dc4d7827004e4994f1be2df6
-set errorformat^=%f:%l:%c\ %m
-" command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
-command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
-
-nnoremap gsg :Global<Space>
-" }}}
-
-" cdo/cfdo if not available {{{
-" from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
-if !exists(':cdo')
-    command! -nargs=1 -complete=command Cdo try | sil cfirst |
-                \ while 1 | exec <q-args> | sil cn | endwhile |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-            \ endtry
-
-    command! -nargs=1 -complete=command Cfdo try | sil cfirst |
-                \ while 1 | exec <q-args> | sil cnf | endwhile |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-            \ endtry
-endif
-" }}}
-
-" buffer/tab switching {{{
-nnoremap gb :set operatorfunc=buftab#BuffNext<CR>g@<Space>
-nnoremap gB :set operatorfunc=buftab#BuffPrev<CR>g@<Space>
-nnoremap gt :set operatorfunc=buftab#TabNext<CR>g@<Space>
-nnoremap gT :set operatorfunc=buftab#TabPrev<CR>g@<Space>
-" }}}
-
-" quickfix / location list shortcuts {{{
-nnoremap ]q :set operatorfunc=lists#CNext<CR>g@<Space>
-nnoremap [q :set operatorfunc=lists#CPrevious<CR>g@<Space>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
-nnoremap _Q :cclose<CR>
-nnoremap ]l :set operatorfunc=lists#LNext<CR>g@<Space>
-nnoremap [l :set operatorfunc=lists#LPrevious<CR>g@<Space>
-nnoremap [L :lfirst<CR>
-nnoremap ]L :llast<CR>
-nnoremap _L :lclose<CR>
-" }}}
-
-" diff from original file {{{
-command! -nargs=? Diff call diff#Diff(<q-args>)
-nnoremap \dh :Diff HEAD<CR>
-nnoremap \dd :Diff<CR>
-" }}}
-
-" redir {{{
-command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q-args>, <range>, <line1>, <line2>)
-" }}}
-
-"}}}
-
-" custom mappings and stuff {{{
+" mappings {{{
+" Some basics when it comes to mappings:
+" 1) _ when mapping affects vim, or is local to the filetype (localleader)
+" 2) \ when mapping affects the code
+" 3) <Space> when mapping is quick jump
 
 nnoremap j gj
 nnoremap k gk
@@ -332,12 +232,6 @@ nnoremap gk k
 
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
-
-" easily switch windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
 
 " easy switch to prev buffer
 nnoremap <BS> <C-^>
@@ -353,19 +247,161 @@ if !has('patch-8.0.1787')
     cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
 endif
 
+" buffer/tab switching
+nnoremap gb :bnext<CR>
+nnoremap gB :bprevious<CR>
+nnoremap <expr> gt ":tabnext +" . v:count1 . '<CR>'
+nnoremap <expr> gT ":tabnext -" . v:count1 . '<CR>'
+
+" arglist / quickfix / location list shortcuts
+nnoremap ]a :anext<CR>
+nnoremap [a :aprevious<CR>
+nnoremap [A :first<CR>
+nnoremap ]A :last<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+nnoremap _Q :cclose<CR>
+nnoremap ]l :lnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap [L :lfirst<CR>
+nnoremap ]L :llast<CR>
+nnoremap _L :lclose<CR>
+
+"" Leader,{ and Leader,} move to top and bottom of indent region
+map <Leader>{ <Plug>(VerticalRegionUp)
+sunmap <Leader>{
+map <Leader>} <Plug>(VerticalRegionDown)
+sunmap <Leader>}
+
+nnoremap \j :buffers<CR>:buffer<Space>
+
+" functions {{{
+" gitgrep
+command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
+
+" highlight interesting words
+nnoremap <silent> _1 :call hiwords#HiInterestingWord(1)<cr>
+nnoremap <silent> _2 :call hiwords#HiInterestingWord(2)<cr>
+nnoremap <silent> _3 :call hiwords#HiInterestingWord(3)<cr>
+nnoremap <silent> _4 :call hiwords#HiInterestingWord(4)<cr>
+nnoremap <silent> _5 :call hiwords#HiInterestingWord(5)<cr>
+nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
+
+" trim trailing whitespace
+command! CleanWhitespace call echo whitespace#StripTrailingWhitespace()<CR>
+nnoremap \w :call whitespace#StripTrailingWhitespace()<CR>
+
+" line number management
+command! ToggleLineNum call lnum#ToggleLineNum()
+nnoremap _n :call lnum#ToggleLineNum()<cr>
+
+" show declaration
+" from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
+nnoremap \d :call showdecl#ShowDeclaration(0)<CR>
+nnoremap \D :call showdecl#ShowDeclaration(1)<CR>
+
+" substitute operator
+nmap <silent> \s  m':set operatorfunc=substitute#Substitute<CR>g@
+
+" Global <pattern> -> location list
+" original soure: https://gist.github.com/romainl/f7e2e506dc4d7827004e4994f1be2df6
+set errorformat^=%f:%l:%c\ %m
+" command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
+command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
+nnoremap gsg :Global<Space>
+
+" cdo/cfdo if not available
+" from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
+if !exists(':cdo')
+    command! -nargs=1 -complete=command Cdo try | sil cfirst |
+                \ while 1 | exec <q-args> | sil cn | endwhile |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+            \ endtry
+
+    command! -nargs=1 -complete=command Cfdo try | sil cfirst |
+                \ while 1 | exec <q-args> | sil cnf | endwhile |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
+            \ endtry
+endif
+
+" redir
+command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q-args>, <range>, <line1>, <line2>)
+
+" toggle paste mode
+nnoremap _P :set paste! paste?<CR>
+"}}}
+
+" editor mappings {{{
 " toggle spell checking
-nnoremap \s :<C-u>setlocal spell! spell?<CR>
+nnoremap _s :<C-u>setlocal spell! spell?<CR>
 
 " reload filetype plugins
-nnoremap \F :<C-u>doautocmd filetypedetect BufRead<CR>
+nnoremap _F :<C-u>doautocmd filetypedetect BufRead<CR>
 
 " echo filetype
-nnoremap \t :<C-u>set filetype?<CR>
+nnoremap _t :<C-u>set filetype?<CR>
 
-" git shortcuts
-nnoremap \gg :echo system('git branch && git status')<CR>
-nnoremap \gd :echo system('git diff ' . expand("%"))<CR>
-nnoremap \gD :!clear && git diff %<CR>
+" echo current file full path
+nnoremap _fp :echo expand("%:p")<cr>
+
+" git and diff shortcuts
+nnoremap _gg :echo system('git branch && git status')<CR>
+nnoremap _gd :echo system('git diff ' . expand("%"))<CR>
+nnoremap _gD :!clear && git diff %<CR>
+command! -nargs=? Diff call diff#Diff(<q-args>)
+nnoremap _dh :Diff HEAD<CR>
+nnoremap _dd :Diff<CR>
+
+" quick shell command
+nnoremap _! :!<Space>
+
+" show global variables
+nnoremap _v :<C-u>let g: v:<CR>
+" show local variables
+nnoremap _V :<C-u>let b: t: w:<CR>
+
+" show all registers
+nnoremap _y :<C-u>registers<CR>
+
+" show marks
+nnoremap _k :<C-u>marks<CR>
+
+" toggle showing tab, end-of-line, and trailing whitespace
+nnoremap _l :<C-u>setlocal list! list?<CR>
+if exists(':xnoremap')
+  xnoremap _l :<C-u>setlocal list! list?<CR>gv
+endif
+
+" normal maps
+nnoremap _m :<C-u>map<CR>
+
+" buffer-local normal maps
+nnoremap _M :<C-u>map <buffer><CR>
+
+" command history
+nnoremap _H :<C-u>history :<CR>
+
+" echo current highlight
+nnoremap _h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
+
+" toggle line and column markers
+nnoremap <silent> _c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> _r :exec("set cursorline!")<cr>
+
+" Switch CWD to the directory of the open buffer
+nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
+
+"" Leader,` opens a scratch buffer, horizontally split
+nnoremap \` :<C-U>ScratchBuffer<CR>
+"" Leader,~ opens a scratch buffer, vertically split
+nnoremap \~ :<C-U>vertical ScratchBuffer<CR>
+" }}}
+
+" code mappings {{{
+" search for non-ASCII characters
+nnoremap \Va /[^\x00-\x7F]<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
@@ -387,22 +423,19 @@ nnoremap gsW :g/<C-r>=expand("<cword>")<CR>/#<CR>
 
 " quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
-nnoremap _rp :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
-nnoremap _ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
+nnoremap \rp :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
+nnoremap \ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
 
 " :help include-search shortcuts
 nnoremap <Space>p :<C-u>psearch <C-r><C-w><CR>
 nnoremap <Space>i [<C-i>
 nnoremap <Space>d [<C-d>
 
-" echo current file full path
-nnoremap _fp :echo expand("%:p")<cr>
-
 " quick make to location list
 nnoremap <F5> :lmake %<CR>
 
 " view all todo in quickfix window
-nnoremap <silent> _vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
+nnoremap <silent> \vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current file and open in location list
 nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
@@ -415,42 +448,8 @@ nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("co
 command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 
 " show list of digraphs -- special symbols
-nnoremap _vd :help digraphs<cr>:179<cr>zt
-
-" command history
-nnoremap \H :<C-u>history :<CR>
-
-" show global variables
-nnoremap \v :<C-u>let g: v:<CR>
-" show local variables
-nnoremap \V :<C-u>let b: t: w:<CR>
-
-" show all registers
-nnoremap \y :<C-u>registers<CR>
-
-" show marks
-nnoremap \k :<C-u>marks<CR>
-
-" toggle showing tab, end-of-line, and trailing whitespace
-nnoremap \l :<C-u>setlocal list! list?<CR>
-if exists(':xnoremap')
-  xnoremap \l :<C-u>setlocal list! list?<CR>gv
-endif
-
-" normal maps
-nnoremap \m :<C-u>map<CR>
-" buffer-local normal maps
-nnoremap \M :<C-u>map <buffer><CR>
-
-" search for non-ASCII characters
-nnoremap \Va /[^\x00-\x7F]<CR>
-
-" echo current highlight
-nnoremap \h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
-
-" toggle line and column markers
-nnoremap <silent> \c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> \r :exec("set cursorline!")<cr>
+nnoremap \vd :help digraphs<cr>:179<cr>zt
+" }}}
 
 " upper case last word using ctrl+u
 inoremap <C-u> <Esc>gUiwea
@@ -467,33 +466,20 @@ nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
 " Disable highlight
 nnoremap <silent> <space><cr> :nohlsearch<cr>
 
-" Switch CWD to the directory of the open buffer
-nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
-
-" netrw
-nnoremap <leader>o :Sexplore!<cr>
-let g:netrw_banner=0
-let g:netrw_browse_split=4
-let g:netrw_altv=1
-let g:netrw_liststyle=3
-let g:netrw_winsize = 25
-
-" terminal mode {{{
 if has('terminal')
     " easy terminal exit
     tnoremap <esc> <C-\><C-n>
 endif
-" }}}
 
-" easy editing {{{
 nnoremap <Space>ev :vsplit $MYVIMRC<cr>
 nnoremap <silent> <Space>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
-" }}}
 
 " operator mappings {{{
 onoremap p i(
 onoremap in( :<C-u>normal! f(vi(<cr>
 onoremap il( :<C-u>normal! F)vi(<cr>
+" last changed text as an object
+onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>
 " }}}
 
 " }}}
