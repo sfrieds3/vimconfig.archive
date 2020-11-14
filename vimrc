@@ -254,8 +254,8 @@ nnoremap <expr> gt ":tabnext +" . v:count1 . '<CR>'
 nnoremap <expr> gT ":tabnext -" . v:count1 . '<CR>'
 
 " arglist / quickfix / location list shortcuts
-nnoremap ]a :anext<CR>
-nnoremap [a :aprevious<CR>
+nnoremap ]a :next<CR>
+nnoremap [a :previous<CR>
 nnoremap [A :first<CR>
 nnoremap ]A :last<CR>
 nnoremap ]q :cnext<CR>
