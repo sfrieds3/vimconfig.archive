@@ -18,7 +18,7 @@ augroup CustomizeTheme
     autocmd ColorScheme * call highlights#MyHighlights()
 augroup END
 
-colorscheme gooddog
+colorscheme oasis
 
 " }}}
 
@@ -59,7 +59,18 @@ set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
-set showbreak=↪
+set nrformats-=octal
+set showbreak=...
+set listchars+=extends:>       " Unwrapped text to screen right
+set listchars+=precedes:<      " Unwrapped text to screen left
+set listchars+=tab:>-          " Tab characters, preserve width
+set listchars+=trail:_         " Trailing spaces
+silent! set listchars+=nbsp:+  " Non-breaking spaces
+
+" allow moving beyond buffer text in visual block
+if exists('+virtualedit')
+  set virtualedit+=block
+endif
 
 " timeout on key codes but not on mappings
 set notimeout
@@ -189,7 +200,8 @@ let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo'
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:show_linenumbers = 1
-nnoremap <Space>f :echo tagbar#currenttag('[%s]', '')<CR>
+nnoremap \f :echo tagbar#currenttag('[%s]', '')<CR>
+nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
 " }}}
 
 " sneak {{{
@@ -201,13 +213,12 @@ map T <Plug>Sneak_T
 
 " undotree {{{
 let g:undotree_WindowLayout = 2
-nnoremap \u :exec("UndotreeToggle")<CR>
-nnoremap <Space>u :exec("UndotreeFocus")<CR>
+nnoremap _u :exec("UndotreeToggle")<CR>
+nnoremap \U :exec("UndotreeFocus")<CR>
 
 function! g:Undotree_CustomMap()
     nmap <buffer> K <plug>UndotreeNextState
     nmap <buffer> J <plug>UndotreePreviousState
-    nmap <buffer> <Space>u q
     nmap <buffer> \u q
 endfunction
 " }}}
@@ -221,20 +232,31 @@ nnoremap \ds :LinediffShow<CR>
 
 " mappings {{{
 " Some basics when it comes to mappings:
-" 1) _ when mapping affects vim, or is local to the filetype (localleader)
-" 2) \ when mapping affects the code
-" 3) <Space> when mapping is quick jump
+" 1) gs-prefix for jumping to result
+" 2) \ for most other things
+" 3) _ for <buffer> mappings
 
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+" allow c-j/c-k for cycling through insert mode completions
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 
 " easy switch to prev buffer
 nnoremap <BS> <C-^>
+
+" pages through current buffer, then through arglist
+nnoremap <expr> <C-j>
+            \ line('w$') < line('$')
+            \ ? "\<PageDown>"
+            \ : ":\<C-U>next\<CR>"
+nnoremap <expr> <C-k>
+            \ line('w0') > line('0')
+            \ ? "\<PageUp>"
+            \ : ":\<C-U>previous\<CR>"
 
 " default Y mapping is just.. wrong
 nnoremap Y y$
@@ -250,8 +272,12 @@ endif
 " buffer/tab switching
 nnoremap gb :bnext<CR>
 nnoremap gB :bprevious<CR>
+nnoremap ]b :next<CR>
+nnoremap [b :bprevious<CR>
 nnoremap <expr> gt ":tabnext +" . v:count1 . '<CR>'
 nnoremap <expr> gT ":tabnext -" . v:count1 . '<CR>'
+nnoremap <expr> ]t ":tabnext +" . v:count1 . '<CR>'
+nnoremap <expr> [t ":tabnext -" . v:count1 . '<CR>'
 
 " arglist / quickfix / location list shortcuts
 nnoremap ]a :next<CR>
@@ -262,35 +288,42 @@ nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
 nnoremap [Q :cfirst<CR>
 nnoremap ]Q :clast<CR>
-nnoremap _Q :cclose<CR>
+nnoremap \q :cclose<CR>
 nnoremap ]l :lnext<CR>
 nnoremap [l :lprevious<CR>
 nnoremap [L :lfirst<CR>
 nnoremap ]L :llast<CR>
-nnoremap _L :lclose<CR>
+nnoremap \l :lclose<CR>
 
-"" Leader,{ and Leader,} move to top and bottom of indent region
-map <Leader>{ <Plug>(VerticalRegionUp)
-sunmap <Leader>{
-map <Leader>} <Plug>(VerticalRegionDown)
-sunmap <Leader>}
+" Leader,{ and Leader,} move to top and bottom of indent region
+nmap \{ <Plug>(VerticalRegionUpNormal)
+nmap \} <Plug>(VerticalRegionDownNormal)
+omap \{ <Plug>(VerticalRegionUpOperator)
+omap \} <Plug>(VerticalRegionDownOperator)
+if exists(':xmap')
+  xmap \{ <Plug>(VerticalRegionUpVisual)
+  xmap \} <Plug>(VerticalRegionDownVisual)
+endif
 
+" adjust indent of last edit
+nnoremap \< :<C-U>'[,']<<CR>
+nnoremap \> :<C-U>'[,']><CR>
+
+" buffer jump list
 nnoremap \j :buffers<CR>:buffer<Space>
 
-" functions {{{
 " gitgrep
 command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
 
 " highlight interesting words
-nnoremap <silent> _1 :call hiwords#HiInterestingWord(1)<cr>
-nnoremap <silent> _2 :call hiwords#HiInterestingWord(2)<cr>
-nnoremap <silent> _3 :call hiwords#HiInterestingWord(3)<cr>
-nnoremap <silent> _4 :call hiwords#HiInterestingWord(4)<cr>
-nnoremap <silent> _5 :call hiwords#HiInterestingWord(5)<cr>
-nnoremap <silent> _6 :call hiwords#HiInterestingWord(6)<cr>
+nnoremap _1 :call hiwords#HiInterestingWord(1)<cr>
+nnoremap _2 :call hiwords#HiInterestingWord(2)<cr>
+nnoremap _3 :call hiwords#HiInterestingWord(3)<cr>
+nnoremap _4 :call hiwords#HiInterestingWord(4)<cr>
+nnoremap _5 :call hiwords#HiInterestingWord(5)<cr>
+nnoremap _6 :call hiwords#HiInterestingWord(6)<cr>
 
 " trim trailing whitespace
-command! CleanWhitespace call echo whitespace#StripTrailingWhitespace()<CR>
 nnoremap \w :call whitespace#StripTrailingWhitespace()<CR>
 
 " line number management
@@ -311,6 +344,7 @@ set errorformat^=%f:%l:%c\ %m
 " command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
 command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
 nnoremap gsg :Global<Space>
+nnoremap <Space> :Global<Space>
 
 " cdo/cfdo if not available
 " from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
@@ -331,9 +365,7 @@ command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q
 
 " toggle paste mode
 nnoremap _P :set paste! paste?<CR>
-"}}}
 
-" editor mappings {{{
 " toggle spell checking
 nnoremap _s :<C-u>setlocal spell! spell?<CR>
 
@@ -361,10 +393,8 @@ nnoremap _! :!<Space>
 nnoremap _v :<C-u>let g: v:<CR>
 " show local variables
 nnoremap _V :<C-u>let b: t: w:<CR>
-
 " show all registers
 nnoremap _y :<C-u>registers<CR>
-
 " show marks
 nnoremap _k :<C-u>marks<CR>
 
@@ -387,21 +417,18 @@ nnoremap _H :<C-u>history :<CR>
 nnoremap _h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
 " toggle line and column markers
-nnoremap <silent> _c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> _r :exec("set cursorline!")<cr>
+nnoremap \c :set cursorcolumn! cursorcolumn?<cr>
+nnoremap \C :set cursorline! cursorline?<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
-"" Leader,` opens a scratch buffer, horizontally split
-nnoremap \` :<C-U>ScratchBuffer<CR>
-"" Leader,~ opens a scratch buffer, vertically split
-nnoremap \~ :<C-U>vertical ScratchBuffer<CR>
-" }}}
+" open scratch buffers
+nnoremap \~ :<C-U>ScratchBuffer<CR>
+nnoremap \` :<C-U>vertical ScratchBuffer<CR>
 
-" code mappings {{{
 " search for non-ASCII characters
-nnoremap \Va /[^\x00-\x7F]<CR>
+nnoremap \a /[^\x00-\x7F]<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
@@ -409,7 +436,7 @@ cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
 
 " ilist
 nnoremap \i :Ilist!<Space>
-nnoremap gsi :Ilist! <C-r>=expand("<cword>")<CR><CR>
+nnoremap \I :Ilist! <C-r>=expand("<cword>")<CR><CR>
 
 " ijump
 nnoremap gsj :ijump! <C-r>=expand("<cword>")<CR><CR>
@@ -418,8 +445,8 @@ nnoremap gsj :ijump! <C-r>=expand("<cword>")<CR><CR>
 nnoremap gst :tjump /<C-r>=expand("<cword>")<CR><CR>
 
 " g search
-nnoremap gsw :g//#<Left><Left>
-nnoremap gsW :g/<C-r>=expand("<cword>")<CR>/#<CR>
+nnoremap \gw :g//#<Left><Left>
+nnoremap \gW :g/<C-r>=expand("<cword>")<CR>/#<CR>
 
 " quick search and replace
 " https://github.com/romainl/minivimrc/blob/master/vimrc
@@ -427,9 +454,9 @@ nnoremap \rp :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
 nnoremap \ra :%s/\<<C-r>=expand("<cword>")<CR>\>//c<Left><Left>
 
 " :help include-search shortcuts
-nnoremap <Space>p :<C-u>psearch <C-r><C-w><CR>
-nnoremap <Space>i [<C-i>
-nnoremap <Space>d [<C-d>
+nnoremap gsp :<C-u>psearch <C-r><C-w><CR>
+nnoremap gsi [<C-i>
+nnoremap gsd [<C-d>
 
 " quick make to location list
 nnoremap <F5> :lmake %<CR>
@@ -449,7 +476,6 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 
 " show list of digraphs -- special symbols
 nnoremap \vd :help digraphs<cr>:179<cr>zt
-" }}}
 
 " upper case last word using ctrl+u
 inoremap <C-u> <Esc>gUiwea
@@ -460,19 +486,16 @@ inoremap <S-Tab> <C-v><Tab>
 " stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-" tagbar
-nnoremap <silent> \\ :exec("TagbarOpen('j')")<cr>
-
 " Disable highlight
-nnoremap <silent> <space><cr> :nohlsearch<cr>
+nnoremap <C-l> :nohlsearch<cr>
 
 if has('terminal')
     " easy terminal exit
     tnoremap <esc> <C-\><C-n>
 endif
 
-nnoremap <Space>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <Space>es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
+nnoremap \ev :vsplit $MYVIMRC<cr>
+nnoremap \es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
 
 " operator mappings {{{
 onoremap p i(

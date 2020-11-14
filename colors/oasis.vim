@@ -1,4 +1,4 @@
-" gooddog, which is based on sahara written by Tom Ryder with some customizations
+" oasis, which is based on sahara written by Tom Ryder with some customizations
 " sahara, a 256-color retake on desert256 with the color detection code
 " removed for clarity. Written by Tom Ryder (tejr).
 "
@@ -12,7 +12,7 @@ if v:version > 580
     syntax reset
   endif
 endif
-let g:colors_name = 'gooddog'
+let g:colors_name = 'oasis'
 
 " color map
 let s:color_map = {
