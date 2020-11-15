@@ -365,7 +365,9 @@ endif
 " redir
 command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q-args>, <range>, <line1>, <line2>)
 
-" toggle paste mode
+" toggle paste mode and enter insert mode
+nnoremap <expr> _p :set paste! paste?<CR>i
+" just toggle paste..
 nnoremap _P :set paste! paste?<CR>
 
 " toggle spell checking
