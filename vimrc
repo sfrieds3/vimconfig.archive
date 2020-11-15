@@ -266,9 +266,6 @@ nnoremap <expr> <C-k>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
-" no Explore shortcut..
-cabbrev E e
-
 " insert current line into command line
 if !has('patch-8.0.1787')
     cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
