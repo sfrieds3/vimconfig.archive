@@ -312,7 +312,7 @@ nnoremap \< :<C-U>'[,']<<CR>
 nnoremap \> :<C-U>'[,']><CR>
 
 " buffer jump list
-nnoremap \j :buffers<CR>:buffer<Space>
+nnoremap \j :buffers<CR>:b
 
 " gitgrep
 command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
