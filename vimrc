@@ -5,6 +5,11 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
     execute pathogen#infect('pack/bundle/start/{}')
     execute pathogen#infect('pack/bundle/opt/{}')
     execute pathogen#helptags()
+else
+    " let vim8 handle packages; generate all helptags
+    try | execute "helptags ALL" |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(151\):/ |
+            \ endtry
 endif
 
 " colorscheme {{{
