@@ -112,14 +112,6 @@ runtime! macros/matchit.vim
 " easy manpages with <leader>K or :Man <manpage>
 runtime! ftplugin/man.vim
 
-" open quickfix or location-list automatically when there is something to show
-" source: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-augroup AutoQuickfix
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
-augroup END
-
 " no ruler by default
 if &ruler
   set noruler
@@ -276,10 +268,8 @@ nnoremap gb :bnext<CR>
 nnoremap gB :bprevious<CR>
 nnoremap ]b :next<CR>
 nnoremap [b :bprevious<CR>
-nnoremap <expr> gt ":tabnext +" . v:count1 . '<CR>'
-nnoremap <expr> gT ":tabnext -" . v:count1 . '<CR>'
-nnoremap <expr> ]t ":tabnext +" . v:count1 . '<CR>'
-nnoremap <expr> [t ":tabnext -" . v:count1 . '<CR>'
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
 
 " arglist / quickfix / location list shortcuts
 nnoremap ]a :next<CR>
@@ -298,13 +288,13 @@ nnoremap ]L :llast<CR>
 nnoremap \l :lclose<CR>
 
 " Leader,{ and Leader,} move to top and bottom of indent region
-nmap \{ <Plug>(VerticalRegionUpNormal)
-nmap \} <Plug>(VerticalRegionDownNormal)
-omap \{ <Plug>(VerticalRegionUpOperator)
-omap \} <Plug>(VerticalRegionDownOperator)
+nmap \{ <Plug>(VerticalRegionUp)
+nmap \} <Plug>(VerticalRegionDown)
+omap \{ <Plug>(VerticalRegionUp)
+omap \} <Plug>(VerticalRegionDown)
 if exists(':xmap')
-  xmap \{ <Plug>(VerticalRegionUpVisual)
-  xmap \} <Plug>(VerticalRegionDownVisual)
+  xmap \{ <Plug>(VerticalRegionUp)
+  xmap \} <Plug>(VerticalRegionDown)
 endif
 
 " adjust indent of last edit
@@ -373,14 +363,14 @@ nnoremap _P :set paste! paste?<CR>
 " toggle spell checking
 nnoremap _s :<C-u>setlocal spell! spell?<CR>
 
-" reload filetype plugins
-nnoremap _F :<C-u>doautocmd filetypedetect BufRead<CR>
-
 " echo filetype
 nnoremap _t :<C-u>set filetype?<CR>
 
+" reload filetype plugins
+nnoremap _T :<C-u>doautocmd filetypedetect BufRead<CR>
+
 " echo current file full path
-nnoremap _fp :echo expand("%:p")<cr>
+nnoremap _f :echo expand("%:p")<cr>
 
 " git and diff shortcuts
 nnoremap _gg :echo system('git branch && git status')<CR>
@@ -421,8 +411,8 @@ nnoremap _H :<C-u>history :<CR>
 nnoremap _h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
 " toggle line and column markers
-nnoremap \c :set cursorcolumn! cursorcolumn?<cr>
-nnoremap \C :set cursorline! cursorline?<cr>
+nnoremap \c :set cursorline! cursorline?<cr>
+nnoremap \C :set cursorcolumn! cursorcolumn?<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>

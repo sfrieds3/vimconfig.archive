@@ -116,6 +116,7 @@ if has('gui_running') || &t_Co == 256
   highlight VertSplit    term=NONE cterm=NONE ctermfg=243  ctermbg=237  gui=NONE guifg=#767676 guibg=#3a3a3a
   highlight Visual       term=NONE cterm=NONE ctermfg=222  ctermbg=64   gui=NONE guifg=#ffd787 guibg=#5f8700
   highlight WarningMsg   term=NONE cterm=NONE ctermfg=209  ctermbg=NONE gui=NONE guifg=#ff875f guibg=NONE
+  highlight MatchParen   term=NONE cterm=NONE ctermfg=222  ctermbg=66   gui=NONE guifg=#ffd787 guibg=#5f8787
 
   "
   " General highlighting group links.
