@@ -318,6 +318,12 @@ nnoremap _6 :call hiwords#HiInterestingWord(6)<cr>
 " trim trailing whitespace
 nnoremap \w :call whitespace#StripTrailingWhitespace()<CR>
 
+" toggle list
+nnoremap _L :<C-U>setlocal list! list?<CR>
+if exists(':xnoremap')
+  xnoremap _L :<C-U>setlocal list! list?<CR>gv
+endif
+
 " line number management
 command! ToggleLineNum call lnum#ToggleLineNum()
 nnoremap _n :call lnum#ToggleLineNum()<cr>
