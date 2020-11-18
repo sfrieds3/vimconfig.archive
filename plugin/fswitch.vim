@@ -1,4 +1,7 @@
-ption: Vim global plugin that provides decent companion source file
+" ============================================================================
+" File:        fswitch.vim
+"
+" Description: Vim global plugin that provides decent companion source file
 "              switching
 "
 " Maintainer:  Derek Wyatt <derek at myfirstnamemylastname dot org>
