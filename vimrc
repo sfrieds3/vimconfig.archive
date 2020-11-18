@@ -8,7 +8,7 @@ if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
 else
     " let vim8 handle packages; generate all helptags
     try | execute "helptags ALL" |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(151\):/ |
+            \ catch /^Vim\%((\a\+)\)\=:E\%(151\|152\):/ |
             \ endtry
 endif
 
