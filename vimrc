@@ -221,8 +221,8 @@ endfunction
 " }}}
 
 " linediff {{{
-nnoremap \da ggVG:LinediffAdd<CR><C-o><C-o>
-nnoremap \ds :LinediffShow<CR>
+nnoremap _da ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap _ds :LinediffShow<CR>
 " }}}
 
 " }}}
