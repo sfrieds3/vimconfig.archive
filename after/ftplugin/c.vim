@@ -4,6 +4,8 @@ else
     setlocal makeprg=gcc
 endif
 
+setlocal suffixesadd=.h
+
 "let &l:errorformat="%f:%l:%c:\ %t%s:\ %m"
 
 nnoremap <buffer> \<Space><Space> :FSHere<CR>

@@ -191,6 +191,7 @@ set tabline=%!tabline#Tabline()
 " ctrlp {{{
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
+let g:ctrlp_match_window = 'results:100'
 ""}}}
 
 " tagbar {{{
@@ -221,8 +222,8 @@ endfunction
 " }}}
 
 " linediff {{{
-nnoremap \da ggVG:LinediffAdd<CR><C-o><C-o>
-nnoremap \ds :LinediffShow<CR>
+nnoremap _da ggVG:LinediffAdd<CR><C-o><C-o>
+nnoremap _ds :LinediffShow<CR>
 " }}}
 
 " }}}
@@ -389,14 +390,15 @@ nnoremap _dd :Diff<CR>
 " quick shell command
 nnoremap _! :!<Space>
 
-" show global variables
-nnoremap _v :<C-u>let g: v:<CR>
-" show local variables
-nnoremap _V :<C-u>let b: t: w:<CR>
 " show all registers
-nnoremap _y :<C-u>registers<CR>
+nnoremap \y :<C-u>registers<CR>
 " show marks
-nnoremap _k :<C-u>marks<CR>
+nnoremap \k :<C-u>marks<CR> 
+" command history
+nnoremap \H :<C-u>history :<CR>
+nnoremap \h q:
+" search history
+nnoremap \/ q/
 
 " toggle showing tab, end-of-line, and trailing whitespace
 nnoremap _l :<C-u>setlocal list! list?<CR>
@@ -406,12 +408,12 @@ endif
 
 " normal maps
 nnoremap _m :<C-u>map<CR>
-
 " buffer-local normal maps
 nnoremap _M :<C-u>map <buffer><CR>
-
-" command history
-nnoremap _H :<C-u>history :<CR>
+" show global variables
+nnoremap _v :<C-u>let g: v:<CR>
+" show local variables
+nnoremap _V :<C-u>let b: t: w:<CR>
 
 " echo current highlight
 nnoremap _h :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>

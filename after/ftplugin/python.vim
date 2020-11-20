@@ -20,6 +20,8 @@ else
     let &l:makeprg="autopep8 --ignore=E501,E261,E262,E265,E266 --format=pylint "
 endif
 
+setlocal suffixesadd=.py
+
 " pylint
 "let &l:errorformat="%A%f:%l:\ %m,%C,%Z%m"
 " pep8/pycodestyle
