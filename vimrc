@@ -464,13 +464,13 @@ nnoremap gsd [<C-d>
 nnoremap <F5> :lmake %<CR>
 
 " view all todo in quickfix window
-nnoremap <silent> \vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
+nnoremap <silent> \vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<CR>
 
-" vimgrep for word under cursor in current file and open in location list
-nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
+" gitgrep for word under cursor in current file and open in location list
+nnoremap <silent> gr :exec("GitGrep ".expand("<cword>"). " %")<CR>:redraw!<CR>
 
-" vimgrep for word under cursor in current directory open in quickfix
-nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("copen")<cr>
+" gitgrep for word under cursor in current directory open in quickfix
+nnoremap <silent> gR :exec("GitGrep ".expand("<cword>"))<CR>:redraw!<CR>
 
 " Do and insert results of fancy math equations via python
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
