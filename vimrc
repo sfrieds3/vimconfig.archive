@@ -491,6 +491,9 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 " Disable highlight
 nnoremap <C-l> :nohlsearch<cr>
 
+" last changed text as an object
+onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>
+
 if has('terminal')
     " easy terminal exit
     tnoremap <esc> <C-\><C-n>
@@ -498,13 +501,6 @@ endif
 
 nnoremap \ev :vsplit $MYVIMRC<cr>
 nnoremap \es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
-
-" operator mappings {{{
-onoremap p i(
-onoremap in( :<C-u>normal! f(vi(<cr>
-onoremap il( :<C-u>normal! F)vi(<cr>
-" last changed text as an object
-onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>
 " }}}
 
 " }}}
