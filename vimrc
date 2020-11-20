@@ -503,8 +503,6 @@ nnoremap \ev :vsplit $MYVIMRC<cr>
 nnoremap \es :source $MYVIMRC<cr> :echo "sourced"$MYVIMRC""<cr>
 " }}}
 
-" }}}
-
 " Source any .vim files from ~/.vim/config {{{
 runtime! config/*.vim
 " }}}
