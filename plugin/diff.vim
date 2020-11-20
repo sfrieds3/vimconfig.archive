@@ -20,3 +20,5 @@ function! diff#Diff(spec)
     wincmd r
     wincmd h
 endfunction
+
+command! -nargs=? Diff call diff#Diff(<q-args>)

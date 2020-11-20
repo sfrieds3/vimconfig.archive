@@ -211,8 +211,8 @@ map T <Plug>Sneak_T
 
 " undotree {{{
 let g:undotree_WindowLayout = 2
-nnoremap _u :exec("UndotreeToggle")<CR>
-nnoremap \U :exec("UndotreeFocus")<CR>
+nnoremap _U :exec("UndotreeToggle")<CR>
+nnoremap \u :exec("UndotreeFocus")<CR>
 
 function! g:Undotree_CustomMap()
     nmap <buffer> K <plug>UndotreeNextState
@@ -383,7 +383,7 @@ nnoremap _f :echo expand("%:p")<cr>
 nnoremap _gg :echo system('git branch && git status')<CR>
 nnoremap _gd :echo system('git diff ' . expand("%"))<CR>
 nnoremap _gD :!clear && git diff %<CR>
-command! -nargs=? Diff call diff#Diff(<q-args>)
+nnoremap _gb :GitBranch<CR>
 nnoremap _dh :Diff HEAD<CR>
 nnoremap _dd :Diff<CR>
 
@@ -433,8 +433,8 @@ nnoremap \` :<C-U>vertical ScratchBuffer<CR>
 nnoremap \a /[^\x00-\x7F]<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
-cnoremap <expr> <C-j> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-j>"
-cnoremap <expr> <C-k> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-k>"
+cnoremap <expr> <C-g> getcmdtype() =~ '[\/?]' ? "<CR>/<C-r>/" : "<C-g>"
+cnoremap <expr> <C-t> getcmdtype() =~ '[\/?]' ? "<CR>?<C-r>/" : "<C-t>"
 
 " ilist
 nnoremap \i :Ilist!<Space>
@@ -472,7 +472,7 @@ nnoremap <silent> gr :exec("GitGrep ".expand("<cword>"). " %")<CR>:redraw!<CR>
 " gitgrep for word under cursor in current directory open in quickfix
 nnoremap <silent> gR :exec("GitGrep ".expand("<cword>"))<CR>:redraw!<CR>
 
-" Do and insert results of fancy math equations via python
+" Do and insert results of math equations via python
 " from https://github.com/alerque/que-vim/blob/master/.config/nvim/init.vim
 command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 

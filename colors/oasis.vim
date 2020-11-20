@@ -99,7 +99,7 @@ if has('gui_running') || &t_Co == 256
   highlight ModeMsg      term=NONE cterm=NONE ctermfg=178  ctermbg=NONE gui=NONE guifg=#d7af00 guibg=NONE
   highlight MoreMsg      term=NONE cterm=NONE ctermfg=29   ctermbg=NONE gui=NONE guifg=#00875f guibg=NONE
   highlight NonText      term=NONE cterm=NONE ctermfg=240  ctermbg=NONE gui=NONE guifg=#585858 guibg=NONE
-  highlight Normal       term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=#c6c6c6 guibg=#030303
+  highlight Normal       term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=#c6c6c6 guibg=#080808
   highlight Pmenu        term=NONE cterm=NONE ctermfg=231  ctermbg=237  gui=NONE guifg=#ffffff guibg=#3a3a3a
   highlight PreProc      term=NONE cterm=NONE ctermfg=203  ctermbg=NONE gui=NONE guifg=#ff5f5f guibg=NONE
   highlight Question     term=NONE cterm=NONE ctermfg=48   ctermbg=NONE gui=NONE guifg=#00ff87 guibg=NONE
