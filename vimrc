@@ -192,6 +192,7 @@ set tabline=%!tabline#Tabline()
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
 let g:ctrlp_match_window = 'results:100'
+let g:ctrlp_mruf_relative = 1
 nnoremap \pr :CtrlPMRU<CR>
 nnoremap \pb :CtrlPBuffer<CR>
 nnoremap \pt :CtrlPBufTag<CR>
