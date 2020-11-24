@@ -192,7 +192,14 @@ set tabline=%!tabline#Tabline()
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'tag', 'line', 'changes', 'undo', 'quickfix']
 let g:ctrlp_match_window = 'results:100'
-""}}}
+nnoremap \pr :CtrlPMRU<CR>
+nnoremap \pb :CtrlPBuffer<CR>
+nnoremap \pt :CtrlPBufTag<CR>
+nnoremap \pT :CtrlPTag<CR>
+nnoremap \pq :CtrlPQuickfix<CR>
+nnoremap \pp :CtrlPMixed<CR>
+nnoremap \pl :CtrlPLine<CR>
+"}}}
 
 " tagbar {{{
 let g:tagbar_autofocus = 1
