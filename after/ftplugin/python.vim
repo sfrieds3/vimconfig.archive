@@ -5,6 +5,9 @@ function! PythonFuncGrep() abort
     exec("copen")
 endfunction
 
+if has('python')
+    setlocal omnifunc=pythoncomplete#Complete
+endif
 " open quickfix with list of functions
 nnoremap <buffer> <silent> \f call PythonFuncGrep()
 
