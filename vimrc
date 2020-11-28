@@ -254,16 +254,6 @@ inoremap <C-k> <C-p>
 " easy switch to prev buffer
 nnoremap <BS> <C-^>
 
-" pages through current buffer, then through arglist
-nnoremap <expr> <C-j>
-            \ line('w$') < line('$')
-            \ ? "\<PageDown>"
-            \ : ":\<C-U>next\<CR>"
-nnoremap <expr> <C-k>
-            \ line('w0') > line('0')
-            \ ? "\<PageUp>"
-            \ : ":\<C-U>previous\<CR>"
-
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
