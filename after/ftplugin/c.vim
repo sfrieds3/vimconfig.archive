@@ -14,6 +14,6 @@ nnoremap <buffer> \<Space>j :FSSplitBelow<CR>
 nnoremap <buffer> \<Space>k :FSSplitAbove<CR>
 nnoremap <buffer> \<Space>l :FSSplitRight<CR>
 
-setlocal shiftwidth=8 softtabstop=8 tabstop=8
+setlocal shiftwidth=4 softtabstop=4 tabstop=4
 setlocal foldmethod=syntax
 setlocal nofoldenable
