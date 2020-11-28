@@ -1,21 +1,14 @@
 " vim settings {{{
 
-"use pathogen if not on vim8, otherwise use vim8 packages
-if filereadable(glob('$HOME/.vim/autoload/pathogen.vim')) && v:version < 800
+"use pathogen
+if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))" && v:version < 800
     execute pathogen#infect('pack/bundle/start/{}')
     execute pathogen#infect('pack/bundle/opt/{}')
     execute pathogen#helptags()
-else
-    " let vim8 handle packages; generate all helptags
-    try | execute "helptags ALL" |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(151\|152\):/ |
-            \ endtry
 endif
 
 " colorscheme {{{
 
-set t_Co=256
-set t_ut=
 set background=dark
 
 augroup CustomizeTheme
@@ -113,8 +106,8 @@ runtime! macros/matchit.vim
 runtime! ftplugin/man.vim
 
 " no ruler by default
-if &ruler
-  set noruler
+if !&ruler
+  set ruler
 endif
 
 " }}}
@@ -237,10 +230,6 @@ nnoremap _ds :LinediffShow<CR>
 " }}}
 
 " mappings {{{
-" Some basics when it comes to mappings:
-" 1) gs-prefix for jumping to result
-" 2) \ for most other things
-" 3) _ for <buffer> mappings
 
 nnoremap j gj
 nnoremap k gk
@@ -300,11 +289,15 @@ endif
 nnoremap \< :<C-U>'[,']<<CR>
 nnoremap \> :<C-U>'[,']><CR>
 
-" buffer jump list
-nnoremap \j :buffers<CR>:b
+" buffers and ready to switch
+nnoremap \b :buffers<CR>:b<Space>
+
+" redraw screen
+nnoremap \! :redraw!<CR>
 
 " gitgrep
 command! -nargs=+ GitGrep call gitgrep#GitGrep(<f-args>)
+nnoremap <Space> :GitGrep<Space>
 
 " highlight interesting words
 nnoremap _1 :call hiwords#HiInterestingWord(1)<cr>
@@ -341,7 +334,7 @@ set errorformat^=%f:%l:%c\ %m
 " command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), {key, val -> expand("%") . ":" . (key + 1) . ":1 " . val }), { idx, val -> val =~ <q-args> })
 command! -nargs=1 Global lgetexpr filter(map(getline(1,'$'), 'expand("%") . ":" . (v:key + 1) . ":1 " . v:val'), 'v:val =~ <q-args>') | lopen
 nnoremap gsg :Global<Space>
-nnoremap <Space> :Global<Space>
+nnoremap <C-s> :Global<Space>
 
 " cdo/cfdo if not available
 " from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
@@ -384,6 +377,7 @@ nnoremap _gD :!clear && git diff %<CR>
 nnoremap _gb :GitBranch<CR>
 nnoremap _dh :Diff HEAD<CR>
 nnoremap _dd :Diff<CR>
+nnoremap _do :diffoff<CR>
 
 " quick shell command
 nnoremap _! :!<Space>
