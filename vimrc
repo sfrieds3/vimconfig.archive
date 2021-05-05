@@ -9,14 +9,12 @@ endif
 
 " colorscheme {{{
 
-set background=dark
-
 augroup CustomizeTheme
     autocmd!
     autocmd ColorScheme * call highlights#MyHighlights()
 augroup END
 
-colorscheme oasis
+colorscheme apprentice
 
 " }}}
 
@@ -54,8 +52,9 @@ set encoding=utf8
 set fileencoding=utf8
 set showtabline=3
 set clipboard^=unnamed,unnamedplus
-set foldmethod=marker
+set foldmethod=manual
 set foldcolumn=0
+set mouse=a
 set formatoptions=qrn1j
 set nrformats-=octal
 set showbreak=...
@@ -138,8 +137,8 @@ endif
 
 " statusline {{{
 " statusline only if more than one buffer
-if &laststatus != 1
-  set laststatus=1
+if &laststatus != 2
+  set laststatus=2
 endif
 
 " toggle statusline
