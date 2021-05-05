@@ -1,4 +1,4 @@
-setlocal shiftwidth=4 softtabstop=4 tabstop=4 foldmethod=indent nofoldenable
+setlocal shiftwidth=4 softtabstop=4 tabstop=4 foldmethod=manual nofoldenable
 
 function! PythonFuncGrep() abort
     exec("vimgrep /def /j %")
